@@ -10,13 +10,6 @@
 @import 'basics/base.scss';
 @import 'basics/font-awesome.scss';
 
-// COMPONENETS
-@import '../components/music_player.scss';
-@import "basics/helpers.scss";
-@import "basics/layout.scss";
-@import "basics/base.scss";
-@import "basics/font-awesome.scss";
-
 // PAGES
 @import "pages/home-page.scss";
 
@@ -25,3 +18,4 @@
 @import "cmps/main-container.scss";
 @import "cmps/nav-bar.scss";
 @import "cmps/nav-bar-options.scss";
+@import 'cmps/music_player.scss';
