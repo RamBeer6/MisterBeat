@@ -1,11 +1,21 @@
 // SETUP
-@import "setup/variables.scss";
-@import "setup/functions.scss";
-@import "setup/mixin.scss";
-@import "setup/typography";
+@import 'setup/variables.scss';
+@import 'setup/functions.scss';
+@import 'setup/mixin.scss';
+@import 'setup/typography';
 
 // BASICS
-@import "basics/helpers.scss";
-@import "basics/layout.scss";
-@import "basics/base.scss";
-@import "basics/font-awesome.scss";
+@import 'basics/helpers.scss';
+@import 'basics/layout.scss';
+@import 'basics/base.scss';
+@import 'basics/font-awesome.scss';
+
+// PAGES
+@import "pages/home-page.scss";
+
+//CMPS
+@import "cmps/app-header.scss";
+@import "cmps/main-container.scss";
+@import "cmps/nav-bar.scss";
+@import "cmps/nav-bar-options.scss";
+@import 'cmps/music_player.scss';
