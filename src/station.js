@@ -77,7 +77,7 @@ var station = {
   ],
   songs: [
     {
-      _id: "s1001",
+      id: "s1001",
       title: "Eye of the tiger",
       url: "youtube/song.mp4",
       imgUrl: "https://i.ytimg.com/vi/4_iC0MyIykM/mqdefault.jpg",
@@ -89,7 +89,7 @@ var station = {
       duration: 60 * 4 + 30,
     },
     {
-      _id: "mUkfiLjooxs",
+      id: "mUkfiLjooxs",
       title: "We Are the Champions",
       url: "youtube/song.mp4",
       imgUrl: "https://i.ytimg.com/vi/mUkfiLjooxs/mqdefault.jpg",
@@ -102,6 +102,7 @@ var station = {
     },
   ],
 };
+
 const users = [
   {
     _id: "u101",
@@ -109,8 +110,7 @@ const users = [
     password: "1234",
     mail: "puki@gmail.com",
     imgUrl: "img.png",
-    createdStations: ["station1", "station2"],
-    favoriteStations: ["station3", "song1"],
+    favoriteSongs: [],
   },
   {
     _id: "u102",
@@ -118,7 +118,6 @@ const users = [
     password: "5678",
     mail: "muki@gmail.com",
     imgUrl: "img2.png",
-    createdStations: ["station3", "station4"],
-    favoriteStations: ["station1", "song1"],
+    favoriteSongs: [],
   },
 ];

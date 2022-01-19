@@ -12,7 +12,7 @@ const routes = [
     component: <UserDetails />,
   },
   {
-    path: "/station",
+    path: "/station/:stationId",
     component: <StationDetails />,
   },
   {
