@@ -1,0 +1,18 @@
+.nav-bar-options,
+.symbol .fas,
+.library-symbol {
+  display: flex;
+  color: gray;
+  height: 40px;
+  transition: 200ms color ease-in;
+}
+
+.nav-bar-options:hover {
+  cursor: pointer;
+  color: whitesmoke;
+}
+
+.nav-bar-options > p {
+  margin-left: 10px;
+  font-size: 14px;
+}
