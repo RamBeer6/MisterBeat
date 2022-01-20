@@ -287,7 +287,7 @@ function _createStations() {
       fullname: 'Puki Ben David',
       imgUrl: 'http://some-photo/',
     },
-    imgUrl: 'https://mosaic.scdn.co/300/ab67616d00001e023718df7…6c1f1a3b5ab67616d00001e02bfa0a1de59696c7a6fe15ebb',
+    imgUrl: 'https://i.scdn.co/image/ab67616d00001e02b4c5982e1b92f97a126fc18c',
     likedByUsers: [
       { _id: 'u109', userName: 'Muki9', imgUrl: 'img2.png' },
     ],

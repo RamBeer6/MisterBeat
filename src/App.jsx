@@ -28,11 +28,11 @@ export class App extends React.Component {
                   path={route.path}
                 />
               ))}
-              {/* <Route path="/station/:stationId" element={<StationDetails />} /> */}
+              <Route path="/station/:stationId" element={<StationDetails />} />
             </Routes>
           </div>
         </main>
-        {/* <MusicPlayer videoId={'04854XqcfCY'} /> */}
+        <MusicPlayer videoId={'04854XqcfCY'} />
       </section>
     )
   }
