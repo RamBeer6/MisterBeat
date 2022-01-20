@@ -4,7 +4,7 @@ export function loadSongs(stationId, filterBy) {
     return async (dispatch) => {
         try {
             let songs;
-            console.log('action:' , stationId);
+            // console.log('action:' , stationId);
             if (!stationId) songs = []
             else songs = await stationService.loadSongs(stationId, filterBy)
             dispatch({

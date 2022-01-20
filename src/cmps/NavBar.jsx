@@ -22,6 +22,10 @@ export default function NavBar() {
             </div>
             <strong className="nav-bar__title">Playlists</strong>
             <hr />
+            <NavBarOptions title="Beyonce" />
+            <NavBarOptions title="90's Hits" />
+            <NavBarOptions title="Hip-Hop" />
+            <NavBarOptions title="Rock" />
         </section>
     );
 }
