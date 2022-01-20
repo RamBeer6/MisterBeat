@@ -32,13 +32,17 @@ const routes = [
     component: <LoginSignup />,
   },
   {
-    path: "/home",
+    path: "/",
     component: <HomePage />,
   },
-  {
-    path: "/",
-    component: <WelcomePage />,
-  },
+  // {
+  //   path: "/home",
+  //   component: <HomePage />,
+  // },
+  // {
+  //   path: "/",
+  //   component: <WelcomePage />,
+  // },
 ];
 
 export default routes;

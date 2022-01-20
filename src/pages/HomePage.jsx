@@ -6,12 +6,12 @@ import NavBar from "../cmps/NavBar";
 export function HomePage() {
     return (
         <div className="home-page">
-            <section className="main">
-                {/* <AppHeader /> */}
-                <MainContainer />
-                {/* <NavBar /> */}
-                {/* {props.children} */}
-            </section>
+            {/* <section className="main"> */}
+            {/* <AppHeader /> */}
+            {/* <MainContainer /> */}
+            {/* <NavBar /> */}
+            {/* {props.children} */}
+            {/* </section> */}
             {/* <AppFooter /> */}
         </div>
     );

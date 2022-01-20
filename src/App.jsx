@@ -18,17 +18,19 @@ export class App extends React.Component {
         <main className="main">
           {/* <HomePage /> */}
           <NavBar />
-          <Routes>
-            {routes.map((route) => (
-              <Route
-                key={route.path}
-                exact={true}
-                element={route.component}
-                path={route.path}
-              />
-            ))}
-            {/* <Route path="/station/:stationId" element={<StationDetails />} /> */}
-          </Routes>
+          <div className="main-container">
+            <Routes>
+              {routes.map((route) => (
+                <Route
+                  key={route.path}
+                  exact={true}
+                  element={route.component}
+                  path={route.path}
+                />
+              ))}
+              {/* <Route path="/station/:stationId" element={<StationDetails />} /> */}
+            </Routes>
+          </div>
         </main>
         <MusicPlayer videoId={'04854XqcfCY'} />
       </section>
