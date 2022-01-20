@@ -1,0 +1,46 @@
+.station-preview {
+  background-color: gold;
+  padding: 16px;
+  transition: background-color 0.3s ease;
+  border-radius: 4px;
+  background-color: #181818;
+
+  img {
+    margin-bottom: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  }
+
+  &:hover {
+    background-color: #282828;
+    cursor: pointer;
+    opacity: 1;
+  }
+
+  .station-content {
+    min-height: 62px;
+
+    h2 {
+      vertical-align: middle;
+      line-height: 24px;
+      font-size: rem(22px);
+      font-weight: 700;
+    }
+
+    .station-info {
+    //   -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      display: -webkit-box;
+      margin-top: 4px;
+    //   overflow: hidden;
+      text-overflow: ellipsis;
+    //   white-space: normal;
+      color: rgb(179, 179, 179);
+    }
+  }
+
+  .station-play-btn {
+    right: 8px;
+    background-color: gold;
+    // position: absolute;
+  }
+}

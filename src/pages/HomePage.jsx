@@ -1,18 +1,47 @@
-import MainContainer from "../cmps/MainContainer";
-import NavBar from "../cmps/NavBar";
-// import AppHeader from "../cmps/AppHeader";
-// import AppFooter from "../cmps/AppFooter";
+import React from 'react'
+import { stationService } from '../services/station.service'
+import { DefaultStationList } from '../cmps/DefaultStationList'
 
-export function HomePage() {
+export class HomePage extends React.Component {
+  state = {
+    stations: [],
+    tags: [],
+  }
+
+  componentDidMount() {
+    this.loadStations()
+    this.loadTags()
+  }
+
+  loadStations = async () => {
+    try {
+      const stations = await stationService.query()
+      this.setState((prevState) => ({ ...prevState, stations }))
+    } catch (err) {
+      console.error('Could not get stations', err)
+    }
+  }
+
+  loadTags = async () => {
+    try {
+      const tags = await stationService.getTags()
+      this.setState((prevState) => ({ ...prevState, tags }))
+    } catch (err) {
+      console.error('Could not get tags', err)
+    }
+  }
+
+  render() {
+    const { stations, tags } = this.state
+    console.log('stations:' , stations)
+    console.log('tags:' , tags)
+    if (!stations.length) return <h1>No stations to show</h1>
+
     return (
-        <div className="home-page">
-            {/* <section className="main"> */}
-            {/* <AppHeader /> */}
-            {/* <MainContainer /> */}
-            {/* <NavBar /> */}
-            {/* {props.children} */}
-            {/* </section> */}
-            {/* <AppFooter /> */}
-        </div>
-    );
+      <section className="home-page">
+        <h1>Home page</h1>
+        <DefaultStationList stations={stations} />
+      </section>
+    )
+  }
 }
