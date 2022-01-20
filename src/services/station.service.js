@@ -11,9 +11,9 @@ export const stationService = {
 
 async function loadSongs(stationId, filterBy) {
   try {
-    console.log('loadsongs stationId:' , stationId);
+    // console.log('loadsongs stationId:' , stationId)
     const station = await getById(stationId)
-    console.log('loadsongs from station:', station)
+    // console.log('loadsongs from station:', station)
     return station.songs
   } catch (err) {
     console.log(err)
@@ -24,7 +24,7 @@ async function loadSongs(stationId, filterBy) {
 async function getById(stationId) {
   if (!stationId) return
   try {
-      console.log('getById:' , stationId);
+      // console.log('getById:' , stationId);
       // return await httpService.get(`/station/${stationId}`)
       return storageService.get(STORAGE_KEY, stationId)
   } catch (err) {

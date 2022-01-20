@@ -9,7 +9,8 @@ export function HomePage() {
             <section className="main">
                 {/* <AppHeader /> */}
                 <MainContainer />
-                <NavBar />
+                {/* <NavBar /> */}
+                {/* {props.children} */}
             </section>
             {/* <AppFooter /> */}
         </div>

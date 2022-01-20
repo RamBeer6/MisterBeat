@@ -3,14 +3,14 @@ import { HomePage } from "./pages/HomePage";
 import { SearchPage } from "./pages/SearchPage";
 import { LibraryPage } from "./pages/LibraryPage";
 import { LoginSignup } from "./pages/LoginSignup";
-import { UserDetails } from "./pages/UserDetails";
+// import { UserDetails } from "./pages/UserDetails";
 import { StationDetails } from "./pages/StationDetails";
 
 const routes = [
-  {
-    path: "/user",
-    component: <UserDetails />,
-  },
+  // {
+  //   path: "/user",
+  //   component: <UserDetails />,
+  // },
   {
     path: "/station/:stationId",
     component: <StationDetails />,

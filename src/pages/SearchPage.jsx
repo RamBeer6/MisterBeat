@@ -17,7 +17,7 @@ export class SearchPage extends React.Component {
     try {
       const criteria = this.state.filterBy.txt  
       const music = await youtubeService.query(criteria)
-      console.log('search page' , music);
+      // console.log('search page' , music);
     } catch (err) {
       console.log('ERROR load music:', err)
     }
