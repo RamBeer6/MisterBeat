@@ -1,0 +1,32 @@
+.tag-card {
+  position: relative;
+  background-color: aquamarine;
+  border-radius: 15px;
+  width: 205px;
+  height: 205px;
+  padding: 10px;
+  overflow: hidden;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  h3 {
+    font-size: 24px;
+    letter-spacing: -0.04em;
+    line-height: 1.3em;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    padding: 16px;
+    position: absolute;
+  }
+
+  img {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    transform: rotate(25deg) translate(18%, -2%);
+    height: 100px;
+    width: 100px;
+  }
+}
