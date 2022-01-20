@@ -32,7 +32,7 @@ export class App extends React.Component {
             </Routes>
           </div>
         </main>
-        {/* <MusicPlayer videoId={'04854XqcfCY'} /> */}
+        <MusicPlayer videoId={'04854XqcfCY'} />
       </section>
     )
   }

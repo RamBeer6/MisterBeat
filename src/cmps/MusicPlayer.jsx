@@ -21,9 +21,13 @@ export class MusicPlayer extends React.Component {
     duration: 0,
   };
 
+  componentDidMount() {
+    // this.setState((prevState) => ({ ...prevState, playing: !this.state.playing }));
+  }
+
   ref = (player) => {
     this.player = player;
-  };
+  }
 
   handlePlayPause = () => {
     this.setState((prevState) => ({ ...prevState, playing: !this.state.playing }));
