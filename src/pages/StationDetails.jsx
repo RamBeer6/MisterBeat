@@ -1,50 +1,78 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import { stationService } from '../services/station.service'
-
-import { SongList } from '../cmps/SongList'
 import { loadSongs } from '../store/actions/station.action'
 
-class _StationDetails extends React.Component {
-  state = {
-    station: []
-  }
+import { StationActions } from '../cmps/StationActions'
+import { SongList } from '../cmps/SongList'
 
-  async componentDidMount() {
-    try {
-      const stationId = window.location.pathname.split('/')[2]
-      console.log('cdm stationId:' , stationId)
+function _StationDetails(props){
+  // state = {
+  //   station: [],
+  //   params: null
+  // }
+  const [station, setStation] = useState([]);
+  const params = useParams()
+
+  useEffect(() => {
+    (async () => {
+      const { stationId } = params
       if(stationId) {
-        // station from storage
         const station = await stationService.getById(stationId)
-        // console.log('station:' , station);
-        this.setState(prevState => ({ ...prevState, station }), async () => {
-          await this.props.loadSongs(station._id)
-        })
-        // await this.props.loadSongs(stationId)
-      } else {
-        // new station
-        stationService.save()
-      }
-    } catch (err) {
-      console.error(err)
-    }
-  }
+        setStation(station)
+      } else stationService.save()
+    })()
+    //eslint-disable-next-line
+  }, []);
 
-  render() {
+  useEffect(() => {
+    (async () => {
+      await props.loadSongs(station._id)
+    })()
+  }, [station])
+
+  // async componentDidMount() {
+  //   try {
+  //     const stationId = window.location.pathname.split('/')[2]
+  //     // console.log('cdm stationId:', stationId)
+  //     if (stationId) {
+  //       // station from storage
+  //       const station = await stationService.getById(stationId)
+  //       // console.log('station:' , station);
+  //       this.setState(
+  //         (prevState) => ({ ...prevState, station }),
+  //         async () => {
+  //           await this.props.loadSongs(station._id)
+  //         }
+  //       )
+  //       // await this.props.loadSongs(stationId)
+  //     } else {
+  //       // new station
+  //       stationService.save()
+  //     }
+  //   } catch (err) {
+  //     console.error(err)
+  //   }
+  // }
+
+  // render() {
     // const { stationId } = this.props.match.params
-    const stationId = window.location.pathname.split('/')[2]
-    const { songs } = this.props
-    console.log('songs:' , songs)
+    // const stationId = window.location.pathname.split('/')[2]
+    const { songs } = props
+    // console.log('songs:', songs)
+    // console.log('params:', this.props.match.params)
 
     return (
       <section className="station-details">
         STATION DETAILS
-        <SongList stationId={stationId} songs={songs} />
+        {/* <StationHero /> */}
+        {/* <StationActions /> */}
+        <SongList stationId={params.stationId} songs={songs} />
       </section>
     )
-  }
+  // }
 }
 
 function mapStateToProps(state) {

@@ -1,0 +1,24 @@
+.song-list {
+  margin: 0;
+  max-width: 1955px;
+  padding: 0 16px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  outline: 0;
+
+  .song-list-head {
+    border-bottom: 1px solid transparent;
+    box-sizing: content-box;
+    height: 36px;
+    margin: 0 -16px 8px;
+    padding: 0 16px;
+    // position: sticky;
+    top: 64px;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 16px 4fr 2fr minmax(120px, 1fr);
+    grid-gap: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #b3b3b3;
+  }
+}
