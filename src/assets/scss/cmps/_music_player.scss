@@ -1,6 +1,22 @@
-.music-player {
+.player-container {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  background-color: #1a1a1a;
+  color: white;
+  bottom: 0;
+  position: absolute;
+  width: 100vw;
+
+  .player-tools {
+    display: flex;
+
+    button {
+      border: none;
+      background-color: #1a1a1a;
+      color: white;
+    }
+  }
 
   .prev-next {
     background-color: none;
@@ -25,6 +41,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 
     &:hover {
       color: #71db77;
@@ -36,27 +53,58 @@
     left: 5px;
   }
 
-  .curr-time .duration {
-    font-size: 16px;
-  }
-
-  .curr-time {
-    margin-left: 25px;
-  }
-
   .progress-bar {
-    --bar-bg: rgb(82, 80, 80);
-    --seek-before-width: 100px;
-    --seek-before-color: black;
-    --knobby: blue;
-    --selectedKnobby: yellow;
+    // --bar-bg: rgb(206, 206, 206);
+    // --seek-before-width: 100px;
+    // --seek-before-color: rgba(82, 80, 80, 0.829);
+    // --knobby: rgba(82, 80, 80, 0.829);
+    // --selectedKnobby: rgb(148, 148, 148);
 
-    appearance: none;
-    background: var(--bar-bg);
-    border-radius: 10px;
-    position: relative;
-    width: 100%;
-    height: 11px;
-    outline: none;
+    // appearance: none;
+    // background: var(--bar-bg);
+    // border-radius: 10px;
+    // position: relative;
+    // // width: 100%;
+    // height: 11px;
+    // outline: none;
+
+    // &::-moz-focus-outer {
+    //   border: 0;
+    // }
+
+    // &::before {
+    //   content: '';
+    //   height: 11px;
+    //   width: var(--seek-before-width);
+    //   background-color: var(--seek-before-color);
+    //   border-top-left-radius: 10px;
+    //   border-bottom-left-radius: 10px;
+    //   position: absolute;
+    //   top: 0;
+    //   left: 0;
+    //   z-index: 2;
+    //   cursor: pointer;
+    // }
+
+    // /*knobby*/
+    // &::-webkit-slider-thumb {
+    //   -webkit-appearance: none;
+    //   height: 15px;
+    //   width: 15px;
+    //   border-radius: 50%;
+    //   border: none;
+    //   background-color: var(--knobby);
+    //   cursor: pointer;
+    //   position: relative;
+    //   margin: -2px 0 0 0;
+    //   z-index: 3;
+    //   box-sizing: border-box;
+    // }
+
+    // /*knobby while dragging*/
+    // &:active::-webkit-slider-thumb {
+    //   transform: scale(1.2);
+    //   background: var(--selectedKnobby);
+    // }
   }
 }

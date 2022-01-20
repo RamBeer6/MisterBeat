@@ -1,114 +1,151 @@
 import React, { Component, useState } from 'react';
 import { connect } from 'react-redux';
 import YouTube from 'react-youtube';
-import ReactPlayer from 'react-player/youtube';
+import ReactPlayer from 'react-player/lazy';
 import { IoIosArrowForward } from 'react-icons/io';
 import { IoIosArrowBack } from 'react-icons/io';
 import { FaPlay } from 'react-icons/fa';
 import { FaPause } from 'react-icons/fa';
+import { FaVolumeUp } from 'react-icons/fa';
+import Duration from './Duration';
 
-/*********************OBJECT DATA **************************/
-//https://www.youtube.com/watch?v=04854XqcfCY
-//https://youtu.be/04854XqcfCY
-
-//DURATION :  event.target.playerInfo.duration
-//PLAYERSTATE: event.target.playerInfo.PlayerState       - 1 is playing, 2 - not playin
-// AUTHOR: event.target.playerInfo.videoData.author
-// TITLE: event.target.playerInfo.videoData.title
-// ID: event.target.playerInfo.videoData.video_id
-// VOLUME: event.target.playerInfo.volume
-
-//STATUS:
-//-1 – unstarted
-//0 – ended
-//1 – playing
-//2 – paused
-//3 – buffering
-//5 – video cued
-
-// more possible relevant: setVolume, setShuffle, pauseVideo, playVideo etc.
-
-/*********************OBJECT DATA **************************/
 export class MusicPlayer extends React.Component {
   state = {
-    isPlaying: false,
+    // url: null, FROM PROPS I THINK
+    playing: true,
+    controls: false,
+    volume: 0.8,
+    muted: false,
+    played: 0,
+    loaded: 0,
+    duration: 0,
   };
 
-  videoOnReady(event) {
-    // access to player in all event handlers via event.target
-    event.target.pauseVideo();
-    // event.target.playVideoAt();
-    // event.target.seekTo(50);
-    // this.setState({
-    //   playerObj: event.target,
-    // });
-    console.log('🚀 Music Player - event.target', event.target);
-  }
+  ref = (player) => {
+    this.player = player;
+  };
 
-  videoOnPlay(event) {
-    // access to player in all event handlers via event.target
-    const player = event.target;
-    console.log('🚀 Music Player - currentTime', event.target.getCurrentTime());
-  }
+  handlePlayPause = () => {
+    this.setState((prevState) => ({ ...prevState, playing: !this.state.playing }));
+  };
 
-  //   componentWillUnmount() {
-  //     const { playerObj } = this.state;
-  //     console.log(playerObj.target.getCurrentTime());
-  //   }
+  handleVolumeChange = (event) => {
+    this.setState((prevState) => ({ ...prevState, volume: parseFloat(event.target.value) }));
+  };
 
-  togglePlayPause = () => {
-    // console.log('isplaying', this.state.isPlaying);
-    this.setState((prevState) => ({ ...prevState, isPlaying: !this.state.isPlaying }));
-    // this.setState(prevState=>({ ...: !this.state.isPlaying });
+  handlePlay = () => {
+    console.log('on play');
+    this.setState((prevState) => ({ ...prevState, playing: true }));
+  };
+
+  handlePause = () => {
+    console.log('on play');
+    this.setState((prevState) => ({ ...prevState, playing: false }));
+  };
+
+  handelSeekMouseDown = (ev) => {
+    this.setState((prevState) => ({ ...prevState, seeking: true }));
+  };
+
+  handleSeekChange = (ev) => {
+    this.setState((prevState) => ({ ...prevState, played: parseFloat(ev.target.value) }));
+  };
+
+  handleSeekMouseUp = (ev) => {
+    this.setState((prevState) => ({ ...prevState, seeking: false }));
+    this.player.seekTo(parseFloat(ev.target.value));
+  };
+
+  handleProgress = (state) => {
+    console.log('onProgress');
+    // We only want to update time slider if we are not currently seeking
+    if (!this.state.seeking) this.setState(state);
+  };
+
+  handleDuration = (duration) => {
+    console.log('onDuration', duration);
+    this.setState((prevState) => ({ ...prevState, duration: duration }));
   };
 
   render() {
+    const { playing, controls, volume, muted, played, loaded, duration } = this.state;
     const { videoId } = this.props;
-    const { isPlaying } = this.state;
-
-    if (!videoId) return <h1>Loading...</h1>;
-    const opts = {
-      height: '390',
-      width: '640',
-      playerVars: {
-        autoplay: 1,
-      },
-    };
+    let url = `https://www.youtube.com/watch?v=${videoId}`;
 
     return (
-      <div>
-        <YouTube
-          videoId={videoId}
-          opts={opts}
-          onReady={this.videoOnReady}
-          onPlay={this.videoOnPlay}
+      <section className='player-container'>
+        <ReactPlayer
+          ref={this.ref}
+          className='react-player'
+          width='0px'
+          height='0px'
+          url={url}
+          playing={playing}
+          controls={controls}
+          volume={volume}
+          muted={muted}
+          onReady={() => console.log('onReady')}
+          onStart={() => console.log('onStart')}
+          onPlay={this.handlePlay}
+          onPause={this.handlePause}
+          onBuffer={() => console.log('onBuffer')}
+          onSeek={(e) => console.log('onSeek', e)}
+          onEnded={this.handleEnded}
+          onError={(e) => console.log('onError', e)}
+          onProgress={this.handleProgress}
+          onDuration={this.handleDuration}
         />
 
-        <div className='music-player'>
+        <div className='player-info-container'>img, s</div>
+
+        <div className='player-tools'>
           <button className='prev-next'>
             <IoIosArrowBack />
           </button>
 
-          <button className='play-pause' onClick={this.togglePlayPause}>
-            {isPlaying ? <FaPlay className='play' /> : <FaPause />}
+          <button className='play-pause' onClick={this.handlePlayPause}>
+            {!playing ? <FaPlay className='play' /> : <FaPause />}
           </button>
 
           <button className='prev-next'>
             <IoIosArrowForward />
           </button>
+        </div>
 
-          {/**current time */}
-          <div className='curr-time'>0:00</div>
+        {/**current time */}
+        <div className='progress-bar-container'>
+          <Duration seconds={duration * played} />
 
           {/**progres bar */}
-          <div>
-            <input type='range' className='progress-bar' />
-          </div>
+
+          <input
+            type='range'
+            className='progress-bar'
+            min={0}
+            max={0.999999}
+            step='any'
+            value={played}
+            onMouseDown={this.onMouseDown}
+            onChange={this.handleSeekChange}
+            onMouseUp={this.handleSeekMouseUp}
+          />
 
           {/**duration */}
-          <div className='duration'>2:49</div>
+
+          <Duration seconds={duration} />
         </div>
-      </div>
+        <div className='volume-container'>
+          <FaVolumeUp className='volume' />
+          <input
+            type='range'
+            min={0}
+            max={1}
+            step='any'
+            value={volume}
+            onChange={this.handleVolumeChange}
+          />
+        </div>
+      </section>
     );
   }
 }
