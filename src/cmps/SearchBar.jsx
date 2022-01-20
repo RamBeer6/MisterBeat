@@ -1,29 +1,28 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 
 export function SearchBar({ onSetFilter }) {
-  const [txt, setTxt] = useState('')
+  const [txt, setTxt] = useState("");
 
   useEffect(() => {
-    onSetFilter(txt)
-  }, [txt])
+    onSetFilter(txt);
+  }, [txt]);
 
   function handleChange(ev) {
-    const { value } = ev.target
-    setTxt(value)
+    const { value } = ev.target;
+    setTxt(value);
   }
 
   function handleSubmit(ev) {
-    ev.preventDefault()
-    onSetFilter(txt)
+    ev.preventDefault();
+    onSetFilter(txt);
   }
 
   function cleanForm() {
-    setTxt('')
+    setTxt("");
   }
 
   return (
-    <form className="search-bar" onSubmit={handleSubmit}>
-      <button onClick={cleanForm}>x</button>
+    <form onSubmit={handleSubmit}>
       <input
         name="txt"
         value={txt}
@@ -32,6 +31,13 @@ export function SearchBar({ onSetFilter }) {
         autoComplete="off"
         onChange={handleChange}
       />
+      <a
+        href="javascript:void(0);"
+        className="search-button"
+        onClick={cleanForm}
+      >
+        <div className="icon" />
+      </a>
     </form>
-  )
+  );
 }

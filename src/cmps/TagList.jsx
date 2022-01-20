@@ -23,7 +23,7 @@ export class TagList extends React.Component {
         const { tags } = this.state;
         return (
             <section className="tag-list">
-                <strong>Browse all</strong>
+                <strong className="tag-title">Browse all</strong>
                 <hr />
                 <div className="cards-container">
                     {tags.map((tag, idx) => {
