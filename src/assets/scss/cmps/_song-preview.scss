@@ -1,6 +1,6 @@
 .song-preview {
     display: grid;
-    grid-template-columns: 16px 4fr 2fr minmax(120px,1fr);
+    grid-template-columns: 16px 4fr 2fr minmax(120px,1fr) 1fr;
     grid-gap: 16px;
     margin: 10px 0;
     border-bottom: 1px solid #e5e5e5;

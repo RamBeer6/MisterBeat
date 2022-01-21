@@ -9,7 +9,8 @@ export class SearchPage extends React.Component {
     filterBy: {
       txt: "",
     },
-  };
+  }
+  
   componentDidMount() {
     // this.loadMusic()
   }
