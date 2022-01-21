@@ -1,14 +1,14 @@
-import React from 'react'
-import { Routes, Route } from 'react-router'
-import routes from './routes'
+import React from "react";
+import { Routes, Route } from "react-router";
+import routes from "./routes";
 
-import { HomePage } from './pages/HomePage'
+import { HomePage } from "./pages/HomePage";
 import { StationDetails } from "./pages/StationDetails";
 
-import { AppHeader } from './cmps/AppHeader'
-import { MusicPlayer } from './cmps/MusicPlayer'
-import NavBar from './cmps/NavBar'
-import MainContainer from './cmps/MainContainer'
+import { AppHeader } from "./cmps/AppHeader";
+import { MusicPlayer } from "./cmps/MusicPlayer";
+import NavBar from "./cmps/NavBar";
+import MainContainer from "./cmps/MainContainer";
 
 export class App extends React.Component {
   render() {
@@ -32,8 +32,8 @@ export class App extends React.Component {
             </Routes>
           </div>
         </main>
-        <MusicPlayer videoId={'04854XqcfCY'} />
+        <MusicPlayer videoId={"04854XqcfCY"} />
       </section>
-    )
+    );
   }
 }

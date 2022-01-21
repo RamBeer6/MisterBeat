@@ -32,12 +32,12 @@ export function SearchBar({ onSetFilter }) {
         onChange={handleChange}
       />
       <a
-        href="javascript:void(0);"
+        // href="javascript:void(0);"
         className="search-button"
         onClick={cleanForm}
       >
         <div className="icon" />
       </a>
-    </form>
+    </form >
   );
 }
