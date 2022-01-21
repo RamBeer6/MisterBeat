@@ -1,13 +1,13 @@
-import React, { Component, useState } from "react";
-import { connect } from "react-redux";
-import YouTube from "react-youtube";
-import ReactPlayer from "react-player/lazy";
-import { IoIosArrowForward } from "react-icons/io";
-import { IoIosArrowBack } from "react-icons/io";
-import { FaPlay } from "react-icons/fa";
-import { FaPause } from "react-icons/fa";
-import { FaVolumeUp } from "react-icons/fa";
-import Duration from "./Duration";
+import React, { Component, useState } from 'react';
+import { connect } from 'react-redux';
+import YouTube from 'react-youtube';
+import ReactPlayer from 'react-player/lazy';
+import { IoIosArrowForward } from 'react-icons/io';
+import { IoIosArrowBack } from 'react-icons/io';
+import { FaPlay } from 'react-icons/fa';
+import { FaPause } from 'react-icons/fa';
+import { FaVolumeUp } from 'react-icons/fa';
+import Duration from './Duration';
 
 export class MusicPlayer extends React.Component {
   state = {
@@ -22,15 +22,12 @@ export class MusicPlayer extends React.Component {
   };
 
   componentDidMount() {
-    this.setState((prevState) => ({
-      ...prevState,
-      playing: !this.state.playing,
-    }));
+    this.setState((prevState) => ({ ...prevState, playing: !this.state.playing }));
   }
 
   ref = (player) => {
     this.player = player;
-  }
+  };
 
   handlePlayPause = () => {
     this.setState((prevState) => ({
@@ -47,12 +44,12 @@ export class MusicPlayer extends React.Component {
   };
 
   handlePlay = () => {
-    console.log("on play");
+    console.log('on play');
     this.setState((prevState) => ({ ...prevState, playing: true }));
   };
 
   handlePause = () => {
-    console.log("on play");
+    console.log('on play');
     this.setState((prevState) => ({ ...prevState, playing: false }));
   };
 
@@ -79,76 +76,75 @@ export class MusicPlayer extends React.Component {
   };
 
   handleDuration = (duration) => {
-    console.log("onDuration", duration);
+    console.log('onDuration', duration);
     this.setState((prevState) => ({ ...prevState, duration: duration }));
   };
 
   render() {
-    const { playing, controls, volume, muted, played, loaded, duration } =
-      this.state;
+    const { playing, controls, volume, muted, played, loaded, duration } = this.state;
     const { videoId } = this.props;
     let url = `https://www.youtube.com/watch?v=${videoId}`;
 
     return (
-      <section className="player-container">
+      <section className='player-container'>
         <ReactPlayer
           ref={this.ref}
-          className="react-player"
-          width="0px"
-          height="0px"
+          className='react-player'
+          width='0px'
+          height='0px'
           url={url}
           playing={playing}
           controls={controls}
           volume={volume}
           muted={muted}
-          onReady={() => console.log("onReady")}
-          onStart={() => console.log("onStart")}
+          onReady={() => console.log('onReady')}
+          onStart={() => console.log('onStart')}
           onPlay={this.handlePlay}
           onPause={this.handlePause}
-          onBuffer={() => console.log("onBuffer")}
-          onSeek={(e) => console.log("onSeek", e)}
+          onBuffer={() => console.log('onBuffer')}
+          onSeek={(e) => console.log('onSeek', e)}
           onEnded={this.handleEnded}
-          onError={(e) => console.log("onError", e)}
+          onError={(e) => console.log('onError', e)}
           onProgress={this.handleProgress}
           onDuration={this.handleDuration}
         />
 
-        <div className="player-info-container">
-          <i className="far fa-heart"></i>
+        <div className='player-info-container'>
+          <i className='far fa-heart'></i>
           <img
-            src="https://www.udiscovermusic.com/wp-content/uploads/2019/05/Queen-Hot-Space-album-cover-820.jpg"
-            alt="image"
+            src='https://www.udiscovermusic.com/wp-content/uploads/2019/05/Queen-Hot-Space-album-cover-820.jpg'
+            alt='image'
           />
           <p>Queen -We are the champions</p>
         </div>
 
-        <div className="player-tools">
-          <div className="player-center-btns">
-            <button className="prev-next">
+        <div className='player-tools'>
+          <div className='player-center-btns'>
+            <button className='prev-next'>
               <IoIosArrowBack />
             </button>
 
-            <button className="play-pause" onClick={this.handlePlayPause}>
-              {!playing ? <FaPlay className="play" /> : <FaPause />}
+            <button className='play-pause' onClick={this.handlePlayPause}>
+              {!playing ? <FaPlay className='play' /> : <FaPause />}
             </button>
 
-            <button className="prev-next">
+            <button className='prev-next'>
               <IoIosArrowForward />
             </button>
           </div>
 
           {/**current time */}
-          <div className="duration-progress-container">
+          <div className='duration-progress-container'>
             <Duration seconds={duration * played} />
 
             {/**progres bar */}
 
             <input
-              type="range"
-              className="progress-bar"
+              type='range'
+              className='progress-bar'
               min={0}
               max={0.999999}
-              step="any"
+              step='any'
               value={played}
               onMouseDown={this.onMouseDown}
               onChange={this.handleSeekChange}
@@ -161,13 +157,13 @@ export class MusicPlayer extends React.Component {
           </div>
         </div>
 
-        <div className="volume-container">
-          <FaVolumeUp className="volume" />
+        <div className='volume-container'>
+          <FaVolumeUp className='volume' />
           <input
-            type="range"
+            type='range'
             min={0}
             max={1}
-            step="any"
+            step='any'
             value={volume}
             onChange={this.handleVolumeChange}
           />
