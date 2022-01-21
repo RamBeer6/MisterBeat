@@ -11,6 +11,12 @@ export function stationReducer(state = initialState, action = {}) {
         songs: action.songs,
         currStationId: action.currStationId,
       }
+    case 'UPDATE  _SONGS':
+      return {
+        ...state,
+        songs: action.songs,
+        currStationId: action.currStationId,
+      }
     default:
       return state
   }

@@ -1,12 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom';
 
 class _StationPreview extends React.Component {
   state = {
     isPlaying: false,
   }
 
-  toggleIsPlaying = () => {
+  toggleIsPlaying = (ev) => {
+    ev.stopPropagation()
     this.setState({ isPlaying: !this.state.isPlaying }, () => {
     //   console.log('isPlaying:', this.state.isPlaying)
     })
@@ -19,6 +21,7 @@ class _StationPreview extends React.Component {
 
     return (
       <section className="station-preview">
+      <Link className="card-link" to={`/station/${station._id}`}>
         <div className="station-img-container">
           <img src={imgSrc} alt="station" />
           <div className="station-play-btn">
@@ -38,6 +41,7 @@ class _StationPreview extends React.Component {
             <h4>Tags: {station.tags.join(', ')}</h4>
           </div>
         </div>
+        </Link>
       </section>
     )
   }

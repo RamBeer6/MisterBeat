@@ -114,7 +114,7 @@ export class MusicPlayer extends React.Component {
         />
 
         <div className="player-info-container">
-          <i class="far fa-heart"></i>
+          <i className="far fa-heart"></i>
           <img
             src="https://www.udiscovermusic.com/wp-content/uploads/2019/05/Queen-Hot-Space-album-cover-820.jpg"
             alt="image"

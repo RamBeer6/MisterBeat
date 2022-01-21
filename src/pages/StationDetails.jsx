@@ -1,31 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import { DragDropContext } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 
 import { stationService } from '../services/station.service'
-import { loadSongs } from '../store/actions/station.action'
+import { loadSongs, updateSongs } from '../store/actions/station.action'
 
-import { StationActions } from '../cmps/StationActions'
 import { SongList } from '../cmps/SongList'
 
-function _StationDetails(props){
-  // state = {
-  //   station: [],
-  //   params: null
-  // }
-  const [station, setStation] = useState([]);
+function _StationDetails(props) {
+  const [station, setStation] = useState([])
   const params = useParams()
 
   useEffect(() => {
     (async () => {
       const { stationId } = params
-      if(stationId) {
+      if (stationId) {
         const station = await stationService.getById(stationId)
         setStation(station)
       } else stationService.save()
     })()
     //eslint-disable-next-line
-  }, []);
+  }, [])
 
   useEffect(() => {
     (async () => {
@@ -33,46 +29,37 @@ function _StationDetails(props){
     })()
   }, [station])
 
-  // async componentDidMount() {
-  //   try {
-  //     const stationId = window.location.pathname.split('/')[2]
-  //     // console.log('cdm stationId:', stationId)
-  //     if (stationId) {
-  //       // station from storage
-  //       const station = await stationService.getById(stationId)
-  //       // console.log('station:' , station);
-  //       this.setState(
-  //         (prevState) => ({ ...prevState, station }),
-  //         async () => {
-  //           await this.props.loadSongs(station._id)
-  //         }
-  //       )
-  //       // await this.props.loadSongs(stationId)
-  //     } else {
-  //       // new station
-  //       stationService.save()
-  //     }
-  //   } catch (err) {
-  //     console.error(err)
-  //   }
-  // }
+  const onDragEnd = (result) => {
+    // console.log('result:' , result);
+    const { destination, source } = result
+    if (!destination) return
 
-  // render() {
-    // const { stationId } = this.props.match.params
-    // const stationId = window.location.pathname.split('/')[2]
+    // same place
+    if (destination.droppableId === source.droppableId &&
+      destination.index === source.index) return
+
     const { songs } = props
-    // console.log('songs:', songs)
-    // console.log('params:', this.props.match.params)
+    const { stationId } = params
+    
+    const newSongs = songs.slice()
+    const [ song ] = newSongs.splice(source.index, 1)
+    newSongs.splice(destination.index, 0, song)
+    props.updateSongs(stationId, newSongs)
 
-    return (
-      <section className="station-details">
-        STATION DETAILS
-        {/* <StationHero /> */}
-        {/* <StationActions /> */}
+  }
+
+  const { songs } = props
+
+  return (
+    <section className="station-details">
+      STATION DETAILS
+      {/* <StationHero /> */}
+      {/* <StationActions /> */}
+      <DragDropContext onDragEnd={onDragEnd}>
         <SongList stationId={params.stationId} songs={songs} />
-      </section>
-    )
-  // }
+      </DragDropContext>
+    </section>
+  )
 }
 
 function mapStateToProps(state) {
@@ -82,6 +69,7 @@ function mapStateToProps(state) {
 }
 const mapDispatchToProps = {
   loadSongs,
+  updateSongs
 }
 
 export const StationDetails = connect(
