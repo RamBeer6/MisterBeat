@@ -144,6 +144,7 @@ export const stationService = {
   getById,
   save,
   getTags,
+  updateSongs
 }
 
 async function query(filterBy = null) {
@@ -153,7 +154,7 @@ async function query(filterBy = null) {
     return await storageService
       .query(STORAGE_KEY)
       .then((stations) => {
-        console.log('stations service:' , stations);
+        // console.log('stations service:' , stations);
         return stations.filter((station) => station.name.includes(query))
       }
       )
@@ -206,6 +207,18 @@ async function getTags() {
   }
 }
 
+async function updateSongs(stationId, songs) {
+  try {
+    getById(stationId).then(station => {
+      station.songs = songs
+      save(station)
+    })
+    // console.log('need to update songs:' , songs);
+  } catch (err) {
+    console.log(err)
+    throw err
+  }
+}
 
 function _createStation() {
   return {
@@ -279,17 +292,18 @@ function _createStation() {
 function _createStations() {
   const st1 = {
     _id: '1111',
-    name: 'Beyonce JLO',
-    tags: ['R&B', 'Chill'],
+    name: 'Beyonce Hits',
+    tags: ['Happy', 'Chill'],
     createdAt: 1541652422,
     createdBy: {
       _id: 'u101',
       fullname: 'Puki Ben David',
       imgUrl: 'http://some-photo/',
     },
-    imgUrl: 'https://mosaic.scdn.co/300/ab67616d00001e023718df7…6c1f1a3b5ab67616d00001e02bfa0a1de59696c7a6fe15ebb',
+    imgUrl: 'https://i.scdn.co/image/ab67706c0000da8401bf247b51f811397ee74800',
     likedByUsers: [
-      { _id: 'u109', userName: 'Muki9', imgUrl: 'img2.png' },
+      { _id: 'u106', userName: 'Muki6', imgUrl: 'img2.png' },
+      { _id: 'u105', userName: 'Muki5', imgUrl: 'img2.png' },
     ],
     songs: [
       {

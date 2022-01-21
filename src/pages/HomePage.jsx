@@ -34,7 +34,7 @@ export class HomePage extends React.Component {
   render() {
     const { stations, tags } = this.state
     console.log('stations:' , stations)
-    console.log('tags:' , tags)
+    // console.log('tags:' , tags)
     if (!stations.length) return <h1>No stations to show</h1>
 
     return (

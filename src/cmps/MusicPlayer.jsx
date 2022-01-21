@@ -30,11 +30,17 @@ export class MusicPlayer extends React.Component {
   };
 
   handlePlayPause = () => {
-    this.setState((prevState) => ({ ...prevState, playing: !this.state.playing }));
+    this.setState((prevState) => ({
+      ...prevState,
+      playing: !this.state.playing,
+    }));
   };
 
   handleVolumeChange = (event) => {
-    this.setState((prevState) => ({ ...prevState, volume: parseFloat(event.target.value) }));
+    this.setState((prevState) => ({
+      ...prevState,
+      volume: parseFloat(event.target.value),
+    }));
   };
 
   handlePlay = () => {
@@ -52,7 +58,10 @@ export class MusicPlayer extends React.Component {
   };
 
   handleSeekChange = (ev) => {
-    this.setState((prevState) => ({ ...prevState, played: parseFloat(ev.target.value) }));
+    this.setState((prevState) => ({
+      ...prevState,
+      played: parseFloat(ev.target.value),
+    }));
   };
 
   handleSeekMouseUp = (ev) => {
@@ -61,7 +70,7 @@ export class MusicPlayer extends React.Component {
   };
 
   handleProgress = (state) => {
-    console.log('onProgress');
+    // console.log("onProgress");
     // We only want to update time slider if we are not currently seeking
     if (!this.state.seeking) this.setState(state);
   };
@@ -100,44 +109,54 @@ export class MusicPlayer extends React.Component {
           onDuration={this.handleDuration}
         />
 
-        <div className='player-info-container'>img, s</div>
+        <div className='player-info-container'>
+          <i className='far fa-heart'></i>
+          <img
+            src='https://www.udiscovermusic.com/wp-content/uploads/2019/05/Queen-Hot-Space-album-cover-820.jpg'
+            alt='image'
+          />
+          <p>Queen -We are the champions</p>
+        </div>
 
         <div className='player-tools'>
-          <button className='prev-next'>
-            <IoIosArrowBack />
-          </button>
+          <div className='player-center-btns'>
+            <button className='prev-next'>
+              <IoIosArrowBack />
+            </button>
 
-          <button className='play-pause' onClick={this.handlePlayPause}>
-            {!playing ? <FaPlay className='play' /> : <FaPause />}
-          </button>
+            <button className='play-pause' onClick={this.handlePlayPause}>
+              {!playing ? <FaPlay className='play' /> : <FaPause />}
+            </button>
 
-          <button className='prev-next'>
-            <IoIosArrowForward />
-          </button>
+            <button className='prev-next'>
+              <IoIosArrowForward />
+            </button>
+          </div>
+
+          {/**current time */}
+          <div className='duration-progress-container'>
+            <Duration seconds={duration * played} />
+
+            {/**progres bar */}
+
+            <input
+              type='range'
+              className='progress-bar'
+              min={0}
+              max={0.999999}
+              step='any'
+              value={played}
+              onMouseDown={this.onMouseDown}
+              onChange={this.handleSeekChange}
+              onMouseUp={this.handleSeekMouseUp}
+            />
+
+            {/**duration */}
+
+            <Duration seconds={duration} />
+          </div>
         </div>
 
-        {/**current time */}
-        <div className='progress-bar-container'>
-          <Duration seconds={duration * played} />
-
-          {/**progres bar */}
-
-          <input
-            type='range'
-            className='progress-bar'
-            min={0}
-            max={0.999999}
-            step='any'
-            value={played}
-            onMouseDown={this.onMouseDown}
-            onChange={this.handleSeekChange}
-            onMouseUp={this.handleSeekMouseUp}
-          />
-
-          {/**duration */}
-
-          <Duration seconds={duration} />
-        </div>
         <div className='volume-container'>
           <FaVolumeUp className='volume' />
           <input

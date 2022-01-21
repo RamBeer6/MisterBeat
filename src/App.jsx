@@ -23,7 +23,7 @@ export class App extends React.Component {
               {routes.map((route) => (
                 <Route key={route.path} exact={true} element={route.component} path={route.path} />
               ))}
-              {/* <Route path="/station/:stationId" element={<StationDetails />} /> */}
+              <Route path="/station/:stationId" element={<StationDetails />} />
             </Routes>
           </div>
         </main>
