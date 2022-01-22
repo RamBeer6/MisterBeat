@@ -9,7 +9,8 @@ export class SearchPage extends React.Component {
     filterBy: {
       txt: "",
     },
-  };
+  }
+
   componentDidMount() {
     // this.loadMusic()
   }
@@ -34,7 +35,6 @@ export class SearchPage extends React.Component {
   render() {
     return (
       <section className="search-page">
-        SEARCH PAGE
         <SearchBar onSetFilter={this.onSetFilter} />
         <TagList />
       </section>

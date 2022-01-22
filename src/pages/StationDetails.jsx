@@ -1,31 +1,31 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
+import { DragDropContext } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 
 import { stationService } from '../services/station.service'
-import { loadSongs } from '../store/actions/station.action'
+import { loadSongs, updateSongs, removeSong } from '../store/actions/station.action'
 
 import { StationActions } from '../cmps/StationActions'
 import { SongList } from '../cmps/SongList'
+import { SongSearch } from '../cmps/SongSearch'
 
-function _StationDetails(props){
-  // state = {
-  //   station: [],
-  //   params: null
-  // }
-  const [station, setStation] = useState([]);
+function _StationDetails(props) {
+  const [station, setStation] = useState([])
+  const [isSongSearch, setIsSongSearch] = useState(false)
+  const myRef = useRef(null)
   const params = useParams()
 
   useEffect(() => {
     (async () => {
       const { stationId } = params
-      if(stationId) {
+      if (stationId) {
         const station = await stationService.getById(stationId)
         setStation(station)
       } else stationService.save()
     })()
     //eslint-disable-next-line
-  }, []);
+  }, [])
 
   useEffect(() => {
     (async () => {
@@ -33,46 +33,56 @@ function _StationDetails(props){
     })()
   }, [station])
 
-  // async componentDidMount() {
-  //   try {
-  //     const stationId = window.location.pathname.split('/')[2]
-  //     // console.log('cdm stationId:', stationId)
-  //     if (stationId) {
-  //       // station from storage
-  //       const station = await stationService.getById(stationId)
-  //       // console.log('station:' , station);
-  //       this.setState(
-  //         (prevState) => ({ ...prevState, station }),
-  //         async () => {
-  //           await this.props.loadSongs(station._id)
-  //         }
-  //       )
-  //       // await this.props.loadSongs(stationId)
-  //     } else {
-  //       // new station
-  //       stationService.save()
-  //     }
-  //   } catch (err) {
-  //     console.error(err)
-  //   }
-  // }
+  const onRemoveSong = async (songId, songTitle) => {
+    console.log('remove song:' , songId , songTitle)
+    const { stationId } = params
+    await props.removeSong(stationId, songId)
+  }
 
-  // render() {
-    // const { stationId } = this.props.match.params
-    // const stationId = window.location.pathname.split('/')[2]
+  const onToggleSongSearch = () => {
+    setIsSongSearch(!isSongSearch)
+    if(isSongSearch) executeScroll()
+  }
+
+  const executeScroll = () => myRef.current.scrollIntoView() 
+
+  const onDragEnd = (result) => {
+    // console.log('result:' , result);
+    const { destination, source } = result
+    if (!destination) return
+
+    // same place
+    if (destination.droppableId === source.droppableId &&
+      destination.index === source.index) return
+
     const { songs } = props
-    // console.log('songs:', songs)
-    // console.log('params:', this.props.match.params)
+    const { stationId } = params
+    
+    const newSongs = songs.slice()
+    const [ song ] = newSongs.splice(source.index, 1)
+    newSongs.splice(destination.index, 0, song)
+    props.updateSongs(stationId, newSongs)
 
-    return (
-      <section className="station-details">
-        STATION DETAILS
-        {/* <StationHero /> */}
-        {/* <StationActions /> */}
-        <SongList stationId={params.stationId} songs={songs} />
-      </section>
-    )
-  // }
+  }
+
+  const { songs } = props
+
+  return (
+    <section className="station-details">
+      STATION DETAILS
+      {/* <StationHero /> */}
+      <StationActions onToggleSongSearch={onToggleSongSearch} />
+      <DragDropContext onDragEnd={onDragEnd}>
+        <SongList stationId={params.stationId} songs={songs} onRemoveSong={onRemoveSong} />
+      </DragDropContext>
+
+      { isSongSearch && 
+        <section ref={myRef}>
+          <h3>SONG SEARCH</h3>
+          <SongSearch stationId={params.stationId} />
+        </section>}
+    </section>
+  )
 }
 
 function mapStateToProps(state) {
@@ -82,6 +92,8 @@ function mapStateToProps(state) {
 }
 const mapDispatchToProps = {
   loadSongs,
+  updateSongs,
+  removeSong
 }
 
 export const StationDetails = connect(

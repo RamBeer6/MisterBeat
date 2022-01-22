@@ -23,8 +23,7 @@ export class TagList extends React.Component {
         const { tags } = this.state;
         return (
             <section className="tag-list">
-                <strong className="tag-title">Browse all</strong>
-                <hr />
+                {/* <hr /> */}
                 <div className="cards-container">
                     {tags.map((tag, idx) => {
                         return <TagPreview key={idx} tag={tag} />;
