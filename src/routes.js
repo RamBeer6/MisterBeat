@@ -4,13 +4,14 @@ import { SearchPage } from "./pages/SearchPage";
 import { LibraryPage } from "./pages/LibraryPage";
 import { LoginSignup } from "./pages/LoginSignup";
 // import { UserDetails } from "./pages/UserDetails";
+import { SvgLoader } from "./cmps/SvgLoader";
 import { StationDetails } from "./pages/StationDetails";
 
 const routes = [
-  // {
-  //   path: "/user",
-  //   component: <UserDetails />,
-  // },
+  {
+    path: "/user",
+    component: <SvgLoader />,
+  },
   {
     path: "/station/:stationId",
     component: <StationDetails />,
