@@ -2,11 +2,11 @@ import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import thunk from 'redux-thunk';
 
 import { stationReducer } from './reducers/station.reducer';
-import { playerReducer } from './reducers/player.reducer';
+import { musicPlayerReducer } from './reducers/musicPlayer.reducer';
 
 const rootReducer = combineReducers({
   stationModule: stationReducer,
-  playerModule: playerReducer,
+  musicPlayerModule: musicPlayerReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

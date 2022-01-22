@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 class _SongPreview extends React.Component {
   render() {
-    const { song, idx } = this.props
+    const { song, idx, onRemoveSong } = this.props
     return (
       <Draggable draggableId={song.id} index={idx}>
         {(provided) => (
@@ -19,6 +19,11 @@ class _SongPreview extends React.Component {
             </div>
             <h4>{song.album}</h4>
             <h4>{song.duration}</h4>
+            <div className="song-actions">
+              <button><i className="far fa-heart"></i></button>
+              <button><i className="fas fa-heart"></i></button>
+              <button onClick={() => onRemoveSong(song.id, song.title)}><i className="fas fa-trash-alt"></i></button>
+            </div>
           </section>
         )}
       </Draggable>

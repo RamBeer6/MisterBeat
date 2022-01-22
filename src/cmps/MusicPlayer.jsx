@@ -8,11 +8,20 @@ import { FaPlay } from 'react-icons/fa';
 import { FaPause } from 'react-icons/fa';
 import { FaVolumeUp } from 'react-icons/fa';
 import Duration from './Duration';
+import { strategy } from 'workbox-streams';
+import {
+  setPlayer,
+  setSongIdx,
+  onTogglePlay,
+  loadSongsToPlayer,
+} from '../store/actions/musicPlayer.action';
 
-export class MusicPlayer extends React.Component {
+export class _MusicPlayer extends React.Component {
   state = {
     // url: null, FROM PROPS I THINK
-    playing: true,
+    // station:[],
+    // currSongIdx:0,
+    playing: false,
     controls: false,
     volume: 0.8,
     muted: false,
@@ -22,11 +31,31 @@ export class MusicPlayer extends React.Component {
   };
 
   componentDidMount() {
-    this.setState((prevState) => ({ ...prevState, playing: !this.state.playing }));
+    // this.setState((prevState) => ({ ...prevState, playing: !this.state.playing }));
+    // this.setState((prevState) => ({ ...prevState, playing: this.props.isPlaying })); //as given by StationPreview
+    console.log('🎵  MusicPlayer - playing in comp', this.state.playing);
+    console.log('🎵  MusicPlayer - props isplaying', this.props.isPlaying);
+    this.setState((prevState) => ({
+      ...prevState,
+      playing: this.props.isPlaying,
+    }));
+
+    // loadStation();
   }
+
+  // loadStation=()=>{
+  //   this.setState((prevState) => ({ ...prevState, station: this.props.currSongs }));
+  // }
+
+  // setPlaying=()=>{
+  //   this.setState((prevState) => ({ ...prevState, playing: this.props.isPlaying }));
+  // }
 
   ref = (player) => {
     this.player = player;
+    console.log('REF - player', player);
+
+    setPlayer(player);
   };
 
   handlePlayPause = () => {
@@ -82,8 +111,18 @@ export class MusicPlayer extends React.Component {
 
   render() {
     const { playing, controls, volume, muted, played, loaded, duration } = this.state;
-    const { videoId } = this.props;
+    const { currSongs, setSongIdx } = this.props;
+
+    // const { videoId } = this.props.currSongs[0].id;
+    // const { img } = this.props.currSongs[0].imgUrl;
+    // const { videoId } = this.props.currSongs[0]._id;
+    // console.log('currSongs', this.props.currSongs[0].id);
+    const videoId = '04854XqcfCY';
     let url = `https://www.youtube.com/watch?v=${videoId}`;
+    // let url = `https://www.youtube.com/watch?v=${currSongs[setSongIdx]?.id}`;
+
+    // const { videoId } = this.props;
+    // let url = `https://www.youtube.com/watch?v=${videoId}`;
 
     return (
       <section className='player-container'>
@@ -116,6 +155,7 @@ export class MusicPlayer extends React.Component {
             alt='image'
           />
           <p>Queen -We are the champions</p>
+          {/* <p>currSongs[setSongIdx].title</p> */}
         </div>
 
         <div className='player-tools'>
@@ -172,3 +212,26 @@ export class MusicPlayer extends React.Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  console.log(' 🎵 state props musicPLayer', state);
+  return {
+    player: state.musicPlayerModule.player,
+    isPlaying: state.musicPlayerModule.isPlaying,
+    currSongIdx: state.musicPlayerModule.currSongId,
+    // currStationIdx: state.stationModule.currStationId,
+    currSongs: state.musicPlayerModule.currSongs,
+  };
+}
+
+const mapDispatchToProps = {
+  setSongIdx,
+  setPlayer,
+  loadSongsToPlayer,
+  onTogglePlay,
+  // onTogglePlay,
+  // onLikeTrack,
+  // onUnlikeTrack,
+};
+
+export const MusicPlayer = connect(mapStateToProps, mapDispatchToProps)(_MusicPlayer);

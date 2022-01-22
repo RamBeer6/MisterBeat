@@ -32,3 +32,18 @@ export function updateSongs(stationId, songs) {
     }
   }
 }
+
+export function removeSong(stationId, songId) {
+  return async (dispatch) => {
+    try {
+      await stationService.removeSongStation(stationId, songId)
+      dispatch({
+        type: 'REMOVE_SONG',
+        songId,
+        currStationId: stationId,
+      })
+    } catch (err) {
+      throw err
+    }
+  }
+}

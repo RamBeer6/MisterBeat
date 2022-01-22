@@ -1,10 +1,11 @@
-export function StationActions() {
+export function StationActions({ onToggleSongSearch }) {
     return (
         <section className="station-actions">
             <button>Play</button>
             <div className="statiom-icons">
-                <div>❤</div>
-                <div>&#8942;</div>
+                <span>❤ &nbsp;</span>
+                <span>&#8942; &nbsp;</span>
+                <span onClick={onToggleSongSearch}>+</span>
             </div>
         </section>
     )
