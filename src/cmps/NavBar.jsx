@@ -34,21 +34,12 @@ export default function NavBar() {
           </li>
         </NavLink>
 
-<<<<<<< HEAD
-                <NavLink to="/station/create" className="active-option">
-                    <li>
-                        <div className="symbol fas fa-plus-square" />
-                        <NavBarOptions title="Create Playlist" />
-                    </li>
-                </NavLink>
-=======
-        <NavLink to='/station' className='active-option'>
+        <NavLink to="/station/create" className="active-option">
           <li>
-            <div className='symbol fas fa-plus-square' />
-            <NavBarOptions title='Create Playlist' />
+            <div className="symbol fas fa-plus-square" />
+            <NavBarOptions title="Create Playlist" />
           </li>
         </NavLink>
->>>>>>> e264da18000054a7a700791a56f0cddbad7dc338
 
         <NavLink to='/likedSongs' className='active-option'>
           <li className='liked'>
