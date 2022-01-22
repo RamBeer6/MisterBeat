@@ -1,39 +1,44 @@
-import { WelcomePage } from "./pages/WelcomePage";
-import { HomePage } from "./pages/HomePage";
-import { SearchPage } from "./pages/SearchPage";
-import { LibraryPage } from "./pages/LibraryPage";
-import { LoginSignup } from "./pages/LoginSignup";
+import { WelcomePage } from './pages/WelcomePage';
+import { HomePage } from './pages/HomePage';
+import { SearchPage } from './pages/SearchPage';
+import { LibraryPage } from './pages/LibraryPage';
+import { LoginSignup } from './pages/LoginSignup';
 // import { UserDetails } from "./pages/UserDetails";
-import { SvgLoader } from "./cmps/SvgLoader";
-import { StationDetails } from "./pages/StationDetails";
+import { SvgLoader } from './cmps/SvgLoader';
+import { StationDetails } from './pages/StationDetails';
+import { LikedSongs } from './pages/LikedSongs';
 
 const routes = [
   {
-    path: "/user",
+    path: '/user',
     component: <SvgLoader />,
   },
   {
-    path: "/station/:stationId",
+    path: '/station/:stationId',
     component: <StationDetails />,
   },
   {
-    path: "/search",
+    path: '/search',
     component: <SearchPage />,
   },
   {
-    path: "/library",
+    path: '/library',
     component: <LibraryPage />,
   },
   {
-    path: "/login",
+    path: '/likedSongs',
+    component: <LikedSongs />,
+  },
+  {
+    path: '/login',
     component: <LoginSignup />,
   },
   {
-    path: "/signup",
+    path: '/signup',
     component: <LoginSignup />,
   },
   {
-    path: "/",
+    path: '/',
     component: <HomePage />,
   },
   // {
