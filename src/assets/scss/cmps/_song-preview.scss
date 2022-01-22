@@ -45,12 +45,27 @@
   .song-actions {
     display: flex;
 
+    // .like-btn {
+    //   border: 0;
+    //   color: rgba(255, 255, 255, 0.7);
+    //   background: transparent;
+    //   padding: 0;
+    //   margin-right: 25px;
+    // }
+
     .like-btn {
       border: 0;
       color: rgba(255, 255, 255, 0.7);
       background: transparent;
       padding: 0;
       margin-right: 25px;
+      
+      svg {
+        fill: rgba(255, 255, 255, 0.7);
+        &.liked {
+          fill: #1DB954;
+        }
+      }
     }
 
     .remove-btn {

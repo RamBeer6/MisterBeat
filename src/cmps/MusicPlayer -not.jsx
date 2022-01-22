@@ -1,7 +1,8 @@
 import React, { Component, useState } from 'react';
 import { connect } from 'react-redux';
 import YouTube from 'react-youtube';
-import ReactPlayer from 'react-player/lazy';
+// import ReactPlayer from 'react-player/lazy';
+import ReactPlayer from 'react-player/youtube';
 import { IoIosArrowForward } from 'react-icons/io';
 import { IoIosArrowBack } from 'react-icons/io';
 import { FaPlay } from 'react-icons/fa';

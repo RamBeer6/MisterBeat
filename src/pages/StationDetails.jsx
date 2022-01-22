@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 
 import { stationService } from '../services/station.service'
 import { loadSongs, updateSongs, removeSong, addSong } from '../store/actions/station.action'
+import { likeStation, unlikeStation } from '../store/actions/user.action'
 
 import { StationActions } from '../cmps/StationActions'
 import { SongList } from '../cmps/SongList'
@@ -13,6 +14,7 @@ import { SongSearch } from '../cmps/SongSearch'
 function _StationDetails(props) {
   const [station, setStation] = useState([])
   const [isSongSearch, setIsSongSearch] = useState(false)
+  const [isLikedStation, setIsLikedStation] = useState(false)
   const myRef = useRef(null)
   const params = useParams()
 
@@ -32,6 +34,7 @@ function _StationDetails(props) {
       await props.loadSongs(station._id)
     })()
   }, [station])
+  
 
   const onRemoveSong = async (songId, songTitle) => {
     // const { stationId } = params
@@ -76,12 +79,39 @@ function _StationDetails(props) {
 
   }
 
+  const setLikedStation = async () => {
+    console.log('like station');
+    const user = props.user
+    try {
+      await props.likeStation(station._id, user)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const setUnlinkedStation = async () => {
+    console.log('unlike station');
+    const user = props.user
+    try {
+      await props.unlikeStation(station._id, user)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const onSetLikedStation = (value) => {
+    if(typeof value !== 'boolean') return
+    setIsLikedStation(value)
+    if(isLikedStation) setLikedStation()
+    else setUnlinkedStation()
+  }
+
   const { songs } = props
 
   return (
     <section className="station-details">
       {/* <StationHero /> */}
-      <StationActions onToggleSongSearch={onToggleSongSearch} />
+      <StationActions onToggleSongSearch={onToggleSongSearch} isLikedStation={isLikedStation} onSetLikedStation={onSetLikedStation} />
       <DragDropContext onDragEnd={onDragEnd}>
         <SongList stationId={params.stationId} songs={songs} onRemoveSong={onRemoveSong} />
       </DragDropContext>
@@ -97,13 +127,16 @@ function _StationDetails(props) {
 function mapStateToProps(state) {
   return {
     songs: state.stationModule.songs,
+    user: state.userModule.user
   }
 }
 const mapDispatchToProps = {
   loadSongs,
   updateSongs,
   removeSong,
-  addSong
+  addSong,
+  likeStation,
+  unlikeStation
 }
 
 export const StationDetails = connect(

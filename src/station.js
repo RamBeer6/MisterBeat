@@ -80,7 +80,8 @@ const users = [
     password: "1234",
     mail: "puki@gmail.com",
     imgUrl: "img.png",
-    favoriteSongs: [],
+    likedSongs: [],
+    likedStation: []
   },
   {
     _id: "u102",
@@ -88,7 +89,8 @@ const users = [
     password: "5678",
     mail: "muki@gmail.com",
     imgUrl: "img2.png",
-    favoriteSongs: [],
+    likedSongs: [],
+    likedStation: []
   },
 ];
 

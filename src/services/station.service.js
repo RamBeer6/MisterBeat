@@ -1,142 +1,142 @@
-import { storageService } from "./async-storage.service.js";
-import { httpService } from "./http.service";
+import { storageService } from './async-storage.service.js'
+import { httpService } from './http.service'
+import { userService } from './user.service'
 
-const STORAGE_KEY = "station";
+const STORAGE_KEY = 'station'
 
 const gTags = [
   {
-    name: "Funk",
-    imgUrl: "https://i.scdn.co/image/ab67706f00000002f16913f0326b9d44bf78fc88",
-    color: "F44242",
+    name: 'Funk',
+    imgUrl: 'https://i.scdn.co/image/ab67706f00000002f16913f0326b9d44bf78fc88',
+    color: 'F44242',
   },
   {
-    name: "Happy",
-    imgUrl: "https://i.scdn.co/image/ab67706f000000023e0130fcd5d106f1402b4707",
-    color: "F0E50F",
+    name: 'Happy',
+    imgUrl: 'https://i.scdn.co/image/ab67706f000000023e0130fcd5d106f1402b4707',
+    color: 'F0E50F',
   },
   {
-    name: "Made for you",
-    imgUrl: "https://t.scdn.co/images/ea364e99656e46a096ea1df50f581efe",
-    color: "15F0DE",
+    name: 'Made for you',
+    imgUrl: 'https://t.scdn.co/images/ea364e99656e46a096ea1df50f581efe',
+    color: '15F0DE',
   },
   {
-    name: "Charts",
+    name: 'Charts',
     imgUrl:
-      "https://charts-images.scdn.co/assets/locale_en/regional/weekly/region_global_default.jpg",
-    color: "15F025",
+      'https://charts-images.scdn.co/assets/locale_en/regional/weekly/region_global_default.jpg',
+    color: '15F025',
   },
   {
-    name: "New releases",
-    imgUrl: "https://i.scdn.co/image/ab67706f000000027ea4d505212b9de1f72c5112",
-    color: "152FF0",
+    name: 'New releases',
+    imgUrl: 'https://i.scdn.co/image/ab67706f000000027ea4d505212b9de1f72c5112',
+    color: '152FF0',
   },
   {
-    name: "Discover",
-    imgUrl: "https://t.scdn.co/images/d0fb2ab104dc4846bdc56d72b0b0d785.jpeg",
-    color: "D8963A",
+    name: 'Discover',
+    imgUrl: 'https://t.scdn.co/images/d0fb2ab104dc4846bdc56d72b0b0d785.jpeg',
+    color: 'D8963A',
   },
   {
-    name: "Concerts",
-    imgUrl: "https://t.scdn.co/images/8cfa9cb1e43a404db76eed6ad594057c",
-    color: "8715F0",
+    name: 'Concerts',
+    imgUrl: 'https://t.scdn.co/images/8cfa9cb1e43a404db76eed6ad594057c',
+    color: '8715F0',
   },
   {
-    name: "HipHop",
-    imgUrl: "https://i.scdn.co/image/ab67706f000000029bb6af539d072de34548d15c",
-    color: "E80000",
+    name: 'HipHop',
+    imgUrl: 'https://i.scdn.co/image/ab67706f000000029bb6af539d072de34548d15c',
+    color: 'E80000',
   },
   {
-    name: "Pop",
-    imgUrl: "https://t.scdn.co/images/0a74d96e091a495bb09c0d83210910c3",
-    color: "87F015",
+    name: 'Pop',
+    imgUrl: 'https://t.scdn.co/images/0a74d96e091a495bb09c0d83210910c3',
+    color: '87F015',
   },
   {
-    name: "Country",
-    imgUrl: "https://i.scdn.co/image/ab67706f00000002a980b152e708b33c6516d848",
-    color: "FF1FA9",
+    name: 'Country',
+    imgUrl: 'https://i.scdn.co/image/ab67706f00000002a980b152e708b33c6516d848',
+    color: 'FF1FA9',
   },
   {
-    name: "Rock",
-    imgUrl: "https://i.scdn.co/image/ab67706f00000002fe6d8d1019d5b302213e3730",
-    color: "3A4AD8",
+    name: 'Rock',
+    imgUrl: 'https://i.scdn.co/image/ab67706f00000002fe6d8d1019d5b302213e3730',
+    color: '3A4AD8',
   },
   {
-    name: "Latin",
-    imgUrl: "https://i.scdn.co/image/ab67706f00000002f16913f0326b9d44bf78fc88",
-    color: "D0E70C",
+    name: 'Latin',
+    imgUrl: 'https://i.scdn.co/image/ab67706f00000002f16913f0326b9d44bf78fc88',
+    color: 'D0E70C',
   },
   {
-    name: "Workout",
-    imgUrl: "https://i.scdn.co/image/ab67706f000000029249b35f23fb596b6f006a15",
-    color: "88A2F2",
+    name: 'Workout',
+    imgUrl: 'https://i.scdn.co/image/ab67706f000000029249b35f23fb596b6f006a15',
+    color: '88A2F2',
   },
   {
-    name: "Punk",
-    imgUrl: "https://i.scdn.co/image/ab67706f0000000275251d7d488b0fd69e4c50bd",
-    color: "AD3700",
+    name: 'Punk',
+    imgUrl: 'https://i.scdn.co/image/ab67706f0000000275251d7d488b0fd69e4c50bd',
+    color: 'AD3700',
   },
   {
-    name: "R&B",
-    imgUrl: "https://i.scdn.co/image/ab67706f000000023c5a4aaf5df054a9beeb3d82",
-    color: "F75E3D",
+    name: 'R&B',
+    imgUrl: 'https://i.scdn.co/image/ab67706f000000023c5a4aaf5df054a9beeb3d82',
+    color: 'F75E3D',
   },
   {
-    name: "Welness",
-    imgUrl: "https://i.scdn.co/image/ab67656300005f1ff234909e69a68d92ca0af6ca",
-    color: "A48247",
+    name: 'Welness',
+    imgUrl: 'https://i.scdn.co/image/ab67656300005f1ff234909e69a68d92ca0af6ca',
+    color: 'A48247',
   },
   {
-    name: "Mood",
-    imgUrl: "https://i.scdn.co/image/ab67706f00000002aa93fe4e8c2d24fc62556cba",
-    color: "8715F0",
+    name: 'Mood',
+    imgUrl: 'https://i.scdn.co/image/ab67706f00000002aa93fe4e8c2d24fc62556cba',
+    color: '8715F0',
   },
   {
-    name: "Indie",
-    imgUrl: "https://i.scdn.co/image/ab67706f000000025f7327d3fdc71af27917adba",
-    color: "2BA93F",
+    name: 'Indie',
+    imgUrl: 'https://i.scdn.co/image/ab67706f000000025f7327d3fdc71af27917adba',
+    color: '2BA93F',
   },
   {
-    name: "Funk",
-    imgUrl: "https://i.scdn.co/image/ab67706f00000002f16913f0326b9d44bf78fc88",
-    color: "F0E50F",
+    name: 'Funk',
+    imgUrl: 'https://i.scdn.co/image/ab67706f00000002f16913f0326b9d44bf78fc88',
+    color: 'F0E50F',
   },
   {
-    name: "Sleep",
-    imgUrl: "https://i.scdn.co/image/ab67706f00000002b70e0223f544b1faa2e95ed0",
-    color: "6E3FFF",
+    name: 'Sleep',
+    imgUrl: 'https://i.scdn.co/image/ab67706f00000002b70e0223f544b1faa2e95ed0',
+    color: '6E3FFF',
   },
   {
-    name: "Mexican",
-    imgUrl: "https://t.scdn.co/images/c765fa1ce6994fce8796d2d0d93c1e61.jpeg",
-    color: "D0E70C",
+    name: 'Mexican',
+    imgUrl: 'https://t.scdn.co/images/c765fa1ce6994fce8796d2d0d93c1e61.jpeg',
+    color: 'D0E70C',
   },
   {
-    name: "Travel",
-    imgUrl: "https://i.scdn.co/image/ab67706f00000002ffa215be1a4c64e3cbf59d1e",
-    color: "4584A6",
+    name: 'Travel',
+    imgUrl: 'https://i.scdn.co/image/ab67706f00000002ffa215be1a4c64e3cbf59d1e',
+    color: '4584A6',
   },
   {
-    name: "Chill",
-    imgUrl: "https://i.scdn.co/image/ab67706f00000002c414e7daf34690c9f983f76e",
-    color: "E80000",
+    name: 'Chill',
+    imgUrl: 'https://i.scdn.co/image/ab67706f00000002c414e7daf34690c9f983f76e',
+    color: 'E80000',
   },
   {
-    name: "Metal",
-    imgUrl: "https://i.scdn.co/image/ab67706f0000000285704160b49125ac95099ec8",
-    color: "0B03F7",
+    name: 'Metal',
+    imgUrl: 'https://i.scdn.co/image/ab67706f0000000285704160b49125ac95099ec8',
+    color: '0B03F7',
   },
   {
-    name: "Classics",
-    imgUrl: "https://i.scdn.co/image/ab67706f000000023e0130fcd5d106f1402b4707",
-    color: "F5733",
+    name: 'Classics',
+    imgUrl: 'https://i.scdn.co/image/ab67706f000000023e0130fcd5d106f1402b4707',
+    color: 'F5733',
   },
   {
-    name: "Kpop",
-    imgUrl: "https://i.scdn.co/image/ab67706f00000002978b9f4a4f40b430fd0d837e",
-    color: "BE1DDA",
+    name: 'Kpop',
+    imgUrl: 'https://i.scdn.co/image/ab67706f00000002978b9f4a4f40b430fd0d837e',
+    color: 'BE1DDA',
   },
-];
-
+]
 
 export const stationService = {
   query,
@@ -146,20 +146,21 @@ export const stationService = {
   getTags,
   updateSongs,
   removeSongStation,
-  addSongStation
+  addSongStation,
+  addSongToLiked,
+  removeSongFromLiked,
+  addStationToLiked,
+  removeStationFromLiked
 }
 
 async function query(filterBy = null) {
   const query = !filterBy?.txt ? '' : `?name=${filterBy.txt}`
   try {
     // return await httpService.get(`station${query}`)
-    return await storageService
-      .query(STORAGE_KEY)
-      .then((stations) => {
-        // console.log('stations service:' , stations);
-        return stations.filter((station) => station.name.includes(query))
-      }
-      )
+    return await storageService.query(STORAGE_KEY).then((stations) => {
+      // console.log('stations service:' , stations);
+      return stations.filter((station) => station.name.includes(query))
+    })
   } catch (err) {
     console.log(err)
     throw err
@@ -169,24 +170,24 @@ async function query(filterBy = null) {
 async function loadSongs(stationId, filterBy) {
   try {
     // console.log('loadsongs stationId:' , stationId)
-    const station = await getById(stationId);
+    const station = await getById(stationId)
     // console.log('loadsongs from station:', station)
-    return station.songs;
+    return station.songs
   } catch (err) {
-    console.log(err);
-    throw err;
+    console.log(err)
+    throw err
   }
 }
 
 async function getById(stationId) {
-  if (!stationId) return;
+  if (!stationId) return
   try {
     // console.log('getById:' , stationId);
     // return await httpService.get(`/station/${stationId}`)
     return storageService.get(STORAGE_KEY, stationId)
   } catch (err) {
-    console.log(err);
-    throw err;
+    console.log(err)
+    throw err
   }
 }
 
@@ -199,7 +200,6 @@ async function save(station) {
   }
 }
 
-
 async function getTags() {
   try {
     return gTags
@@ -211,7 +211,7 @@ async function getTags() {
 
 async function updateSongs(stationId, songs) {
   try {
-    getById(stationId).then(station => {
+    getById(stationId).then((station) => {
       station.songs = songs
       save(station)
     })
@@ -224,8 +224,8 @@ async function updateSongs(stationId, songs) {
 
 async function removeSongStation(stationId, songId) {
   try {
-    getById(stationId).then(station => {
-      station.songs = station.songs.filter(song => song.id !== songId)
+    getById(stationId).then((station) => {
+      station.songs = station.songs.filter((song) => song.id !== songId)
       return storageService.put(STORAGE_KEY, station)
     })
   } catch (err) {
@@ -236,10 +236,64 @@ async function removeSongStation(stationId, songId) {
 
 async function addSongStation(stationId, song) {
   try {
-    getById(stationId).then(station => {
+    getById(stationId).then((station) => {
       station.songs.push(song)
       return storageService.put(STORAGE_KEY, station)
     })
+  } catch (err) {
+    console.log(err)
+    throw err
+  }
+}
+
+async function addSongToLiked(song, user) {
+  try {
+    if (user._id) {
+      user.likedSongs.push(song)
+      return await userService.updateUser(user)
+    }
+  } catch (err) {
+    console.log(err)
+    throw err
+  }
+}
+
+async function removeSongFromLiked(song, user) {
+  try {
+    if (user._id) {
+      const likedSongs = user.likedSongs.filter(
+        (likedsong) => likedsong.id !== song.id
+      )
+      user.likedSongs = likedSongs
+      return await userService.updateUser(user)
+    }
+  } catch (err) {
+    console.log(err)
+    throw err
+  }
+}
+
+async function addStationToLiked(stationId, user) {
+  try {
+    if (user._id) {
+      user.likedStations.push(stationId)
+      return await userService.updateUser(user)
+    }
+  } catch (err) {
+    console.log(err)
+    throw err
+  }
+}
+
+async function removeStationFromLiked(stationId, user) {
+  try {
+    if (user._id) {
+      const likedStations = user.likedStations.filter(
+        (likedstation) => likedstation !== stationId
+      )
+      user.likedStations = likedStations
+      return await userService.updateUser(user)
+    }
   } catch (err) {
     console.log(err)
     throw err
