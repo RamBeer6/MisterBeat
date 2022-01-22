@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Routes, Route } from "react-router";
 import routes from "./routes";
 
-
-
 // import { HomePage } from "./pages/HomePage";
-import { SvgLoader } from "./cmps/SvgLoader";
+// import { SvgLoader } from "./cmps/SvgLoader";
 import { StationDetails } from "./pages/StationDetails";
 // import { AppHeader } from "./cmps/AppHeader";
 import { MusicPlayer } from "./cmps/MusicPlayer";
@@ -13,14 +11,6 @@ import NavBar from "./cmps/NavBar";
 // import MainContainer from "./cmps/MainContainer";
 
 export const App = () => {
-  // const [loading, setLoading] = useState(false);
-  // const color = '#5BD321';
-  // useEffect(() => {
-  //     setLoading(true);
-  //     setTimeout(() => {
-  //         setLoading(false);
-  //     }, 10000);
-  // }, []);
   return (
     <section>
       {/* <AppHeader /> */}

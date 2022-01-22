@@ -2,6 +2,7 @@ import React from "react";
 import { stationService } from "../services/station.service";
 import { DefaultStationList } from "../cmps/DefaultStationList";
 import { SvgLoader } from "../cmps/SvgLoader";
+import { AppHeader } from "../cmps/AppHeader";
 
 export class HomePage extends React.Component {
   state = {
@@ -40,6 +41,7 @@ export class HomePage extends React.Component {
 
     return (
       <section className="home-page">
+        {/* <AppHeader /> */}
         <DefaultStationList stations={stations} />
         <DefaultStationList stations={stations} />
         <DefaultStationList stations={stations} />

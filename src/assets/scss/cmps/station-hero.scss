@@ -1,0 +1,61 @@
+.station-hero {
+  .station-hero__info {
+    display: flex;
+    // align-content: flex-end;
+    align-items: center;
+    height: 250px;
+    // border: 2px solid red;
+    background-color: rgb(112, 96, 96);
+
+    // padding-top: 10px;
+    // padding-bottom: 10px;
+    background: linear-gradient(#657067, rgba(0, 0.1, 0.15, 0.4));
+  }
+
+  .station-hero__text {
+    // display: flex;
+    // flex-direction: column;
+    // align-items: flex-end;
+    padding: 10px;
+
+    h2 {
+      letter-spacing: -0.04em;
+      font-size: 78px;
+      margin-bottom: 10px;
+      font-weight: 900;
+    }
+    .total-durtion-user {
+      display: flex;
+      width: 150px;
+      //   align-items: flex-end;
+      justify-content: space-around;
+      flex-direction: row-reverse;
+
+      .duration__nums {
+        // font-size: 12px;
+        // font-weight: 400;
+        color: rgb(185, 185, 185);
+      }
+
+      p {
+        font-family: gotham;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .station-hero__img {
+    height: 202px;
+    min-width: 190px;
+    min-height: 190px;
+    width: 202px;
+    // border: 2px dotted black;
+    margin-left: 30px;
+    // margin: 15px;
+    background-color: #fff;
+    box-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}

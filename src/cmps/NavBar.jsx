@@ -34,7 +34,7 @@ export default function NavBar() {
                     </li>
                 </NavLink>
 
-                <NavLink to="/station" className="active-option">
+                <NavLink to="/station/create" className="active-option">
                     <li>
                         <div className="symbol fas fa-plus-square" />
                         <NavBarOptions title="Create Playlist" />
