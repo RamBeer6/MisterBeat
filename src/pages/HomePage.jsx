@@ -39,7 +39,8 @@ export class HomePage extends React.Component {
 
     return (
       <section className="home-page">
-        <h1>Home page</h1>
+        <DefaultStationList stations={stations} />
+        <DefaultStationList stations={stations} />
         <DefaultStationList stations={stations} />
       </section>
     )

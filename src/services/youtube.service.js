@@ -7,6 +7,7 @@ const API_KEY = 'AIzaSyDsq0OG9zwORsX9yQajOipvd78Bg5_RP5w'
 
 export const youtubeService = {
   query,
+  debounce
 }
 
 async function query(name) {
@@ -23,6 +24,19 @@ async function query(name) {
     console.log(err)
     throw err
   }
+}
+
+function debounce(func, wait) {
+  let timeoutIdx;
+  return async function executedFunction(...args) {
+      const later = () => {
+          clearTimeout(timeoutIdx);
+          func(...args);
+      };
+
+      clearTimeout(timeoutIdx);
+      timeoutIdx = setTimeout(later, wait);
+  };
 }
 
 function _getMusicItems(videos) {

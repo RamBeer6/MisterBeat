@@ -1,29 +1,19 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-// import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 
 function _StationPreview({ station }) {
-  // state = {
-  //   isPlaying: false,
-  // }
   const [isPlaying, setIsPlaying] = useState(false)
   const navigate = useNavigate()
   const toggleIsPlaying = (ev) => {
     ev.stopPropagation()
-    // this.setState({ isPlaying: !this.state.isPlaying }, () => {
-    // //   console.log('isPlaying:', this.state.isPlaying)
-    // })
     setIsPlaying(!isPlaying)
   }
 
-  // render() {
-    // const { isPlaying } = this.state
-    const imgSrc = station.imgUrl ? station.imgUrl : 'https://i.scdn.co/image/ab67706f00000002e3e2727edc2f59616536f30b'
+  const imgSrc = station.imgUrl ? station.imgUrl : 'https://i.scdn.co/image/ab67706f00000002e3e2727edc2f59616536f30b'
 
     return (
       <section className="station-preview" onClick={() => navigate(`/station/${station._id}`)}>
-      {/* <Link className="card-link" to={`/station/${station._id}`}> */}
         <div className="station-img-container">
           <img src={imgSrc} alt="station" />
           <div className="station-play-btn">
@@ -43,10 +33,8 @@ function _StationPreview({ station }) {
             <h4>Tags: {station.tags.join(', ')}</h4>
           </div>
         </div>
-        {/* </Link> */}
       </section>
     )
-  // }
 }
 
 function mapStateToProps(state) {

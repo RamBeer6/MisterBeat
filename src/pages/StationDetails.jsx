@@ -4,7 +4,7 @@ import { DragDropContext } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 
 import { stationService } from '../services/station.service'
-import { loadSongs, updateSongs, removeSong } from '../store/actions/station.action'
+import { loadSongs, updateSongs, removeSong, addSong } from '../store/actions/station.action'
 
 import { StationActions } from '../cmps/StationActions'
 import { SongList } from '../cmps/SongList'
@@ -34,15 +34,26 @@ function _StationDetails(props) {
   }, [station])
 
   const onRemoveSong = async (songId, songTitle) => {
-    console.log('remove song:' , songId , songTitle)
-    const { stationId } = params
-    await props.removeSong(stationId, songId)
+    // const { stationId } = params
+    try {
+      await props.removeSong(station._id, songId)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   const onToggleSongSearch = () => {
     setIsSongSearch(!isSongSearch)
     if(isSongSearch) executeScroll()
   }
+
+  const onAddSong = async (song) => {
+    try {
+      await props.addSong(station._id , song)
+    } catch (err) {
+      console.log(err)
+    }
+  }  
 
   const executeScroll = () => myRef.current.scrollIntoView() 
 
@@ -69,7 +80,6 @@ function _StationDetails(props) {
 
   return (
     <section className="station-details">
-      STATION DETAILS
       {/* <StationHero /> */}
       <StationActions onToggleSongSearch={onToggleSongSearch} />
       <DragDropContext onDragEnd={onDragEnd}>
@@ -78,8 +88,7 @@ function _StationDetails(props) {
 
       { isSongSearch && 
         <section ref={myRef}>
-          <h3>SONG SEARCH</h3>
-          <SongSearch stationId={params.stationId} />
+          <SongSearch stationId={params.stationId} onAddSong={onAddSong} />
         </section>}
     </section>
   )
@@ -93,7 +102,8 @@ function mapStateToProps(state) {
 const mapDispatchToProps = {
   loadSongs,
   updateSongs,
-  removeSong
+  removeSong,
+  addSong
 }
 
 export const StationDetails = connect(

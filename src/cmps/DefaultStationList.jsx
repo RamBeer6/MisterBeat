@@ -5,7 +5,15 @@ export function DefaultStationList({ stations }) {
 
     return(
         <section className="default-station-list">
-            {stations.map(station => <StationPreview  key={station._id} station={station} />)}
+            <div className="section-station">
+                <div className="section-head">
+                    <h2>Popular new releases</h2>
+                    <a>SEE ALL</a>
+                </div>
+                <div className="section-content">
+                    {stations.map(station => <StationPreview  key={station._id} station={station} />)}
+                </div>
+            </div>
         </section>
     )
 }

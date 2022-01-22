@@ -1,58 +1,72 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { youtubeService } from '../services/youtube.service'
 
-export class SongSearch extends React.Component {
-  state = {
-    txt: '',
-    songs: []
-  }
+import { SuggestedSongList } from '../cmps/SuggestedSongList'
+import useDebounce from '../cmps/UseDebounce'
+import { LoaderDots } from '../cmps/LoaderDots'
 
-  loadSongs = async () => {
+export function SongSearch({ stationId, onAddSong }) {
+  const [txt, setTxt] = useState('')
+  const [songs, setSongs] = useState([])
+  const [isSearching, setIsSearching] = useState(false)
+
+  const debouncedSearchTerm = useDebounce(txt, 1000)
+
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      setIsSearching(true)
+      loadSongs(debouncedSearchTerm).then((songs) => {
+        setIsSearching(false)
+        setSongs(songs.slice(0, 10))
+      })
+    } else {
+      setSongs([])
+    }
+  }, [debouncedSearchTerm])
+
+  const loadSongs = async (searchTxt) => {
     try {
-        const criteria = this.state.txt
-        const songs = await youtubeService.query(criteria)
-        this.setState({ songs })
+      if (!searchTxt) return
+      return await youtubeService.query(searchTxt)
     } catch (err) {
-        
+      console.log(err)
     }
   }
 
-  debouncedSongSearch = youtubeService.debounce(this.loadSongs, 1000)
-
-  handleChange = (ev) => {
-    const { value } = ev.target;
-    this.setState({...this.state, txt: value }, () => {
-        this.debouncedSongSearch()
-    })
+  const handleChange = (ev) => {
+    const { value } = ev.target
+    setTxt(value)
   }
 
-  cleanForm = () => {
-    this.setState({ txt: '' })
+  const cleanForm = () => {
+    setTxt('')
   }
 
-  render() {
-    const { txt } = this.state
+  return (
+    <section className="song-search">
+      <form>
+        <input
+          name="txt"
+          value={txt}
+          type="text"
+          placeholder="Add songs or podcasts to playlist..."
+          autoComplete="off"
+          onChange={handleChange}
+        />
+        <a
+          // href="javascript:void(0);"
+          className="search-button"
+          onClick={cleanForm}
+        >
+          <div className="icon" />
+        </a>
+      </form>
 
-    return (
-      <section className="song-search">
-        <form>
-          <input
-            name="txt"
-            value={txt}
-            type="text"
-            placeholder="Add songs or podcasts to playlist..."
-            autoComplete="off"
-            onChange={this.handleChange}
-          />
-          <a
-            // href="javascript:void(0);"
-            className="search-button"
-            onClick={this.cleanForm}
-          >
-            <div className="icon" />
-          </a>
-        </form>
-      </section>
-    )
-  }
+      {/* {isSearching && <div>Searching ...</div>} */}
+      {isSearching && <LoaderDots />}
+      {txt && songs?.length && (
+        <SuggestedSongList songs={songs} onAddSong={onAddSong} />
+      )}
+    </section>
+  )
 }

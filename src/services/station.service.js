@@ -145,7 +145,8 @@ export const stationService = {
   save,
   getTags,
   updateSongs,
-  removeSongStation
+  removeSongStation,
+  addSongStation
 }
 
 async function query(filterBy = null) {
@@ -225,6 +226,18 @@ async function removeSongStation(stationId, songId) {
   try {
     getById(stationId).then(station => {
       station.songs = station.songs.filter(song => song.id !== songId)
+      return storageService.put(STORAGE_KEY, station)
+    })
+  } catch (err) {
+    console.log(err)
+    throw err
+  }
+}
+
+async function addSongStation(stationId, song) {
+  try {
+    getById(stationId).then(station => {
+      station.songs.push(song)
       return storageService.put(STORAGE_KEY, station)
     })
   } catch (err) {

@@ -47,3 +47,18 @@ export function removeSong(stationId, songId) {
     }
   }
 }
+
+export function addSong(stationId, song) {
+  return async (dispatch) => {
+    try {
+      await stationService.addSongStation(stationId, song)
+      dispatch({
+        type: 'ADD_SONG',
+        song,
+        currStationId: stationId,
+      })
+    } catch (err) {
+      throw err
+    }
+  }
+}

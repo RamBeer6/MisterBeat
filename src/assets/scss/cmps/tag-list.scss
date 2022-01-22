@@ -1,13 +1,12 @@
-// .tag-list {
-//   .tag-title {
+.tag-list {
 
-//   }
-// }
-
-.cards-container {
-  display: grid;
-  justify-content: center;
-  gap: 25px;
-  grid-template-columns: repeat(auto-fit, minmax(205px, 205px));
-  grid-template-rows: repeat(auto-fit, minmax(205px, 205px));
+  .cards-container {
+    display: grid;
+    justify-content: center;
+    gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(205px, 205px));
+    grid-template-rows: repeat(auto-fit, minmax(205px, 205px));
+    margin-top: 25px;
+  }
 }
+
