@@ -7,28 +7,28 @@ const gTags = [
   {
     name: 'Funk',
     imgUrl: 'https://i.scdn.co/image/ab67706f00000002f16913f0326b9d44bf78fc88',
-    color: 'F75E3D',
+    color: 'F44242',
   },
   {
     name: 'Happy',
     imgUrl: 'https://i.scdn.co/image/ab67706f000000023e0130fcd5d106f1402b4707',
-    color: 'FCFF34',
+    color: 'F0E50F',
   },
   {
     name: 'Made for you',
     imgUrl: 'https://t.scdn.co/images/ea364e99656e46a096ea1df50f581efe',
-    color: '34FDFF',
+    color: '15F0DE',
   },
   {
     name: 'Charts',
     imgUrl:
       'https://charts-images.scdn.co/assets/locale_en/regional/weekly/region_global_default.jpg',
-    color: 'FC34FF',
+    color: '15F025',
   },
   {
     name: 'New releases',
     imgUrl: 'https://i.scdn.co/image/ab67706f000000027ea4d505212b9de1f72c5112',
-    color: '49FC2E',
+    color: '152FF0',
   },
   {
     name: 'Discover',
@@ -36,9 +36,9 @@ const gTags = [
     color: 'D8963A',
   },
   {
-    name: 'Concert',
+    name: 'Concerts',
     imgUrl: 'https://t.scdn.co/images/8cfa9cb1e43a404db76eed6ad594057c',
-    color: '3A4AD8',
+    color: '8715F0',
   },
   {
     name: 'HipHop',
@@ -48,7 +48,7 @@ const gTags = [
   {
     name: 'Pop',
     imgUrl: 'https://t.scdn.co/images/0a74d96e091a495bb09c0d83210910c3',
-    color: '8C00E8',
+    color: '87F015',
   },
   {
     name: 'Country',
@@ -58,22 +58,22 @@ const gTags = [
   {
     name: 'Rock',
     imgUrl: 'https://i.scdn.co/image/ab67706f00000002fe6d8d1019d5b302213e3730',
-    color: 'F75E3D',
+    color: '3A4AD8',
   },
   {
     name: 'Latin',
     imgUrl: 'https://i.scdn.co/image/ab67706f00000002f16913f0326b9d44bf78fc88',
-    color: 'F75E3D',
+    color: 'D0E70C',
   },
   {
     name: 'Workout',
     imgUrl: 'https://i.scdn.co/image/ab67706f000000029249b35f23fb596b6f006a15',
-    color: 'F75E3D',
+    color: '88A2F2',
   },
   {
     name: 'Punk',
     imgUrl: 'https://i.scdn.co/image/ab67706f0000000275251d7d488b0fd69e4c50bd',
-    color: 'F75E3D',
+    color: 'AD3700',
   },
   {
     name: 'R&B',
@@ -83,57 +83,57 @@ const gTags = [
   {
     name: 'Welness',
     imgUrl: 'https://i.scdn.co/image/ab67656300005f1ff234909e69a68d92ca0af6ca',
-    color: 'F75E3D',
+    color: 'A48247',
   },
   {
     name: 'Mood',
     imgUrl: 'https://i.scdn.co/image/ab67706f00000002aa93fe4e8c2d24fc62556cba',
-    color: 'F75E3D',
+    color: '8715F0',
   },
   {
     name: 'Indie',
     imgUrl: 'https://i.scdn.co/image/ab67706f000000025f7327d3fdc71af27917adba',
-    color: 'F75E3D',
+    color: '2BA93F',
   },
   {
     name: 'Funk',
     imgUrl: 'https://i.scdn.co/image/ab67706f00000002f16913f0326b9d44bf78fc88',
-    color: 'F75E3D',
+    color: 'F0E50F',
   },
   {
     name: 'Sleep',
     imgUrl: 'https://i.scdn.co/image/ab67706f00000002b70e0223f544b1faa2e95ed0',
-    color: 'F75E3D',
+    color: '6E3FFF',
   },
   {
     name: 'Mexican',
     imgUrl: 'https://t.scdn.co/images/c765fa1ce6994fce8796d2d0d93c1e61.jpeg',
-    color: 'F75E3D',
+    color: 'D0E70C',
   },
   {
     name: 'Travel',
     imgUrl: 'https://i.scdn.co/image/ab67706f00000002ffa215be1a4c64e3cbf59d1e',
-    color: 'F75E3D',
+    color: '4584A6',
   },
   {
     name: 'Chill',
     imgUrl: 'https://i.scdn.co/image/ab67706f00000002c414e7daf34690c9f983f76e',
-    color: 'F75E3D',
+    color: 'E80000',
   },
   {
     name: 'Metal',
     imgUrl: 'https://i.scdn.co/image/ab67706f0000000285704160b49125ac95099ec8',
-    color: 'F75E3D',
+    color: '0B03F7',
   },
   {
     name: 'Classics',
     imgUrl: 'https://i.scdn.co/image/ab67706f000000023e0130fcd5d106f1402b4707',
-    color: 'F75E3D',
+    color: 'F5733',
   },
   {
     name: 'Kpop',
     imgUrl: 'https://i.scdn.co/image/ab67706f00000002978b9f4a4f40b430fd0d837e',
-    color: 'F75E3D',
+    color: 'BE1DDA',
   },
 ];
 
@@ -145,6 +145,7 @@ export const stationService = {
   getTags,
   updateSongs,
   removeSongStation,
+  addSongStation,
 };
 
 async function query(filterBy = null) {
@@ -220,6 +221,18 @@ async function removeSongStation(stationId, songId) {
   try {
     getById(stationId).then((station) => {
       station.songs = station.songs.filter((song) => song.id !== songId);
+      return storageService.put(STORAGE_KEY, station);
+    });
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
+async function addSongStation(stationId, song) {
+  try {
+    getById(stationId).then((station) => {
+      station.songs.push(song);
       return storageService.put(STORAGE_KEY, station);
     });
   } catch (err) {

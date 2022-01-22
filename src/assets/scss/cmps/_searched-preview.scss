@@ -1,6 +1,6 @@
-.song-preview {
+.searched-preview {
   display: grid;
-  grid-template-columns: 16px 4fr 2fr minmax(120px, 1fr) 70px;
+  grid-template-columns: 16px 4fr 2fr minmax(120px, 1fr);
   grid-gap: 16px;
   align-items: center;
   margin: 10px 0;
@@ -34,31 +34,14 @@
     object-fit: cover;
   }
 
-  .play-btn {
-    border: 0;
+  .like-btn {
+    border: none;
+    background-color: transparent;
     color: rgba(255, 255, 255, 0.7);
-    background: transparent;
-    position: relative;
-    right: 10px;
-  }
+    font-size: 22px;
 
-  .song-actions {
-    display: flex;
-
-    .like-btn {
-      border: 0;
-      color: rgba(255, 255, 255, 0.7);
-      background: transparent;
-      padding: 0;
-      margin-right: 25px;
-    }
-
-    .remove-btn {
-      border: 0;
-      color: rgba(255, 255, 255, 0.7);
-      background: transparent;
-      font-size: 18px;
-      padding: 0;
+    &:hover {
+      color: #1db954;
     }
   }
 }

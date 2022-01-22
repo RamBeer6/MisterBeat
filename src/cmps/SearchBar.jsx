@@ -1,28 +1,29 @@
 import React, { useEffect, useState } from "react";
 
 export function SearchBar({ onSetFilter }) {
-  const [txt, setTxt] = useState("");
+  const [txt, setTxt] = useState('')
 
   useEffect(() => {
-    onSetFilter(txt);
-  }, [txt]);
+    onSetFilter(txt)
+  }, [txt])
 
   function handleChange(ev) {
-    const { value } = ev.target;
-    setTxt(value);
+    const { value } = ev.target
+    setTxt(value)
   }
 
-  function handleSubmit(ev) {
-    ev.preventDefault();
-    onSetFilter(txt);
-  }
+  // function handleSubmit(ev) {
+  //   ev.preventDefault()
+  //   onSetFilter(txt)
+  // }
 
   function cleanForm() {
-    setTxt("");
+    setTxt('')
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    // <form onSubmit={handleSubmit}>
+    <form>
       <input
         name="txt"
         value={txt}
@@ -39,5 +40,5 @@ export function SearchBar({ onSetFilter }) {
         <div className="icon" />
       </a>
     </form>
-  );
+  )
 }

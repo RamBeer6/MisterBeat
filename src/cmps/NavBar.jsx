@@ -7,53 +7,62 @@ import logo from "../assets/imgs/logo.png";
 
 export default function NavBar() {
     return (
-        <section className="nav-bar">
+        <nav className="nav-bar">
             <Link to="/">
                 <img className="nav-bar__logo" src={logo} alt="logo" />
             </Link>
 
-            <NavLink to="/">
-                <div className="symbol">
-                    <div className="fas fa-home" />
-                    <NavBarOptions title="Home" />
-                </div>
-            </NavLink>
+            <ul className="nav-bar-list">
+                <NavLink to="/" className="active-option">
+                    <li>
+                        <div className="symbol fas fa-home" />
+                        <NavBarOptions title="Home" />
+                    </li>
+                </NavLink>
 
-            <NavLink to="/search">
-                <div className="symbol">
-                    <div className="fas fa-search" />
-                    <NavBarOptions title="Search" />
-                </div>
-            </NavLink>
+                <NavLink to="/search" className="active-option">
+                    <li>
+                        <div className="symbol fas fa-search" />
+                        <NavBarOptions title="Search" />
+                    </li>
+                </NavLink>
 
-            <NavLink to="/library">
-                <div className="symbol">
-                    <div className="fas fa-compact-disc" />
-                    <NavBarOptions title="Your Library" />
-                </div>
-            </NavLink>
+                <NavLink to="/library" className="active-option">
+                    <li>
+                        <div className="symbol fas fa-compact-disc" />
+                        <NavBarOptions title="Your Library" />
+                    </li>
+                </NavLink>
 
-            <NavLink to="/station">
-                <div className="symbol">
-                    <div className="fas fa-plus-square" />
-                    <NavBarOptions title="Create Playlist" />
-                </div>
-            </NavLink>
+                <NavLink to="/station" className="active-option">
+                    <li>
+                        <div className="symbol fas fa-plus-square" />
+                        <NavBarOptions title="Create Playlist" />
+                    </li>
+                </NavLink>
 
-            <NavLink to="/library">
-                <div className="symbol">
-                    <div className="fas fa-thumbs-up" />
-                    <NavBarOptions title="Liked Songs" />
-
-                </div>
-            </NavLink>
+                <NavLink to="/library" className="active-option">
+                    <li className="liked" >
+                        <div className="symbol fas fa-thumbs-up" />
+                        <NavBarOptions title="Liked Songs" />
+                    </li>
+                </NavLink>
+            </ul>
 
             <strong className="nav-bar__title">Playlists</strong>
             <hr />
-            <NavBarOptions title="Beyonce" />
-            <NavBarOptions title="90's Hits" />
-            <NavBarOptions title="Hip-Hop" />
-            <NavBarOptions title="Rock" />
-        </section>
+            <li>
+                <NavBarOptions title="Beyonce" />
+            </li>
+            <li>
+                <NavBarOptions title="90's Hits" />
+            </li>
+            <li>
+                <NavBarOptions title="Hip-Hop" />
+            </li>
+            <li>
+                <NavBarOptions title="Rock" />
+            </li>
+        </nav>
     );
 }

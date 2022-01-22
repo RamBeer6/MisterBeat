@@ -19,6 +19,8 @@ export function stationReducer(state = initialState, action = {}) {
       }
     case 'REMOVE_SONG':
       return { ...state, songs: state.songs.filter(song => song.id !== action.songId) }
+    case 'ADD_SONG':
+      return { ...state, songs: [...state.songs, action.song] }
     default:
       return state
   }
