@@ -154,7 +154,7 @@ export const stationService = {
 }
 
 async function query(filterBy = null) {
-  const query = !filterBy?.txt ? '' : `?name=${filterBy.txt}`
+  const query = !filterBy?.txt ? '' : `?name=${filterBy.txt}`;
   try {
     // return await httpService.get(`station${query}`)
     return await storageService.query(STORAGE_KEY).then((stations) => {
@@ -162,8 +162,8 @@ async function query(filterBy = null) {
       return stations.filter((station) => station.name.includes(query))
     })
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
 }
 
@@ -184,7 +184,7 @@ async function getById(stationId) {
   try {
     // console.log('getById:' , stationId);
     // return await httpService.get(`/station/${stationId}`)
-    return storageService.get(STORAGE_KEY, stationId)
+    return storageService.get(STORAGE_KEY, stationId);
   } catch (err) {
     console.log(err)
     throw err
@@ -192,20 +192,20 @@ async function getById(stationId) {
 }
 
 async function save(station) {
-  if (!station) station = _createStation()
+  if (!station) station = _createStation();
   if (station._id) {
-    return storageService.put(STORAGE_KEY, station)
+    return storageService.put(STORAGE_KEY, station);
   } else {
-    return storageService.post(STORAGE_KEY, station)
+    return storageService.post(STORAGE_KEY, station);
   }
 }
 
 async function getTags() {
   try {
-    return gTags
+    return gTags;
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
 }
 
@@ -217,8 +217,8 @@ async function updateSongs(stationId, songs) {
     })
     // console.log('need to update songs:' , songs);
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
 }
 
@@ -229,8 +229,8 @@ async function removeSongStation(stationId, songId) {
       return storageService.put(STORAGE_KEY, station)
     })
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
 }
 
@@ -241,8 +241,8 @@ async function addSongStation(stationId, song) {
       return storageService.put(STORAGE_KEY, station)
     })
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
 }
 
@@ -365,10 +365,10 @@ function _createStation() {
         duration: '04:48',
       },
     ],
-  }
+  };
 }
 
-// _createStations()
+// _createStations();
 function _createStations() {
   const st1 = {
     _id: '1111',
@@ -435,6 +435,6 @@ function _createStations() {
         duration: '04:48',
       },
     ],
-  }
-  storageService.post(STORAGE_KEY, st1)
+  };
+  storageService.post(STORAGE_KEY, st1);
 }

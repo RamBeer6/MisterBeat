@@ -15,7 +15,9 @@ import { setPlayer } from '../store/actions/music.player.action'
 class _MusicPlayer extends React.Component {
   state = {
     // url: null, FROM PROPS I THINK
-    playing: true,
+    // station:[],
+    // currSongIdx:0,
+    playing: false,
     controls: false,
     volume: 0.8,
     muted: false,
@@ -38,6 +40,14 @@ class _MusicPlayer extends React.Component {
   onReady = (ev) => {
     this.props.setPlayer(ev.target)
   }
+
+  // loadStation=()=>{
+  //   this.setState((prevState) => ({ ...prevState, station: this.props.currSongs }));
+  // }
+
+  // setPlaying=()=>{
+  //   this.setState((prevState) => ({ ...prevState, playing: this.props.isPlaying }));
+  // }
 
   ref = (player) => {
     this.player = player
@@ -128,6 +138,7 @@ class _MusicPlayer extends React.Component {
             alt="image"
           />
           <p>Queen -We are the champions</p>
+          {/* <p>currSongs[setSongIdx].title</p> */}
         </div>
 
         <div className="player-tools">

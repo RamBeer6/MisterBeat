@@ -4,13 +4,14 @@ import { SearchPage } from "./pages/SearchPage";
 import { LibraryPage } from "./pages/LibraryPage";
 import { LoginSignup } from "./pages/LoginSignup";
 // import { UserDetails } from "./pages/UserDetails";
-import { SvgLoader } from "./cmps/SvgLoader";
+import { CreatePlaylist } from "./cmps/CreatePlaylist";
 import { StationDetails } from "./pages/StationDetails";
+import { LikedSongs } from "./pages/LikedSongs";
 
 const routes = [
   {
-    path: "/user",
-    component: <SvgLoader />,
+    path: "station/create",
+    component: <CreatePlaylist />,
   },
   {
     path: "/station/:stationId",
@@ -23,6 +24,10 @@ const routes = [
   {
     path: "/library",
     component: <LibraryPage />,
+  },
+  {
+    path: "/likedSongs",
+    component: <LikedSongs />,
   },
   {
     path: "/login",

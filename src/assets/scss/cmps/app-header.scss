@@ -1,6 +1,13 @@
 .app-header {
-  position: fixed;
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  margin-top: 0;
+  height: 60px;
   width: 100vw;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.8);
   color: whitesmoke;
 }

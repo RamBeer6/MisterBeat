@@ -8,9 +8,9 @@ export function SvgLoader() {
 
     useEffect(() => {
         setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
-        }, 10000);
+        // setTimeout(() => {
+        //     setLoading(false);
+        // }, 10000);
     }, []);
 
     return (
@@ -22,6 +22,7 @@ export function SvgLoader() {
     );
 }
 {
+    //Example 1
     /* <svg
                     version="1.1"
                     id="Layer_1"
@@ -113,6 +114,7 @@ export function SvgLoader() {
                     </rect>
                 </svg> */
 }
+            //Example 2
 //     <svg
 //         width="38"
 //         height="38"

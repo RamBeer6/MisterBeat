@@ -1,48 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Routes, Route } from "react-router";
 import routes from "./routes";
 
-
-
 // import { HomePage } from "./pages/HomePage";
-import { SvgLoader } from "./cmps/SvgLoader";
+// import { SvgLoader } from "./cmps/SvgLoader";
 import { StationDetails } from "./pages/StationDetails";
 // import { AppHeader } from "./cmps/AppHeader";
-import { MusicPlayer } from "./cmps/MusicPlayer";
-import NavBar from "./cmps/NavBar";
+import { MusicPlayer } from './cmps/MusicPlayer';
+import NavBar from './cmps/NavBar';
 // import MainContainer from "./cmps/MainContainer";
 
 export const App = () => {
-  // const [loading, setLoading] = useState(false);
-  // const color = '#5BD321';
-  // useEffect(() => {
-  //     setLoading(true);
-  //     setTimeout(() => {
-  //         setLoading(false);
-  //     }, 10000);
-  // }, []);
   return (
     <section>
       {/* <AppHeader /> */}
-      <main className="main">
+      <main className='main'>
         {/* <HomePage /> */}
         <NavBar />
-        <div className="main-container">
+        <div className='main-container'>
           {/* <SvgLoader /> //Example */}
           <Routes>
             {routes.map((route) => (
-              <Route
-                key={route.path}
-                exact={true}
-                element={route.component}
-                path={route.path}
-              />
+              <Route key={route.path} exact={true} element={route.component} path={route.path} />
             ))}
-            <Route path="/station/:stationId" element={<StationDetails />} />
+            <Route path='/station/:stationId' element={<StationDetails />} />
           </Routes>
         </div>
       </main>
-      <MusicPlayer videoId={"04854XqcfCY"} />
+      <MusicPlayer videoId={'04854XqcfCY'} />
     </section>
   );
 };
