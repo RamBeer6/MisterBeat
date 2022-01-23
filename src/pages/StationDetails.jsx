@@ -24,6 +24,7 @@ function _StationDetails(props) {
       if (stationId) {
         const station = await stationService.getById(stationId)
         setStation(station)
+        setIsLikedStation(props.user.likedStations.find(likedStation => likedStation === stationId))
       } else stationService.save()
     })()
     //eslint-disable-next-line
@@ -34,6 +35,15 @@ function _StationDetails(props) {
       await props.loadSongs(station._id)
     })()
   }, [station])
+
+  useEffect(() => {
+    if(isLikedStation) setLikedStation()
+    else setUnlinkedStation()
+  }, [isLikedStation])
+
+  useEffect(() => {
+    if(isSongSearch) executeScroll()
+  }, [isSongSearch])
   
 
   const onRemoveSong = async (songId, songTitle) => {
@@ -47,7 +57,6 @@ function _StationDetails(props) {
 
   const onToggleSongSearch = () => {
     setIsSongSearch(!isSongSearch)
-    if(isSongSearch) executeScroll()
   }
 
   const onAddSong = async (song) => {
@@ -82,6 +91,8 @@ function _StationDetails(props) {
   const setLikedStation = async () => {
     console.log('like station');
     const user = props.user
+    const isExists = user.likedStations.find(likedStation => likedStation === station._id)
+    if(isExists) return
     try {
       await props.likeStation(station._id, user)
     } catch (err) {
@@ -102,8 +113,8 @@ function _StationDetails(props) {
   const onSetLikedStation = (value) => {
     if(typeof value !== 'boolean') return
     setIsLikedStation(value)
-    if(isLikedStation) setLikedStation()
-    else setUnlinkedStation()
+    // if(isLikedStation) setLikedStation()
+    // else setUnlinkedStation()
   }
 
   const { songs } = props

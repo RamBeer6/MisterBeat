@@ -372,18 +372,18 @@ function _createStation() {
 function _createStations() {
   const st1 = {
     _id: '1111',
-    name: 'Beyonce Hits',
-    tags: ['Happy', 'Chill'],
+    name: 'This is Bruno Mars',
+    tags: ['Chill','Happy'],
     createdAt: 1541652422,
     createdBy: {
       _id: 'u101',
       fullname: 'Puki Ben David',
       imgUrl: 'http://some-photo/',
     },
-    imgUrl: 'https://i.scdn.co/image/ab67706c0000da8401bf247b51f811397ee74800',
+    imgUrl: 'https://i.scdn.co/image/ab67706f000000026ce408042bebe4b19a5ede72',
     likedByUsers: [
       { _id: 'u106', userName: 'Muki6', imgUrl: 'img2.png' },
-      { _id: 'u105', userName: 'Muki5', imgUrl: 'img2.png' },
+      { _id: 'u102', userName: 'Muki2', imgUrl: 'img2.png' },
     ],
     songs: [
       {

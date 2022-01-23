@@ -14,12 +14,9 @@ import { setPlayer } from '../store/actions/music.player.action'
 
 class _MusicPlayer extends React.Component {
   state = {
-    // url: null, FROM PROPS I THINK
-    // station:[],
-    // currSongIdx:0,
     playing: false,
     controls: false,
-    volume: 0.8,
+    volume: 0.3,
     muted: false,
     played: 0,
     loaded: 0,
@@ -33,21 +30,15 @@ class _MusicPlayer extends React.Component {
     }))
   }
 
-  componentDidUpdate() {
-    // console.log('currSongIdx:' , this.props.currSongIdx)
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.currSongId !== this.props.currSongId && this.props.currSongId === ''){
+      this.handlePause()
+    }
   }
 
   onReady = (ev) => {
     this.props.setPlayer(ev.target)
   }
-
-  // loadStation=()=>{
-  //   this.setState((prevState) => ({ ...prevState, station: this.props.currSongs }));
-  // }
-
-  // setPlaying=()=>{
-  //   this.setState((prevState) => ({ ...prevState, playing: this.props.isPlaying }));
-  // }
 
   ref = (player) => {
     this.player = player
@@ -92,8 +83,6 @@ class _MusicPlayer extends React.Component {
   }
 
   handleProgress = (state) => {
-    // console.log("onProgress");
-    // We only want to update time slider if we are not currently seeking
     if (!this.state.seeking) this.setState(state)
   }
 
@@ -104,8 +93,10 @@ class _MusicPlayer extends React.Component {
   render() {
     const { playing, controls, volume, muted, played, loaded, duration } =
       this.state
-    const { videoId } = this.props
+    // const { videoId } = this.props
+    const videoId  = this.props.currSongId
     let url = `https://www.youtube.com/watch?v=${videoId}`
+    console.log('currSongId:' , this.props.currSongId);
 
     return (
       <section className="player-container">
@@ -201,6 +192,7 @@ function mapStateToProps(state) {
     player: state.musicPlayerModule.player,
     isPlaying: state.musicPlayerModule.isPlaying,
     currSongIdx: state.musicPlayerModule.currSongIdx,
+    currSongId: state.musicPlayerModule.currSongId,
     currStationId: state.musicPlayerModule.currStationId
   }
 }
