@@ -1,3 +1,21 @@
+export function playSong(songId, songIdx) {
+  return (dispatch) => {
+    dispatch({
+      type: 'SET_SONG',
+      currSongId: songId,
+    })
+  }
+}
+
+export function pauseSong() {
+  return (dispatch) => {
+    dispatch({
+      type: 'SET_SONG',
+      currSongId: '',
+    })
+  }
+}
+
 export function setPlayer(player) {
   return (dispatch) => {
     dispatch({
@@ -7,15 +25,15 @@ export function setPlayer(player) {
   }
 }
 
-export function playSong(songIdx) {
-  console.log('action songIdx:' , songIdx);
-  return (dispatch) => {
-    dispatch({
-      type: 'SET_SONG',
-      currSongIdx: songIdx
-    })
-  }
-}
+// export function playSong(songIdx) {
+//   console.log('action songIdx:' , songIdx);
+//   return (dispatch) => {
+//     dispatch({
+//       type: 'SET_SONG',
+//       currSongIdx: songIdx
+//     })
+//   }
+// }
 
 // export function setSongIdx(idx) {
 //   return (dispatch) => {

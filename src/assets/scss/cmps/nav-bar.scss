@@ -10,17 +10,26 @@
   color: whitesmoke;
   background-color: #1d1a1a;
 
+  .active > li {
+    color: #1db954;   
+  }
+
   li {
     display: flex;
-    // align-items: center;
+    align-items: center;
     width: fit-content;
-    padding-left: 10px;
+    padding-left: 15px;
     list-style-type: none;
     gap: 5px;
-    font-size: 0.755rem;
+    // font-size: 0.755rem;
     letter-spacing: 0.55px;
     color: gray;
     transition: color 300ms ease-in-out;
+    margin: 10px 0;
+
+    p {
+      margin: 0;
+    }
   }
 
   li:hover {

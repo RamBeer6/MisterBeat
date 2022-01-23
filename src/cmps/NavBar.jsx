@@ -9,27 +9,27 @@ export default function NavBar() {
   return (
     <nav className='nav-bar'>
       <Link to='/'>
-        <img className='nav-bar__logo' src={logo} alt='logo' />
+        <img className="nav-bar__logo" src={logo} alt='logo' />
       </Link>
 
       <ul className='nav-bar-list'>
-        <NavLink to='/' className='active-option'>
+        <NavLink to='/' className="active-option">
           <li>
-            <div className='symbol fas fa-home' />
+            <div className="symbol fas fa-home" />
             <NavBarOptions title='Home' />
           </li>
         </NavLink>
 
-        <NavLink to='/search' className='active-option'>
+        <NavLink to='/search' className="active-option">
           <li>
-            <div className='symbol fas fa-search' />
+            <div className="symbol fas fa-search" />
             <NavBarOptions title='Search' />
           </li>
         </NavLink>
 
-        <NavLink to='/library' className='active-option'>
+        <NavLink to='/library' className="active-option">
           <li>
-            <div className='symbol fas fa-compact-disc' />
+            <div className="symbol fas fa-compact-disc" />
             <NavBarOptions title='Your Library' />
           </li>
         </NavLink>
@@ -41,15 +41,15 @@ export default function NavBar() {
           </li>
         </NavLink>
 
-        <NavLink to='/likedSongs' className='active-option'>
+        <NavLink to='/likedSongs' className="active-option">
           <li className='liked'>
-            <div className='symbol fas fa-thumbs-up' />
+            <div className="symbol fas fa-thumbs-up" />
             <NavBarOptions title='Liked Songs' />
           </li>
         </NavLink>
       </ul>
 
-      <strong className='nav-bar__title'>Playlists</strong>
+      <strong className="nav-bar__title">Playlists</strong>
       <hr />
       <li>
         <NavBarOptions title='Beyonce' />

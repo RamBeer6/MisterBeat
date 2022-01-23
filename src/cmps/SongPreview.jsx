@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import { BarWave } from '../cmps/BarWave'
 
-import { playSong } from '../store/actions/music.player.action'
+import { playSong, pauseSong } from '../store/actions/music.player.action'
 import { likeSong, unlikeSong } from '../store/actions/user.action'
 
 function _SongPreview (props) {
@@ -16,10 +16,19 @@ function _SongPreview (props) {
     setIsLiked(user.likedSongs.find(likedSong => likedSong.id === song.id))
   }, [])
 
-  const onPlaySong = async (songIdx) => {
+  const onPlaySong = async (songId, songIdx) => {
     try {
       setIsPlaying(!isPlaying)
-      await playSong(songIdx)
+      await props.playSong(songId ,songIdx)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const onPauseSong = async () => {
+    try {
+      setIsPlaying(!isPlaying)
+      await props.pauseSong()
     } catch (err) {
       console.log(err)
     }
@@ -54,8 +63,8 @@ function _SongPreview (props) {
           <section className="song-preview" {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}>
-            {isHover && !isPlaying && <button className="play-btn" onClick={() => onPlaySong(idx)}><svg height="18" role="img" width="18" viewBox="0 0 24 24" className="UIBT7E6ZYMcSDl1KL62g"><polygon points="21.57 12 5.98 3 5.98 21 21.57 12" fill="currentColor"></polygon></svg></button>}
-            {isHover && isPlaying && <button className="pause-btn" onClick={() => setIsPlaying(!isPlaying)}>||</button>}
+            {isHover && !isPlaying && <button className="play-btn" onClick={() => onPlaySong(song.id, idx)}><svg height="18" role="img" width="18" viewBox="0 0 24 24" className="UIBT7E6ZYMcSDl1KL62g"><polygon points="21.57 12 5.98 3 5.98 21 21.57 12" fill="currentColor"></polygon></svg></button>}
+            {isHover && isPlaying && <button className="pause-btn" onClick={() => onPauseSong()}><svg height="18" role="img" width="18" viewBox="0 0 24 24" className="UIBT7E6ZYMcSDl1KL62g"><rect x="5" y="3" width="4" height="18" fill="currentColor"></rect><rect x="15" y="3" width="4" height="18" fill="currentColor"></rect></svg></button>}
             {!isHover && isPlaying && <BarWave />}
             {!isHover && !isPlaying && <h4 className="gray">{idx + 1}</h4>}
             <div className="song-info">
@@ -103,6 +112,7 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
   playSong,
+  pauseSong,
   likeSong,
   unlikeSong
 }
