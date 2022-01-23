@@ -1,5 +1,5 @@
 export function StationActions({ onToggleSongSearch, isLikedStation, onSetLikedStation }) {
-    console.log('isLikedStation' , isLikedStation);
+
     return (
         <section className="station-actions">
             <button className="play-btn" title="play"><svg height="28" role="img" width="28" viewBox="0 0 24 24" aria-hidden="true"><polygon points="21.57 12 5.98 3 5.98 21 21.57 12" fill="currentColor"></polygon></svg></button>

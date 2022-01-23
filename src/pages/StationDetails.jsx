@@ -24,6 +24,7 @@ function _StationDetails(props) {
       if (stationId) {
         const station = await stationService.getById(stationId)
         setStation(station)
+        console.log('reload:' , props.user);
         setIsLikedStation(props.user.likedStations.find(likedStation => likedStation === stationId))
       } else stationService.save()
     })()
@@ -89,9 +90,9 @@ function _StationDetails(props) {
   }
 
   const setLikedStation = async () => {
-    console.log('like station');
     const user = props.user
-    const isExists = user.likedStations.find(likedStation => likedStation === station._id)
+    const { stationId } = params
+    const isExists = user.likedStations.find(likedStation => likedStation === stationId)
     if(isExists) return
     try {
       await props.likeStation(station._id, user)
@@ -101,10 +102,10 @@ function _StationDetails(props) {
   }
 
   const setUnlinkedStation = async () => {
-    console.log('unlike station');
     const user = props.user
+    const { stationId } = params
     try {
-      await props.unlikeStation(station._id, user)
+      await props.unlikeStation(stationId, user)
     } catch (err) {
       console.log(err)
     }

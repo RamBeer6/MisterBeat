@@ -158,7 +158,6 @@ async function query(filterBy = null) {
   try {
     // return await httpService.get(`station${query}`)
     return await storageService.query(STORAGE_KEY).then((stations) => {
-      // console.log('stations service:' , stations);
       return stations.filter((station) => station.name.includes(query))
     })
   } catch (err) {
@@ -169,9 +168,7 @@ async function query(filterBy = null) {
 
 async function loadSongs(stationId, filterBy) {
   try {
-    // console.log('loadsongs stationId:' , stationId)
     const station = await getById(stationId)
-    // console.log('loadsongs from station:', station)
     return station.songs
   } catch (err) {
     console.log(err)
@@ -182,7 +179,6 @@ async function loadSongs(stationId, filterBy) {
 async function getById(stationId) {
   if (!stationId) return
   try {
-    // console.log('getById:' , stationId);
     // return await httpService.get(`/station/${stationId}`)
     return storageService.get(STORAGE_KEY, stationId);
   } catch (err) {
@@ -215,7 +211,6 @@ async function updateSongs(stationId, songs) {
       station.songs = songs
       save(station)
     })
-    // console.log('need to update songs:' , songs);
   } catch (err) {
     console.log(err);
     throw err;
@@ -261,10 +256,10 @@ async function addSongToLiked(song, user) {
 async function removeSongFromLiked(song, user) {
   try {
     if (user._id) {
-      const likedSongs = user.likedSongs.filter(
+      const updatelikedSongs = user.likedSongs.filter(
         (likedsong) => likedsong.id !== song.id
       )
-      user.likedSongs = likedSongs
+      user.likedSongs = updatelikedSongs
       return await userService.updateUser(user)
     }
   } catch (err) {
@@ -277,7 +272,19 @@ async function addStationToLiked(stationId, user) {
   try {
     if (user._id) {
       user.likedStations.push(stationId)
+      console.log('updated user:' , user);
       return await userService.updateUser(user)
+
+      // const miniUser = {
+      //   _id: user._id,
+      //   userName: user.userName,
+      //   imgUrl: user.imgUrl
+      // }
+
+      // getById(stationId).then((station) => {
+      //   station.likedByUsers.push(miniUser)
+      //   return storageService.put(STORAGE_KEY, station)
+      // })
     }
   } catch (err) {
     console.log(err)
@@ -288,11 +295,18 @@ async function addStationToLiked(stationId, user) {
 async function removeStationFromLiked(stationId, user) {
   try {
     if (user._id) {
-      const likedStations = user.likedStations.filter(
-        (likedstation) => likedstation !== stationId
+      const likedStations = user.likedStations.filter( likedstation => {
+        return likedstation !== stationId }
       )
       user.likedStations = likedStations
       return await userService.updateUser(user)
+
+      // getById(stationId).then((station) => {
+      //   const updatelikedByUsers = station.likedByUsers.filter(likedUser => {
+      //     return likedUser._id !== user._id})
+      //   station.likedByUsers = updatelikedByUsers
+      //   return storageService.put(STORAGE_KEY, station)
+      // })
     }
   } catch (err) {
     console.log(err)
