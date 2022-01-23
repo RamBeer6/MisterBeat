@@ -15,6 +15,7 @@
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
     "react-layer": "^2.0.0",
+    "react-material-music-player": "^1.1.2",
     "react-player": "^2.9.0",
     "react-redux": "^7.2.6",
     "react-router": "^6.2.1",
