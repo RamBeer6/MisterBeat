@@ -1,8 +1,19 @@
 export function playSong(songId, songIdx) {
+  // console.log('ACTION songId', songId);
   return (dispatch) => {
     dispatch({
       type: 'SET_SONG',
       currSongId: songId,
+    });
+  };
+}
+
+export function songIdx(currSongIdx) {
+  // console.log('songIdx ACTION', currSongIdx);
+  return (dispatch) => {
+    dispatch({
+      type: 'SET_IDX_SONG',
+      currSongIdx,
     });
   };
 }
@@ -26,7 +37,7 @@ export function setPlayer(player) {
 }
 
 export function onTogglePlay(isPlaying) {
-  console.log('ACTION - is PLAYING', isPlaying);
+  // console.log('ACTION - is PLAYING', isPlaying);
   return async (dispatch) => {
     dispatch({
       type: 'TOGGLE_ISPLAYING',
@@ -35,12 +46,40 @@ export function onTogglePlay(isPlaying) {
   };
 }
 
-export function setPlayerSongs(songsArray) {
-  console.log('songsArray', songsArray);
+export function setPlayerSongs(currSongs, currStationId) {
+  // console.log('ACTION - songsArray', currSongs);
   return async (dispatch) => {
     dispatch({
       type: 'SET_PLAYER_SONGS',
-      songsArray,
+      currSongs,
+      currStationId,
+    });
+  };
+}
+
+export function shuffleCurrSongs(shuffleSongs) {
+  return async (dispatch) => {
+    dispatch({
+      type: 'SET_SHUFFLE_SONGS',
+      shuffleSongs,
+    });
+  };
+}
+
+export function shuffle(isShuffle) {
+  return async (dispatch) => {
+    dispatch({
+      type: 'SET_SHUFFLE',
+      isShuffle,
+    });
+  };
+}
+
+export function songDetails(songDetails) {
+  return async (dispatch) => {
+    dispatch({
+      type: 'SET_SONG_OBJECT',
+      songDetails,
     });
   };
 }
