@@ -3,17 +3,17 @@ export function playSong(songId, songIdx) {
     dispatch({
       type: 'SET_SONG',
       currSongId: songId,
-    })
-  }
+    });
+  };
 }
 
-export function pauseSong() {
+export function pauseSong(songId, songIdx) {
   return (dispatch) => {
     dispatch({
-      type: 'SET_SONG',
-      currSongId: '',
-    })
-  }
+      type: 'PAUSE_SONG',
+      currSongId: songId,
+    });
+  };
 }
 
 export function setPlayer(player) {
@@ -21,8 +21,28 @@ export function setPlayer(player) {
     dispatch({
       type: 'SET_PLAYER',
       player,
-    })
-  }
+    });
+  };
+}
+
+export function onTogglePlay(isPlaying) {
+  console.log('ACTION - is PLAYING', isPlaying);
+  return async (dispatch) => {
+    dispatch({
+      type: 'TOGGLE_ISPLAYING',
+      isPlaying,
+    });
+  };
+}
+
+export function setPlayerSongs(songsArray) {
+  console.log('songsArray', songsArray);
+  return async (dispatch) => {
+    dispatch({
+      type: 'SET_PLAYER_SONGS',
+      songsArray,
+    });
+  };
 }
 
 // export function playSong(songIdx) {
@@ -49,16 +69,6 @@ export function setPlayer(player) {
 //     dispatch({
 //       type: 'SET_SONGS_TO_PLAYER',
 //       songs,
-//     })
-//   }
-// }
-
-// export function onTogglePlay(isPlaying) {
-//   console.log('ACTION - is PLAYING', isPlaying)
-//   return (dispatch) => {
-//     dispatch({
-//       type: 'TOGGLE_ISPLAYING',
-//       isPlaying,
 //     })
 //   }
 // }
