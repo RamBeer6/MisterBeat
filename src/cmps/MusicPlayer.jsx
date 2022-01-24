@@ -1,16 +1,17 @@
-import React, { Component, useState } from "react";
-import { connect } from "react-redux";
+import React, { Component, useState } from 'react';
+import { connect } from 'react-redux';
 // import YouTube from "react-youtube";
 // import ReactPlayer from 'react-player/lazy';
-import ReactPlayer from "react-player/youtube";
+import ReactPlayer from 'react-player/youtube';
 // import { IoIosArrowForward } from "react-icons/io";
 // import { IoIosArrowBack } from "react-icons/io";
-import { FaPlay } from "react-icons/fa";
-import { FaPause } from "react-icons/fa";
+import { FaPlay } from 'react-icons/fa';
+import { FaPause } from 'react-icons/fa';
 // import { FaVolumeUp } from "react-icons/fa";
-import Duration from "./Duration";
+import Duration from './Duration';
+import { onTogglePlay, playSong, pauseSong } from '../store/actions/music.player.action';
 
-import { setPlayer } from "../store/actions/music.player.action";
+import { setPlayer } from '../store/actions/music.player.action';
 
 class _MusicPlayer extends React.Component {
   state = {
@@ -23,18 +24,22 @@ class _MusicPlayer extends React.Component {
     duration: 0,
   };
 
-  componentDidMount() {
-    this.setState((prevState) => ({
-      ...prevState,
-      playing: !this.state.playing,
-    }));
-  }
+  // componentDidMount() {
+  //   this.setState((prevState) => ({
+  //     ...prevState,
+  //     playing: !this.state.playing,
+  //   }));
+  //   // console.log('🎵 cdm', this.state.playing);
+  // }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.currSongId !== this.props.currSongId && this.props.currSongId === '') {
-      this.handlePause()
-    }
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  // console.log('🎵 prevProps', prevProps);
+  // if (prevProps.currSongId !== this.props.currSongId && this.props.currSongId === '') {
+  //   // this.handlePlayPause();
+  //   this.handlePause();
+  // }
+  // console.log(' 🎵 cdu');
+  // }
 
   onReady = (ev) => {
     this.props.setPlayer(ev.target);
@@ -45,10 +50,22 @@ class _MusicPlayer extends React.Component {
   };
 
   handlePlayPause = () => {
-    this.setState((prevState) => ({
-      ...prevState,
-      playing: !this.state.playing,
-    }));
+    // console.log('handle play pause');
+    // this.setState((prevState) => ({
+    //   ...prevState,
+    //   playing: !this.state.playing,
+    // }));
+
+    // this.props.isPlaying(!this.props.isPlaying);
+    // console.log('🎵 ⏯');
+    this.props.onTogglePlay(!this.props.isPlaying);
+    //local state
+    // this.props.onTogglePlay(!this.props.isPlaying); // toggle store
+    // if (this.props.isPlaying) {
+    //   this.props.pauseSong();
+    // } else {
+    //   this.props.playSong();
+    // }
   };
 
   handleVolumeChange = (event) => {
@@ -59,11 +76,19 @@ class _MusicPlayer extends React.Component {
   };
 
   handlePlay = () => {
-    this.setState((prevState) => ({ ...prevState, playing: true }));
+    // console.log('🎵 ▶ handle play');
+    // this.props.onTogglePlay(true);
+    // this.setState((prevState) => ({ ...prevState, playing: true }));
+    // this.props.isPlaying(!this.props.isPlaying);
+    // this.props.onTogglePlay(this.state.playing);
+    // this.props.onTogglePlay(this.state.playing);// ???????????
   };
 
   handlePause = () => {
-    this.setState((prevState) => ({ ...prevState, playing: false }));
+    // console.log('🎵 ⏸ handle pause');
+    // this.props.onTogglePlay(false);
+    // this.setState((prevState) => ({ ...prevState, playing: false }));
+    // this.props.isPlaying(!this.props.isPlaying);
   };
 
   handelSeekMouseDown = (ev) => {
@@ -83,45 +108,62 @@ class _MusicPlayer extends React.Component {
   };
 
   handleProgress = (state) => {
-    if (!this.state.seeking) this.setState(state)
-  }
+    if (!this.state.seeking) this.setState(state);
+  };
 
   handleDuration = (duration) => {
     this.setState((prevState) => ({ ...prevState, duration: duration }));
   };
 
+  onStart = () => {
+    // console.log('start playing');
+    // console.log('this.props.isPlaying', this.props.isPlaying);
+    // console.log('this.playing', this.state.playing);
+    // console.log('currId song', this.props.currSongId);
+  };
+
+  nextSong = () => {
+    const { currSongs, currSongIdx } = this.props;
+    console.log('🎵 currSongs', currSongs);
+    console.log('🎵 currSongIdx', currSongIdx);
+  };
+
   render() {
-    const { playing, controls, volume, muted, played, loaded, duration } =
-      this.state
+    const { playing, controls, volume, muted, played, loaded, duration } = this.state;
+    const { isPlaying } = this.props;
+
     // const { videoId } = this.props
-    const videoId = this.props.currSongId
-    let url = `https://www.youtube.com/watch?v=${videoId}`
+    const videoId = this.props.currSongId;
+    let url = `https://www.youtube.com/watch?v=${videoId}`;
+    console.log('currSongId:', this.props.currSongId);
 
     return (
-      <section className="music-player-container">
+      <section className='music-player-container'>
         <ReactPlayer
           ref={this.ref}
-          className="react-player"
-          width="0px"
-          height="0px"
+          className='react-player'
+          width='0px'
+          height='0px'
           url={url}
-          playing={playing}
+          // playing={playing}
+          playing={isPlaying}
           controls={controls}
           volume={volume}
           muted={muted}
           onReady={this.onReady}
-          onStart={() => console.log("onStart")}
+          // onStart={() => console.log('onStart')}
+          onStart={this.onStart}
           onPlay={this.handlePlay}
           onPause={this.handlePause}
-          onBuffer={() => console.log("onBuffer")}
-          onSeek={(e) => console.log("onSeek", e)}
+          onBuffer={() => console.log('onBuffer')}
+          onSeek={(e) => console.log('onSeek', e)}
           onEnded={this.handleEnded}
-          onError={(e) => console.log("onError", e)}
+          onError={(e) => console.log('onError', e)}
           onProgress={this.handleProgress}
           onDuration={this.handleDuration}
         />
 
-        <div className="left-side-container">
+        <div className='left-side-container'>
           {/* <i className="far fa-heart"></i> */}
           <img
             src="https://media.pitchfork.com/photos/5cb88748090eeb2dcf25dec5/1:1/w_600/Beyonce_HomecomingTheLiveAlbum.jpg"
@@ -158,96 +200,85 @@ class _MusicPlayer extends React.Component {
           </svg> */}
         </div>
 
-        <div className="middle-player-container">
-          <div className="middle-controls-container">
-            <div className="middle-left-controls">
+        <div className='middle-player-container'>
+          <div className='middle-controls-container'>
+            <div className='middle-left-controls'>
               <svg //shuffle
-                role="img"
-                height="16"
-                width="16"
-                viewBox="0 0 16 16"
-                className="svg-shuffle"
-              >
-                <path d="M4.5 6.8l.7-.8C4.1 4.7 2.5 4 .9 4v1c1.3 0 2.6.6 3.5 1.6l.1.2zm7.5 4.7c-1.2 0-2.3-.5-3.2-1.3l-.6.8c1 1 2.4 1.5 3.8 1.5V14l3.5-2-3.5-2v1.5zm0-6V7l3.5-2L12 3v1.5c-1.6 0-3.2.7-4.2 2l-3.4 3.9c-.9 1-2.2 1.6-3.5 1.6v1c1.6 0 3.2-.7 4.2-2l3.4-3.9c.9-1 2.2-1.6 3.5-1.6z"></path>
+                role='img'
+                height='16'
+                width='16'
+                viewBox='0 0 16 16'
+                className='svg-shuffle'>
+                <path d='M4.5 6.8l.7-.8C4.1 4.7 2.5 4 .9 4v1c1.3 0 2.6.6 3.5 1.6l.1.2zm7.5 4.7c-1.2 0-2.3-.5-3.2-1.3l-.6.8c1 1 2.4 1.5 3.8 1.5V14l3.5-2-3.5-2v1.5zm0-6V7l3.5-2L12 3v1.5c-1.6 0-3.2.7-4.2 2l-3.4 3.9c-.9 1-2.2 1.6-3.5 1.6v1c1.6 0 3.2-.7 4.2-2l3.4-3.9c.9-1 2.2-1.6 3.5-1.6z'></path>
               </svg>
-              <button className="prev-next">
+              <button className='prev-btn'>
                 {/* <IoIosArrowForward /> */}
                 <svg //prev
-                  role="img"
-                  height="16"
-                  width="16"
-                  viewBox="0 0 16 16"
-                  className="svg-prev"
-                >
-                  <path d="M13 2.5L5 7.119V3H3v10h2V8.881l8 4.619z"></path>
+                  role='img'
+                  height='16'
+                  width='16'
+                  viewBox='0 0 16 16'
+                  className='svg-prev'>
+                  <path d='M13 2.5L5 7.119V3H3v10h2V8.881l8 4.619z'></path>
                 </svg>
               </button>
             </div>
-            <div className="middle-play-pause-controls">
-              <button className="play-pause" onClick={this.handlePlayPause}>
+            <div className='middle-play-pause-controls'>
+              <button className='play-pause' onClick={this.handlePlayPause}>
                 {/* {!playing ? <FaPlay className="play" /> : <FaPause />} */}
-                {!playing ? (
-                  <svg
-                    role="img"
-                    height="16"
-                    width="16"
-                    viewBox="0 0 16 16"
-                    className="svg-play"
-                  >
-                    <path d="M4.018 14L14.41 8 4.018 2z"></path>
+                {!isPlaying ? (
+                  <svg role='img' height='16' width='16' viewBox='0 0 16 16' className='svg-play'>
+                    <path d='M4.018 14L14.41 8 4.018 2z'></path>
                   </svg>
                 ) : (
                   <svg //pause
-                    role="img"
-                    height="16"
-                    width="16"
-                    viewBox="0 0 16 16"
-                    className="svg-pause"
-                  >
-                    <path fill="none" d="M0 0h16v16H0z"></path>
-                    <path d="M3 2h3v12H3zm7 0h3v12h-3z"></path>
+                    role='img'
+                    height='16'
+                    width='16'
+                    viewBox='0 0 16 16'
+                    className='svg-pause'>
+                    <path fill='none' d='M0 0h16v16H0z'></path>
+                    <path d='M3 2h3v12H3zm7 0h3v12h-3z'></path>
                   </svg>
                 )}
               </button>
             </div>
-            <div className="middle-right-controls">
-              <button className="prev-next">
+            <div className='middle-right-controls'>
+              <button className='next-btn' onClick={this.nextSong}>
                 {/* <IoIosArrowBack /> */}
                 <svg // next
-                  role="img"
-                  height="16"
-                  width="16"
-                  viewBox="0 0 16 16"
-                  className="svg-next"
-                >
-                  <path d="M11 3v4.119L3 2.5v11l8-4.619V13h2V3z"></path>
+                  role='img'
+                  height='16'
+                  width='16'
+                  viewBox='0 0 16 16'
+                  className='svg-next'>
+                  <path d='M11 3v4.119L3 2.5v11l8-4.619V13h2V3z'></path>
                 </svg>
               </button>
 
               <svg //play again
-                role="img"
-                height="16"
-                width="16"
-                viewBox="0 0 16 16"
-                className="svg-again"
-              >
-                <path d="M5.5 5H10v1.5l3.5-2-3.5-2V4H5.5C3 4 1 6 1 8.5c0 .6.1 1.2.4 1.8l.9-.5C2.1 9.4 2 9 2 8.5 2 6.6 3.6 5 5.5 5zm9.1 1.7l-.9.5c.2.4.3.8.3 1.3 0 1.9-1.6 3.5-3.5 3.5H6v-1.5l-3.5 2 3.5 2V13h4.5C13 13 15 11 15 8.5c0-.6-.1-1.2-.4-1.8z"></path>
+                role='img'
+                height='16'
+                width='16'
+                viewBox='0 0 16 16'
+                className='svg-again'>
+                <path d='M5.5 5H10v1.5l3.5-2-3.5-2V4H5.5C3 4 1 6 1 8.5c0 .6.1 1.2.4 1.8l.9-.5C2.1 9.4 2 9 2 8.5 2 6.6 3.6 5 5.5 5zm9.1 1.7l-.9.5c.2.4.3.8.3 1.3 0 1.9-1.6 3.5-3.5 3.5H6v-1.5l-3.5 2 3.5 2V13h4.5C13 13 15 11 15 8.5c0-.6-.1-1.2-.4-1.8z'></path>
               </svg>
             </div>
           </div>
 
           {/**current time */}
-          <div className="duration-progress-container">
+          <div className='duration-progress-container'>
             <Duration seconds={duration * played} />
 
             {/**progres bar */}
 
             <input
-              type="range"
-              className="progress-bar"
+              type='range'
+              className='progress-bar'
               min={0}
               max={0.999999}
-              step="any"
+              step='any'
               value={played}
               onMouseDown={this.onMouseDown}
               onChange={this.handleSeekChange}
@@ -259,7 +290,7 @@ class _MusicPlayer extends React.Component {
             <Duration seconds={duration} />
           </div>
         </div>
-        <div className="right-side-container">
+        <div className='right-side-container'>
           {/* <svg // lyrics
             role="img"
             height="16"
@@ -271,13 +302,12 @@ class _MusicPlayer extends React.Component {
           </svg> */}
 
           <svg //next songs
-            role="img"
-            height="16"
-            width="16"
-            viewBox="0 0 16 16"
-            className="svg-lists"
-          >
-            <path d="M2 2v5l4.33-2.5L2 2zm0 12h14v-1H2v1zm0-4h14V9H2v1zm7-5v1h7V5H9z"></path>
+            role='img'
+            height='16'
+            width='16'
+            viewBox='0 0 16 16'
+            className='svg-lists'>
+            <path d='M2 2v5l4.33-2.5L2 2zm0 12h14v-1H2v1zm0-4h14V9H2v1zm7-5v1h7V5H9z'></path>
           </svg>
 
           {/* <svg // connect to device
@@ -291,9 +321,9 @@ class _MusicPlayer extends React.Component {
             <path d="M0 3v8c0 .55.45 1 1 1h5v-1H1V3h5V2H1c-.55 0-1 .45-1 1zm3 11.5c0 .275.225.5.5.5H6v-1H3.5c-.275 0-.5.225-.5.5zM15 2H9c-.55 0-1 .45-1 1v11c0 .55.45 1 1 1h6c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1zm0 12H9V3h6v11zm-3-8a.75.75 0 100-1.5.75.75 0 000 1.5zm0 6a2 2 0 100-4 2 2 0 000 4zm0-3c.551 0 1 .449 1 1s-.449 1-1 1-1-.449-1-1 .449-1 1-1z"></path>
           </svg> */}
 
-          <div className="volume-container">
+          <div className='volume-container'>
             {/* <FaVolumeUp className="volume" /> */}
-            <button className="player-vol-btn">
+            <button className='player-vol-btn'>
               {!volume ? (
                 <svg //volume on
                   role="presentation"
@@ -325,7 +355,7 @@ class _MusicPlayer extends React.Component {
               type="range"
               min={0}
               max={1}
-              step="any"
+              step='any'
               value={volume}
               onChange={this.handleVolumeChange}
             />
@@ -342,15 +372,16 @@ function mapStateToProps(state) {
     isPlaying: state.musicPlayerModule.isPlaying,
     currSongIdx: state.musicPlayerModule.currSongIdx,
     currSongId: state.musicPlayerModule.currSongId,
-    currStationId: state.musicPlayerModule.currStationId
-  }
+    currStationId: state.musicPlayerModule.currStationId,
+    currSongs: state.musicPlayerModule.currSongs,
+  };
 }
 
 const mapDispatchToProps = {
   setPlayer,
+  onTogglePlay,
+  playSong,
+  pauseSong,
 };
 
-export const MusicPlayer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(_MusicPlayer);
+export const MusicPlayer = connect(mapStateToProps, mapDispatchToProps)(_MusicPlayer);

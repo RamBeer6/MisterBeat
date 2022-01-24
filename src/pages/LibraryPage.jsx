@@ -1,8 +1,11 @@
+import { LibraryNavBar } from "../cmps/LibraryNavBar";
+import { TagList } from "../cmps/TagList";
+
 export function LibraryPage() {
     return (
         <section className="library-page">
-            <h3>Library Page</h3>
-
+            <LibraryNavBar />
+            <TagList />
         </section>
-    )
+    );
 }

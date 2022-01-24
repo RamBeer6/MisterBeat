@@ -1,79 +1,109 @@
-import React, { useEffect, useState } from 'react'
-import { Draggable } from 'react-beautiful-dnd'
-import { connect } from 'react-redux'
+import React, { useEffect, useState } from 'react';
+import { Draggable } from 'react-beautiful-dnd';
+import { connect } from 'react-redux';
 
-import { BarWave } from '../cmps/BarWave'
+import { BarWave } from '../cmps/BarWave';
 
-import { playSong, pauseSong } from '../store/actions/music.player.action'
-import { likeSong, unlikeSong } from '../store/actions/user.action'
+import { playSong, pauseSong, onTogglePlay } from '../store/actions/music.player.action';
+import { likeSong, unlikeSong } from '../store/actions/user.action';
 
-function _SongPreview (props) {
-  const [isHover, setIsHover] = useState(false)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [isLiked, setIsLiked] = useState(false)
+function _SongPreview(props) {
+  const [isHover, setIsHover] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
-    setIsLiked(user.likedSongs.find(likedSong => likedSong.id === song.id))
-  }, [])
+    setIsLiked(user.likedSongs.find((likedSong) => likedSong.id === song.id));
+  }, []);
 
   const onPlaySong = async (songId, songIdx) => {
     try {
-      setIsPlaying(!isPlaying)
-      await props.playSong(songId ,songIdx)
+      setIsPlaying(true); //this comp
+      props.onTogglePlay(true); //the store
+      console.log(' 🚀 SongPreview - isPlaying to store', !isPlaying);
+      await props.playSong(songId, songIdx);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   const onPauseSong = async () => {
     try {
-      setIsPlaying(!isPlaying)
-      await props.pauseSong()
+      props.onTogglePlay(false); //the store
+      setIsPlaying(false); //this comp
+      // await props.pauseSong(songId, songIdx);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   const setLikeSong = async () => {
-    setIsLiked(true)
-    const user = props.user
+    setIsLiked(true);
+    const user = props.user;
     try {
-      await props.likeSong(song, user)
+      await props.likeSong(song, user);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   const setUnlikeSong = async () => {
-    setIsLiked(false)
-    const user = props.user
+    setIsLiked(false);
+    const user = props.user;
     try {
-      await props.unlikeSong(song, user)
+      await props.unlikeSong(song, user);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   // render() {
-    const { song, idx, onRemoveSong, user } = props
+  const { song, idx, onRemoveSong, user } = props;
 
-    return (
-      <Draggable draggableId={song.id} index={idx}>
-        {(provided) => (
-          <section className="song-preview" {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}
-            onMouseEnter={() => setIsHover(true)}
-            onMouseLeave={() => setIsHover(false)}>
-            {isHover && !isPlaying && <button className="play-btn" onClick={() => onPlaySong(song.id, idx)}><svg height="18" role="img" width="18" viewBox="0 0 24 24" className="UIBT7E6ZYMcSDl1KL62g"><polygon points="21.57 12 5.98 3 5.98 21 21.57 12" fill="currentColor"></polygon></svg></button>}
-            {isHover && isPlaying && <button className="pause-btn" onClick={() => onPauseSong()}><svg height="18" role="img" width="18" viewBox="0 0 24 24" className="UIBT7E6ZYMcSDl1KL62g"><rect x="5" y="3" width="4" height="18" fill="currentColor"></rect><rect x="15" y="3" width="4" height="18" fill="currentColor"></rect></svg></button>}
-            {!isHover && isPlaying && <BarWave />}
-            {!isHover && !isPlaying && <h4 className="gray">{idx + 1}</h4>}
-            <div className="song-info">
-              <img src={song.imgUrl} />
-              <div>
-                <h4>{song.title}</h4>
-                <h4 className="small gray">{song.artist}</h4>
-              </div>
+  return (
+    <Draggable draggableId={song.id} index={idx}>
+      {(provided) => (
+        <section
+          className='song-preview'
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}
+          onMouseEnter={() => setIsHover(true)}
+          onMouseLeave={() => setIsHover(false)}>
+          {isHover && !isPlaying && (
+            <button className='play-btn' onClick={() => onPlaySong(song.id, idx)}>
+              <svg
+                height='18'
+                role='img'
+                width='18'
+                viewBox='0 0 24 24'
+                className='UIBT7E6ZYMcSDl1KL62g'>
+                <polygon points='21.57 12 5.98 3 5.98 21 21.57 12' fill='currentColor'></polygon>
+              </svg>
+            </button>
+          )}
+          {isHover && isPlaying && (
+            <button className='pause-btn' onClick={() => onPauseSong()}>
+              <svg
+                height='18'
+                role='img'
+                width='18'
+                viewBox='0 0 24 24'
+                className='UIBT7E6ZYMcSDl1KL62g'>
+                <rect x='5' y='3' width='4' height='18' fill='currentColor'></rect>
+                <rect x='15' y='3' width='4' height='18' fill='currentColor'></rect>
+              </svg>
+            </button>
+          )}
+          {!isHover && isPlaying && <BarWave />}
+          {!isHover && !isPlaying && <h4 className='gray'>{idx + 1}</h4>}
+          <div className='song-info'>
+            <img src={song.imgUrl} />
+            <div>
+              <h4>{song.title}</h4>
+              <h4 className='small gray'>{song.artist}</h4>
             </div>
+          </div>
             <h4 className="small gray">{song.album}</h4>
             <h4 className="small gray">{song.duration}</h4>
             <div className="song-actions">
@@ -106,18 +136,16 @@ function mapStateToProps(state) {
     isPlaying: state.musicPlayerModule.isPlaying,
     currSongIdx: state.musicPlayerModule.currSongIdx,
     currStationId: state.musicPlayerModule.currStationId,
-    user: state.userModule.user
-  }
+    user: state.userModule.user,
+  };
 }
 
 const mapDispatchToProps = {
   playSong,
   pauseSong,
   likeSong,
-  unlikeSong
-}
+  unlikeSong,
+  onTogglePlay,
+};
 
-export const SongPreview = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(_SongPreview)
+export const SongPreview = connect(mapStateToProps, mapDispatchToProps)(_SongPreview);

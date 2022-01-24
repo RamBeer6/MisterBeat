@@ -1,8 +1,8 @@
-import { storageService } from './async-storage.service.js'
-import { httpService } from './http.service'
-import { userService } from './user.service'
+import { storageService } from './async-storage.service.js';
+import { httpService } from './http.service';
+import { userService } from './user.service';
 
-const STORAGE_KEY = 'station'
+const STORAGE_KEY = 'station';
 
 const gTags = [
   {
@@ -136,7 +136,7 @@ const gTags = [
     imgUrl: 'https://i.scdn.co/image/ab67706f00000002978b9f4a4f40b430fd0d837e',
     color: 'BE1DDA',
   },
-]
+];
 
 export const stationService = {
   query,
@@ -172,19 +172,19 @@ async function loadSongs(stationId, filterBy) {
     const station = await getById(stationId)
     return station.songs
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
 }
 
 async function getById(stationId) {
-  if (!stationId) return
+  if (!stationId) return;
   try {
     // return await httpService.get(`/station/${stationId}`)
     return storageService.get(STORAGE_KEY, stationId);
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
 }
 
@@ -221,9 +221,9 @@ async function updateSongs(stationId, songs) {
 async function removeSongStation(stationId, songId) {
   try {
     getById(stationId).then((station) => {
-      station.songs = station.songs.filter((song) => song.id !== songId)
-      return storageService.put(STORAGE_KEY, station)
-    })
+      station.songs = station.songs.filter((song) => song.id !== songId);
+      return storageService.put(STORAGE_KEY, station);
+    });
   } catch (err) {
     console.log(err);
     throw err;
@@ -233,9 +233,9 @@ async function removeSongStation(stationId, songId) {
 async function addSongStation(stationId, song) {
   try {
     getById(stationId).then((station) => {
-      station.songs.push(song)
-      return storageService.put(STORAGE_KEY, station)
-    })
+      station.songs.push(song);
+      return storageService.put(STORAGE_KEY, station);
+    });
   } catch (err) {
     console.log(err);
     throw err;
@@ -245,12 +245,12 @@ async function addSongStation(stationId, song) {
 async function addSongToLiked(song, user) {
   try {
     if (user._id) {
-      user.likedSongs.push(song)
-      return await userService.updateUser(user)
+      user.likedSongs.push(song);
+      return await userService.updateUser(user);
     }
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
 }
 
@@ -264,8 +264,8 @@ async function removeSongFromLiked(song, user) {
       return await userService.updateUser(user)
     }
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
 }
 
@@ -287,8 +287,8 @@ async function addStationToLiked(stationId, user) {
       return await userService.updateUser(user)
     }
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
 }
 
@@ -310,8 +310,8 @@ async function removeStationFromLiked(stationId, user) {
 
     }
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
 }
 
@@ -399,7 +399,7 @@ function _createStations() {
   const st1 = {
     _id: '1111',
     name: 'This is Bruno Mars',
-    tags: ['Chill','Happy'],
+    tags: ['Happy', 'Chill'],
     createdAt: 1541652422,
     createdBy: {
       _id: 'u101',
