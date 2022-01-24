@@ -1,7 +1,7 @@
-import { User } from "./User";
+// import { User } from "./User";
 
 export function AppHeader() {
   return <section className='app-header'>
-    <User />
+    {/* <User /> */}
   </section>;
 }
