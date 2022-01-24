@@ -150,7 +150,8 @@ export const stationService = {
   addSongToLiked,
   removeSongFromLiked,
   addStationToLiked,
-  removeStationFromLiked
+  removeStationFromLiked,
+  addNewStation
 }
 
 async function query(filterBy = null) {
@@ -271,20 +272,19 @@ async function removeSongFromLiked(song, user) {
 async function addStationToLiked(stationId, user) {
   try {
     if (user._id) {
+      const miniUser = {
+        _id: user._id,
+        userName: user.userName,
+        imgUrl: user.imgUrl
+      }
+
+      getById(stationId).then((station) => {
+        station.likedByUsers.push(miniUser)
+        return storageService.put(STORAGE_KEY, station)
+      })
+
       user.likedStations.push(stationId)
-      console.log('updated user:' , user);
       return await userService.updateUser(user)
-
-      // const miniUser = {
-      //   _id: user._id,
-      //   userName: user.userName,
-      //   imgUrl: user.imgUrl
-      // }
-
-      // getById(stationId).then((station) => {
-      //   station.likedByUsers.push(miniUser)
-      //   return storageService.put(STORAGE_KEY, station)
-      // })
     }
   } catch (err) {
     console.log(err)
@@ -295,23 +295,35 @@ async function addStationToLiked(stationId, user) {
 async function removeStationFromLiked(stationId, user) {
   try {
     if (user._id) {
+      getById(stationId).then((station) => {
+        const updatelikedByUsers = station.likedByUsers.filter(likedUser => {
+          return likedUser._id !== user._id})
+        station.likedByUsers = updatelikedByUsers
+        return storageService.put(STORAGE_KEY, station)
+      })
+
       const likedStations = user.likedStations.filter( likedstation => {
         return likedstation !== stationId }
       )
       user.likedStations = likedStations
       return await userService.updateUser(user)
 
-      // getById(stationId).then((station) => {
-      //   const updatelikedByUsers = station.likedByUsers.filter(likedUser => {
-      //     return likedUser._id !== user._id})
-      //   station.likedByUsers = updatelikedByUsers
-      //   return storageService.put(STORAGE_KEY, station)
-      // })
     }
   } catch (err) {
     console.log(err)
     throw err
   }
+}
+
+async function addNewStation(newStation, user) {
+    newStation.songs = []
+    newStation.createdAt = Date.now()
+    newStation.createdBy = user
+    newStation.likedByUsers = [] 
+    newStation.tags = [] 
+    // const addedStation = await httpService.put(`station`, stationToUpdate)
+    const addedStation = await storageService.post(STORAGE_KEY, newStation)
+    return addedStation;
 }
 
 function _createStation() {

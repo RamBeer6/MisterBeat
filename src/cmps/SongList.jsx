@@ -1,7 +1,7 @@
 import { Droppable } from 'react-beautiful-dnd'
 import { SongPreview } from './SongPreview'
 
-export function SongList({ stationId, songs, onRemoveSong }) {
+export function SongList({ stationId = "likedSongs", songs, onRemoveSong, fromLikedSong = false }) {
   return (
     <Droppable droppableId={stationId}>
       {(provided) => (
@@ -13,8 +13,8 @@ export function SongList({ stationId, songs, onRemoveSong }) {
             <h3>Duration</h3>
             <h3>Actions</h3>
           </div>
-          {songs.map((song, idx) => {
-            return <SongPreview key={song.id} song={song} idx={idx} onRemoveSong={onRemoveSong} />
+          {songs?.map((song, idx) => {
+            return <SongPreview key={song.id} song={song} idx={idx} onRemoveSong={onRemoveSong} fromLikedSong={fromLikedSong} />
           })}
           {provided.placeholder}
         </section>

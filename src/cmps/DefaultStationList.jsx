@@ -1,7 +1,7 @@
 import { StationPreview } from '../cmps/StationPreview'
 
 export function DefaultStationList({ stations }) {
-    stations.sort((s1,s2) => s2.likedByUsers.length - s1.likedByUsers.length)
+    stations.sort((s1,s2) => s2.likedByUsers?.length - s1.likedByUsers?.length)
 
     return(
         <section className="default-station-list">

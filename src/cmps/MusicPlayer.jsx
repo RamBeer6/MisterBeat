@@ -96,7 +96,6 @@ class _MusicPlayer extends React.Component {
     // const { videoId } = this.props
     const videoId = this.props.currSongId
     let url = `https://www.youtube.com/watch?v=${videoId}`
-    console.log('currSongId:', this.props.currSongId);
 
     return (
       <section className="music-player-container">
@@ -125,15 +124,15 @@ class _MusicPlayer extends React.Component {
         <div className="left-side-container">
           {/* <i className="far fa-heart"></i> */}
           <img
-            src="https://www.udiscovermusic.com/wp-content/uploads/2019/05/Queen-Hot-Space-album-cover-820.jpg"
+            src="https://media.pitchfork.com/photos/5cb88748090eeb2dcf25dec5/1:1/w_600/Beyonce_HomecomingTheLiveAlbum.jpg"
             alt="image"
           />
           <div className="p-container">
-            <p>Queen</p>
-            <p>We are the champions</p>
+            <span>Beyonce</span>
+            <span>Irreplaceable</span>
           </div>
           {/* <p>currSongs[setSongIdx].title</p> */}
-          <svg // love
+          {/* <svg // love
             role="img"
             height="16"
             width="16"
@@ -141,7 +140,7 @@ class _MusicPlayer extends React.Component {
             className="svg-love"
           >
             <path d="M13.764 2.727a4.057 4.057 0 00-5.488-.253.558.558 0 01-.31.112.531.531 0 01-.311-.112 4.054 4.054 0 00-5.487.253A4.05 4.05 0 00.974 5.61c0 1.089.424 2.113 1.168 2.855l4.462 5.223a1.791 1.791 0 002.726 0l4.435-5.195A4.052 4.052 0 0014.96 5.61a4.057 4.057 0 00-1.196-2.883zm-.722 5.098L8.58 13.048c-.307.36-.921.36-1.228 0L2.864 7.797a3.072 3.072 0 01-.905-2.187c0-.826.321-1.603.905-2.187a3.091 3.091 0 012.191-.913 3.05 3.05 0 011.957.709c.041.036.408.351.954.351.531 0 .906-.31.94-.34a3.075 3.075 0 014.161.192 3.1 3.1 0 01-.025 4.403z"></path>
-          </svg>
+          </svg> */}
           {/* 
           <svg // song img
             className="svg-mini-img"
@@ -303,7 +302,7 @@ class _MusicPlayer extends React.Component {
                   aria-label="Volume medium"
                   id="volume-icon"
                   viewBox="0 0 16 16"
-                  class="Svg-sc-1bi12j5-0 hDgDGI"
+                  className="Svg-sc-1bi12j5-0 hDgDGI"
                 >
                   <path d="M0 11.032v-6h2.802l5.198-3v12l-5.198-3H0zm7 1.27v-8.54l-3.929 2.27H1v4h2.071L7 12.302zm4.464-2.314q.401-.925.401-1.956 0-1.032-.4-1.957-.402-.924-1.124-1.623L11 3.69q.873.834 1.369 1.957.496 1.123.496 2.385 0 1.262-.496 2.385-.496 1.123-1.369 1.956l-.659-.762q.722-.698 1.123-1.623z"></path>
                 </svg>
@@ -315,13 +314,14 @@ class _MusicPlayer extends React.Component {
                   aria-label="Volume medium"
                   id="volume-icon"
                   viewBox="0 0 16 16"
-                  class="Svg-sc-1bi12j5-0 hDgDGI"
+                  className="Svg-sc-1bi12j5-0 hDgDGI"
                 >
                   <path d="M0 11.032v-6h2.802l5.198-3v12l-5.198-3H0zm7 1.27v-8.54l-3.929 2.27H1v4h2.071L7 12.302zm4.464-2.314q.401-.925.401-1.956 0-1.032-.4-1.957-.402-.924-1.124-1.623L11 3.69q.873.834 1.369 1.957.496 1.123.496 2.385 0 1.262-.496 2.385-.496 1.123-1.369 1.956l-.659-.762q.722-.698 1.123-1.623z"></path>
                 </svg>
               )}
             </button>
             <input
+              className="volume-input"
               type="range"
               min={0}
               max={1}

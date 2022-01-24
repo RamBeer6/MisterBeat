@@ -91,7 +91,7 @@ function _SongPreview (props) {
                   </svg>
                 </button>
               )}
-              {isHover && <button className="remove-btn" onClick={() => onRemoveSong(song.id, song.title)}><i className="fas fa-trash-alt"></i></button>}
+              {isHover && !props.fromLikedSong && <button className="remove-btn" onClick={() => onRemoveSong(song.id, song.title)}><i className="fas fa-trash-alt"></i></button>}
             </div>
           </section>
         )}

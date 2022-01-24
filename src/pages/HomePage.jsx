@@ -35,10 +35,8 @@ export class HomePage extends React.Component {
 
   render() {
     const { stations, tags } = this.state;
-    console.log("stations:", stations);
-    // console.log('tags:' , tags)
+ 
     if (!stations.length || !tags.length) return <SvgLoader />;
-
     return (
       <section className="home-page">
         {/* <AppHeader /> */}

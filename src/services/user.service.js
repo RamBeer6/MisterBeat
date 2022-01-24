@@ -5,16 +5,24 @@ const STORAGE_KEY = 'user'
 export const userService = {
   getLoggedinUser,
   updateUser,
+  updateLikedSongs,
 }
 
 function getLoggedinUser() {
-    const user = JSON.parse(sessionStorage.getItem(STORAGE_KEY))
-    if (user) return user
-    else { 
-       const guest = { _id: 'u101' ,userName: "Guest", likedSongs: [], likedStations: [] ,imgUrl: 'https://pbs.twimg.com/profile_images/746460305396371456/4QYRblQD.jpg' }
-       sessionStorage.setItem(STORAGE_KEY, JSON.stringify(guest))
-       return guest
+  const user = JSON.parse(sessionStorage.getItem(STORAGE_KEY))
+  if (user) return user
+  else {
+    const guest = {
+      _id: 'u101',
+      userName: 'Guest',
+      likedSongs: [],
+      likedStations: [],
+      imgUrl:
+        'https://pbs.twimg.com/profile_images/746460305396371456/4QYRblQD.jpg',
     }
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(guest))
+    return guest
+  }
 }
 
 async function updateUser(user) {
@@ -24,6 +32,16 @@ async function updateUser(user) {
     sessionStorage.setItem(STORAGE_KEY, JSON.stringify(user))
     // return updatedUser
     return user
+  } catch (err) {
+    throw err
+  }
+}
+
+async function updateLikedSongs(songs) {
+  try {
+    const loggedinUser = getLoggedinUser()
+    loggedinUser.likedSongs = songs
+    return updateUser(loggedinUser)
   } catch (err) {
     throw err
   }
