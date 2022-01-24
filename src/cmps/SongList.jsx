@@ -1,7 +1,10 @@
+import React from 'react'
 import { Droppable } from 'react-beautiful-dnd'
 import { SongPreview } from './SongPreview'
 
 export function SongList({ stationId = "likedSongs", songs, onRemoveSong, fromLikedSong = false }) {
+  if(!songs || !songs.length) return <React.Fragment></React.Fragment>
+  
   return (
     <Droppable droppableId={stationId}>
       {(provided) => (

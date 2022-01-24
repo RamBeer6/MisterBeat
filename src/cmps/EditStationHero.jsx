@@ -1,18 +1,22 @@
 import { useEffect, useState } from 'react'
 
-export function EditStationHero({ onAddStation }) {
+export function EditStationHero({ station, onSaveStation, onCloseEdit }) {
     const [stationInfo, setStationInfo] = useState({
+        _id: '',
         name: '',
         imgUrl: '',
         desc: ''
     })
+
+    useEffect(() => {
+        if(station._id) setStationInfo({...station})
+    },[])
 
     const handleChange = (ev) => {
         const field = ev.target.name
         const value = ev.target.value
         setStationInfo({ ...stationInfo, [field]: value })
     }
-
     
     return(
         <section className="edit-hero">
@@ -28,7 +32,10 @@ export function EditStationHero({ onAddStation }) {
 
                 <textarea name="desc" value={stationInfo.desc} placeholder="Add description" onChange={handleChange}></textarea>
 
-                <button className="save-btn" onClick={() => onAddStation(stationInfo)}>Save</button>
+                <button className="save-btn" onClick={() => {
+                    onCloseEdit(false)
+                    onSaveStation(stationInfo)
+                    }}>Save</button>
             </div>
         </section>
     )
