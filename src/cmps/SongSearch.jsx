@@ -54,7 +54,6 @@ export function SongSearch({ stationId, onAddSong }) {
           onChange={handleChange}
         />
         <a
-          // href="javascript:void(0);"
           className="search-button"
           onClick={cleanForm}
         >

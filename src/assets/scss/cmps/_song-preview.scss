@@ -10,7 +10,7 @@
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid transparent;
+    // border: 1px solid transparent;
     border-radius: 4px;
   }
 
@@ -60,11 +60,11 @@
       background: transparent;
       padding: 0;
       margin-right: 25px;
-      
+
       svg {
         fill: rgba(255, 255, 255, 0.7);
         &.liked {
-          fill: #1DB954;
+          fill: #1db954;
         }
       }
     }

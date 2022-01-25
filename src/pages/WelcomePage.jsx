@@ -8,10 +8,10 @@
 
 export const WelcomePage = () => {
     return (
-        <section>
+        <section className="welcome-page">
             {/* <LoginSignup /> */}
-            <header className="header">
-                <ul className="welcome-header-ul">
+            <header>
+                <ul>
                     <li>Log in</li>
                     <li>Sign up</li>
                 </ul>
@@ -24,6 +24,7 @@ export const WelcomePage = () => {
                 <button className="hero-btn">Let's get started</button>
                 <div className="waves"></div>
             </main >
+
         </section >
     );
 };

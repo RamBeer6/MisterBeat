@@ -3,6 +3,7 @@ import { SongPreview } from './SongPreview';
 import React, { useState, useEffect, useRef } from 'react';
 import { setPlayerSongs } from '../store/actions/music.player.action';
 import { connect } from 'react-redux';
+import { SvgLoader } from './SvgLoader';
 
 export function _SongList({
   stationId = 'likedSongs',
@@ -16,6 +17,7 @@ export function _SongList({
     setPlayerSongs(songs);
   });
 
+  if (!songs.length) return <SvgLoader />;
   return (
     <Droppable droppableId={stationId}>
       {(provided) => (

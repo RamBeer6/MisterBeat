@@ -1,4 +1,4 @@
-// import { WelcomePage } from "./pages/WelcomePage";
+import { WelcomePage } from "./pages/WelcomePage";
 import { HomePage } from "./pages/HomePage";
 import { SearchPage } from "./pages/SearchPage";
 import { LibraryPage } from "./pages/LibraryPage";

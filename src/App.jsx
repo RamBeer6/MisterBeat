@@ -2,17 +2,17 @@ import React from "react";
 import { Routes, Route } from "react-router";
 import routes from "./routes";
 import { StationDetails } from "./pages/StationDetails";
-// import { AppHeader } from "./cmps/AppHeader";
+import { LoginSignup } from "./pages/LoginSignup";
 import { MusicPlayer } from "./cmps/MusicPlayer";
 import NavBar from "./cmps/NavBar";
 import { WelcomePage } from "./pages/WelcomePage";
 
 export const App = () => {
-  const isWelcome = true;
-  // const isLogIn = true;
+  const isWelcome = false;
   return (
     <section>
       {isWelcome ? (
+        // <LoginSignup />
         <WelcomePage />
       ) : (
         <>

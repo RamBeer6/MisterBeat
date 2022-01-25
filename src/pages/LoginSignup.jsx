@@ -46,7 +46,8 @@ export function LoginSignup() {
                 </section>
             ) : (
                 <section className="login-signup-page">
-                    <header style={{ marginBottom: "15px" }}>                        <img src={logo} alt="logo" />
+                    <header style={{ marginBottom: "15px" }}>
+                        <img src={logo} alt="logo" />
                     </header>
                     <ul style={{ marginTop: "40px" }}>
                         <h5>Sign up with your email address</h5>

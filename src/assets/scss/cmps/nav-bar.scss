@@ -1,5 +1,8 @@
 .nav-bar {
+  position: sticky;
   left: 0;
+  top: 0;
+  // z-index: 2;
   // padding-left: 10px;
   // padding-right: 10px;
   height: 100vh;
@@ -11,7 +14,7 @@
   background-color: #1d1a1a;
 
   .active > li {
-    color: #1db954;   
+    color: #1db954;
   }
 
   li {
@@ -40,28 +43,23 @@
   .liked:hover {
     color: rgb(15, 204, 56);
   }
-}
 
-.nav-bar > hr {
-  border: 1px solid #282828;
-  width: 90%;
-  margin: 10px auto;
-}
+  > hr {
+    border: 1px solid #282828;
+    width: 90%;
+    margin: 10px auto;
+  }
 
-// .nav-bar__logo {
-//   margin: auto;
-//   width: 100%;
-// }
+  .nav-bar__title {
+    text-transform: uppercase;
+    margin-left: 14px;
+    // padding-left: 10px;
+    font-size: 12px;
+    font-size: 14px;
+  }
 
-.nav-bar__title {
-  text-transform: uppercase;
-  // margin-left: 10px;
-  padding-left: 10px;
-  font-size: 12px;
-  font-size: 14px;
-}
-
-.symbol {
-  font-size: rem(18px);
-  width: 26px;
+  .symbol {
+    font-size: rem(18px);
+    width: 26px;
+  }
 }
