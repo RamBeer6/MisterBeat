@@ -1,7 +1,9 @@
+import React from 'react'
 import { SuggestedSongPreview } from '../cmps/SuggestedSongPreview'
 
 export function SuggestedSongList({ songs, onAddSong }) {
-    console.log('suggested songs:' , songs);
+    if(!songs || !songs.length) return <React.Fragment></React.Fragment>
+
     return (
         <section className="suggested-list">
           <div className="suggested-list-head">

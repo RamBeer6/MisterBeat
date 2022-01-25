@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router";
 import routes from "./routes";
 import { StationDetails } from "./pages/StationDetails";
@@ -8,16 +8,18 @@ import NavBar from "./cmps/NavBar";
 import { WelcomePage } from "./pages/WelcomePage";
 
 export const App = () => {
-  const isWelcome = false;
+  const [isWelcome, setIsWelcome] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   return (
     <section>
       {isWelcome ? (
-        // <LoginSignup />
-        <WelcomePage />
+        <WelcomePage setIsWelcome={setIsWelcome} setIsLogin={setIsLogin} />
+      ) : isLogin ? (
+        <LoginSignup />
       ) : (
         <>
           <main className="main">
-            <NavBar />
+            <NavBar setIsWelcome={setIsWelcome} setIsLogin={setIsLogin} />
             <div className="main-container">
               {/* <SvgLoader /> //Example */}
               <Routes>

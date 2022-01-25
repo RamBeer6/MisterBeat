@@ -2,7 +2,8 @@
 import { useState } from "react";
 import logo from "../assets/imgs/logo.png";
 
-export function LoginSignup() {
+export function LoginSignup(props) {
+    console.log('props', props);
     const [isLogin, setIsLogin] = useState(true);
 
     return (

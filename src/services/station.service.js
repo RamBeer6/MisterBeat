@@ -151,7 +151,9 @@ export const stationService = {
   removeSongFromLiked,
   addStationToLiked,
   removeStationFromLiked,
-  addNewStation
+  addNewStation,
+  removeStation,
+  updateStation
 }
 
 async function query(filterBy = null) {
@@ -280,6 +282,7 @@ async function addStationToLiked(stationId, user) {
 
       getById(stationId).then((station) => {
         station.likedByUsers.push(miniUser)
+        console.log('station likedByUsers:' , station);
         return storageService.put(STORAGE_KEY, station)
       })
 
@@ -316,6 +319,8 @@ async function removeStationFromLiked(stationId, user) {
 }
 
 async function addNewStation(newStation, user) {
+  console.log('add new station:' , newStation);
+  try {
     newStation.songs = []
     newStation.createdAt = Date.now()
     newStation.createdBy = user
@@ -324,6 +329,30 @@ async function addNewStation(newStation, user) {
     // const addedStation = await httpService.put(`station`, stationToUpdate)
     const addedStation = await storageService.post(STORAGE_KEY, newStation)
     return addedStation;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+    
+}
+
+async function updateStation(station, user) {
+  try {
+    const updatedStation = await storageService.put(STORAGE_KEY, station)
+    return updatedStation;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
+async function removeStation(stationId) {
+    try {
+      return await storageService.remove(STORAGE_KEY, stationId)
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
 }
 
 function _createStation() {

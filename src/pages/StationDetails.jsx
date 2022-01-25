@@ -1,28 +1,29 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { connect } from 'react-redux';
 
 import { stationService } from '../services/station.service';
-import { loadSongs, updateSongs, removeSong, addSong } from '../store/actions/station.action';
+import { loadSongs, updateSongs, removeSong, addSong, removeStation, updateStation } from '../store/actions/station.action';
 import { onTogglePlay, setPlayerSongs, playSong } from '../store/actions/music.player.action';
 import { likeStation, unlikeStation } from '../store/actions/user.action';
 
+import { StationHero } from '../cmps/StationHero';
 import { StationActions } from '../cmps/StationActions';
 import { SongList } from '../cmps/SongList';
 import { SongSearch } from '../cmps/SongSearch';
 
 function _StationDetails(props) {
-  const [station, setStation] = useState([]);
-  const [isSongSearch, setIsSongSearch] = useState(false);
-  const [isLikedStation, setIsLikedStation] = useState(false);
-
-  const myRef = useRef(null);
-  const params = useParams();
+  const [station, setStation] = useState([])
+  const [isSongSearch, setIsSongSearch] = useState(false)
+  const [isLikedStation, setIsLikedStation] = useState(false)
+  const myRef = useRef(null)
+  const params = useParams()
+  const navigate = useNavigate()
 
   useEffect(() => {
     (async () => {
-      const { stationId } = params;
+      const { stationId } = params
       if (stationId) {
         const station = await stationService.getById(stationId);
         setStation(station);
@@ -32,20 +33,19 @@ function _StationDetails(props) {
     //eslint-disable-next-line
   }, []);
 
+  // ComponentWillUnmount
+  useEffect(() => {
+    return () => {
+      setStation({})
+      props.loadSongs('')
+    }
+  }, [])
+
   useEffect(() => {
     (async () => {
       await props.loadSongs(station._id);
     })();
-  }, [station]);
-
-  // useEffect(() => {
-  //   if(props.user.likedStations.includes(params.stationId)) {
-  //     setIsLikedStation(true)
-  //     return
-  //   }
-  //   if(isLikedStation) setLikedStation()
-  //   else setUnlikedStation()
-  // }, [isLikedStation])
+  }, [station])
 
   useEffect(() => {
     if (isSongSearch) executeScroll();
@@ -90,7 +90,7 @@ function _StationDetails(props) {
     const [song] = newSongs.splice(source.index, 1);
     newSongs.splice(destination.index, 0, song);
     props.updateSongs(stationId, newSongs);
-  };
+  }
 
   const setLikedStation = async () => {
     setIsLikedStation(true);
@@ -134,18 +134,40 @@ function _StationDetails(props) {
     } catch (err) {
       // console.log(err);
     }
-  };
+  }
+
+  const onRemoveStation = async (stationId) => {
+    try {
+      await props.removeStation(stationId)
+      setStation({})
+      navigate('/')
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const onSaveStation = async (station) => {
+    console.log('onSave stationDetails:' , station);
+    try {
+      const newStation = await props.updateStation(station, props.user)
+      setStation({ ...newStation })
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   const { songs } = props;
 
   return (
     <section className='station-details'>
-      {/* <StationHero /> */}
+      <StationHero station={station} onSaveStation={onSaveStation} />
       <StationActions
         onGetSongs={onGetSongs}
         onToggleSongSearch={onToggleSongSearch}
         isLikedStation={isLikedStation}
         onSetLikedStation={onSetLikedStation}
+        stationId={params.stationId}
+        onRemoveStation={onRemoveStation}
       />
       <DragDropContext onDragEnd={onDragEnd}>
         <SongList stationId={params.stationId} songs={songs} onRemoveSong={onRemoveSong} />
@@ -175,6 +197,8 @@ const mapDispatchToProps = {
   likeStation,
   unlikeStation,
   setPlayerSongs,
+  removeStation,
+  updateStation,
   onTogglePlay,
   playSong,
 };

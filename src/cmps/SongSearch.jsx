@@ -63,7 +63,7 @@ export function SongSearch({ stationId, onAddSong }) {
 
       {/* {isSearching && <div>Searching ...</div>} */}
       {isSearching && <LoaderDots />}
-      {txt && songs?.length && (
+      {txt && (
         <SuggestedSongList songs={songs} onAddSong={onAddSong} />
       )}
     </section>

@@ -1,12 +1,14 @@
-import { Droppable } from 'react-beautiful-dnd';
-import { SongPreview } from './SongPreview';
-import React, { useState, useEffect, useRef } from 'react';
-import { setPlayerSongs } from '../store/actions/music.player.action';
-import { connect } from 'react-redux';
-import { SvgLoader } from './SvgLoader';
+import React, { useState, useEffect, useRef } from "react";
+import { connect } from "react-redux";
+import { SvgLoader } from "./SvgLoader";
+import { Droppable } from "react-beautiful-dnd";
 
-export function _SongList({
-  stationId = 'likedSongs',
+import { setPlayerSongs } from "../store/actions/music.player.action";
+import { SongPreview } from "./SongPreview";
+
+// function _SongList({ stationId = "likedSongs", songs, onRemoveSong, fromLikedSong = false, setPlayerSongs }) {
+function _SongList({
+  stationId,
   songs,
   onRemoveSong,
   fromLikedSong = false,
@@ -15,14 +17,28 @@ export function _SongList({
   useEffect(() => {
     // console.log('useEffect in songlist songs', songs);
     setPlayerSongs(songs);
-  });
+  }, []);
+
+  if (!songs || !songs.length) return <React.Fragment></React.Fragment>;
+
+  // export function _SongList({
+  //   stationId = 'likedSongs',
+  //   songs,
+  //   onRemoveSong,
+  //   fromLikedSong = false,
+  //   setPlayerSongs,
+  // }) {
 
   if (!songs.length) return <SvgLoader />;
   return (
     <Droppable droppableId={stationId}>
       {(provided) => (
-        <section className='song-list' {...provided.droppableProps} ref={provided.innerRef}>
-          <div className='song-list-head'>
+        <section
+          className="song-list"
+          {...provided.droppableProps}
+          ref={provided.innerRef}
+        >
+          <div className="song-list-head">
             <h3>#</h3>
             <h3>Title</h3>
             <h3>Album</h3>

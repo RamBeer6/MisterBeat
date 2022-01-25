@@ -5,6 +5,8 @@ export function StationActions({
   isLikedStation,
   onSetLikedStation,
   onGetSongs,
+  onRemoveStation,
+  stationId
 }) {
   // console.log('isLikedStation' , isLikedStation);
   const [isStationPlaying, setStationPlaying] = useState(false);
@@ -68,6 +70,7 @@ export function StationActions({
             d='M5.998 13.999A2 2 0 105.999 18a2 2 0 00-.001-4zm10.001 0A2 2 0 1016 18a2 2 0 000-4zm10.001 0A2 2 0 1026.001 18 2 2 0 0026 14z'></path>
         </svg>
       </button>
+      <button className="remove-btn" onClick={() => onRemoveStation(stationId)}><i className="fas fa-trash-alt"></i></button>
     </section>
   );
 }
