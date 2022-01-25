@@ -159,10 +159,10 @@ export const stationService = {
 async function query(filterBy = null) {
   const query = !filterBy?.txt ? '' : `?name=${filterBy.txt}`;
   try {
-    // return await httpService.get(`station${query}`)
-    return await storageService.query(STORAGE_KEY).then((stations) => {
-      return stations.filter((station) => station.name.includes(query))
-    })
+    return await httpService.get(`station${query}`)
+    // return await storageService.query(STORAGE_KEY).then((stations) => {
+    //   return stations.filter((station) => station.name.includes(query))
+    // })
   } catch (err) {
     console.log(err);
     throw err;
@@ -182,8 +182,9 @@ async function loadSongs(stationId, filterBy) {
 async function getById(stationId) {
   if (!stationId) return;
   try {
-    // return await httpService.get(`/station/${stationId}`)
-    return storageService.get(STORAGE_KEY, stationId);
+    const station = await httpService.get(`station/${stationId}`)
+    // return storageService.get(STORAGE_KEY, stationId)
+    return station
   } catch (err) {
     console.log(err);
     throw err;
@@ -191,11 +192,13 @@ async function getById(stationId) {
 }
 
 async function save(station) {
-  if (!station) station = _createStation();
+  // if (!station) station = _createStation();
   if (station._id) {
-    return storageService.put(STORAGE_KEY, station);
+    return await httpService.put(`station/${station._id}`, station)
+    // return storageService.put(STORAGE_KEY, station);
   } else {
-    return storageService.post(STORAGE_KEY, station);
+    return await httpService.post('station', station)
+    // return storageService.post(STORAGE_KEY, station);
   }
 }
 
@@ -210,10 +213,13 @@ async function getTags() {
 
 async function updateSongs(stationId, songs) {
   try {
-    getById(stationId).then((station) => {
-      station.songs = songs
-      save(station)
-    })
+    const station = await getById(stationId)
+    station.songs = songs
+    await save(station)
+    // getById(stationId).then((station) => {
+    //   station.songs = songs
+    //   save(station)
+    // })
   } catch (err) {
     console.log(err);
     throw err;
@@ -222,10 +228,14 @@ async function updateSongs(stationId, songs) {
 
 async function removeSongStation(stationId, songId) {
   try {
-    getById(stationId).then((station) => {
-      station.songs = station.songs.filter((song) => song.id !== songId);
-      return storageService.put(STORAGE_KEY, station);
-    });
+    const station = await getById(stationId)
+    station.songs = station.songs.filter(song => song.id !== songId)
+    await httpService.put(`station/${station._id}`, station)
+
+    // getById(stationId).then((station) => {
+    //   station.songs = station.songs.filter((song) => song.id !== songId);
+    //   return storageService.put(STORAGE_KEY, station);
+    // });
   } catch (err) {
     console.log(err);
     throw err;
@@ -234,10 +244,13 @@ async function removeSongStation(stationId, songId) {
 
 async function addSongStation(stationId, song) {
   try {
-    getById(stationId).then((station) => {
-      station.songs.push(song);
-      return storageService.put(STORAGE_KEY, station);
-    });
+    const station = await getById(stationId)
+    station.songs.push(song)
+    await httpService.put(`station/${station._id}`, station)
+    // getById(stationId).then((station) => {
+    //   station.songs.push(song);
+    //   return storageService.put(STORAGE_KEY, station);
+    // });
   } catch (err) {
     console.log(err);
     throw err;
@@ -280,11 +293,16 @@ async function addStationToLiked(stationId, user) {
         imgUrl: user.imgUrl
       }
 
-      getById(stationId).then((station) => {
-        station.likedByUsers.push(miniUser)
-        console.log('station likedByUsers:' , station);
-        return storageService.put(STORAGE_KEY, station)
-      })
+      const station = await getById(stationId)
+      station.likedByUsers.push(miniUser)
+      await httpService.put(`station/${station._id}`, station)
+
+      // return updatedStation;
+      // getById(stationId).then((station) => {
+      //   station.likedByUsers.push(miniUser)
+      //   console.log('station likedByUsers:' , station);
+      //   return storageService.put(STORAGE_KEY, station)
+      // })
 
       user.likedStations.push(stationId)
       return await userService.updateUser(user)
@@ -298,12 +316,18 @@ async function addStationToLiked(stationId, user) {
 async function removeStationFromLiked(stationId, user) {
   try {
     if (user._id) {
-      getById(stationId).then((station) => {
-        const updatelikedByUsers = station.likedByUsers.filter(likedUser => {
-          return likedUser._id !== user._id})
-        station.likedByUsers = updatelikedByUsers
-        return storageService.put(STORAGE_KEY, station)
+      const station = await getById(stationId)
+      station.likedByUsers = station.likedByUsers.filter(likedUser => {
+        return likedUser._id !== user._id
       })
+      await httpService.put(`station/${station._id}`, station)
+
+      // getById(stationId).then((station) => {
+      //   const updatelikedByUsers = station.likedByUsers.filter(likedUser => {
+      //     return likedUser._id !== user._id})
+      //   station.likedByUsers = updatelikedByUsers
+      //   return storageService.put(STORAGE_KEY, station)
+      // })
 
       const likedStations = user.likedStations.filter( likedstation => {
         return likedstation !== stationId }
@@ -319,18 +343,17 @@ async function removeStationFromLiked(stationId, user) {
 }
 
 async function addNewStation(newStation, user) {
-  console.log('add new station:' , newStation);
   try {
     newStation.songs = []
     newStation.createdAt = Date.now()
     newStation.createdBy = user
     newStation.likedByUsers = [] 
-    newStation.tags = [] 
-    // const addedStation = await httpService.put(`station`, stationToUpdate)
-    const addedStation = await storageService.post(STORAGE_KEY, newStation)
-    return addedStation;
+    newStation.tags = []
+    const addedStation = await httpService.post('station', newStation)
+    // const addedStation = await storageService.post(STORAGE_KEY, newStation)
+    return addedStation
   } catch (err) {
-    console.log(err);
+    console.log(err)
     throw err;
   }
     
@@ -338,7 +361,8 @@ async function addNewStation(newStation, user) {
 
 async function updateStation(station, user) {
   try {
-    const updatedStation = await storageService.put(STORAGE_KEY, station)
+    // const updatedStation = await storageService.put(STORAGE_KEY, station)
+    const updatedStation = await httpService.put(`station/${station._id}`, station)
     return updatedStation;
   } catch (err) {
     console.log(err);
@@ -348,7 +372,8 @@ async function updateStation(station, user) {
 
 async function removeStation(stationId) {
     try {
-      return await storageService.remove(STORAGE_KEY, stationId)
+      return await httpService.delete(`station/${stationId}`)
+      // return await storageService.remove(STORAGE_KEY, stationId)
     } catch (err) {
       console.log(err);
       throw err;

@@ -1,19 +1,36 @@
 // import { useEffect, useState } from "react";
-// import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import { User } from "../cmps/User";
 // import logo from "../assets/imgs/logo.png";
 
 // import { LoginSignup } from "./pages/LoginSignup";
 
+export const WelcomePage = ({ setIsWelcome, setIsLogin }) => {
+    const navigate = useNavigate();
 
-export const WelcomePage = () => {
     return (
-        <section>
+        <section className="welcome-page">
             {/* <LoginSignup /> */}
-            <header className="header">
-                <ul className="welcome-header-ul">
-                    <li>Log in</li>
-                    <li>Sign up</li>
+            <header>
+                <ul>
+                    <li
+                        onClick={() => {
+                            setIsWelcome(false);
+                            setIsLogin(true);
+                            navigate("/login");
+                        }}
+                    >
+                        Log in
+                    </li>
+                    <li
+                        onClick={() => {
+                            setIsWelcome(false);
+                            setIsLogin(true);
+                            navigate("/signup");
+                        }}
+                    >
+                        Sign up
+                    </li>
                 </ul>
             </header>
             <main className="hero">
@@ -21,9 +38,11 @@ export const WelcomePage = () => {
                     <h2>Mister.Beat</h2>
                     <p>Start listening to the best new releases.</p>
                 </div>
-                <button className="hero-btn">Let's get started</button>
+                <button className="hero-btn" onClick={() => setIsWelcome(false)}>
+                    Let's get started
+                </button>
                 <div className="waves"></div>
-            </main >
-        </section >
+            </main>
+        </section>
     );
 };

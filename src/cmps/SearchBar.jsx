@@ -23,22 +23,23 @@ export function SearchBar({ onSetFilter }) {
 
   return (
     // <form onSubmit={handleSubmit}>
-    <form>
-      <input
-        name="txt"
-        value={txt}
-        type="text"
-        placeholder="Artists, songs or podcasts"
-        autoComplete="off"
-        onChange={handleChange}
-      />
-      <a
-        // href="javascript:void(0);"
-        className="search-button"
-        onClick={cleanForm}
-      >
-        <div className="icon" />
-      </a>
-    </form>
+    <section className="search-bar-cmp">
+      <form>
+        <input
+          name="txt"
+          value={txt}
+          type="text"
+          placeholder="Artists, songs or podcasts"
+          autoComplete="off"
+          onChange={handleChange}
+        />
+        <a
+          className="search-button"
+          onClick={cleanForm}
+        >
+          <div className="icon" />
+        </a>
+      </form>
+    </section>
   )
 }

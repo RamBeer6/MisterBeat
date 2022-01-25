@@ -1,23 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router";
 import routes from "./routes";
 import { StationDetails } from "./pages/StationDetails";
-// import { AppHeader } from "./cmps/AppHeader";
+import { LoginSignup } from "./pages/LoginSignup";
 import { MusicPlayer } from "./cmps/MusicPlayer";
 import NavBar from "./cmps/NavBar";
 import { WelcomePage } from "./pages/WelcomePage";
 
 export const App = () => {
-  const isWelcome = false;
-  // const isLogIn = true;
+  const [isWelcome, setIsWelcome] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   return (
     <section>
       {isWelcome ? (
-        <WelcomePage />
+        <WelcomePage setIsWelcome={setIsWelcome} setIsLogin={setIsLogin} />
+      ) : isLogin ? (
+        <LoginSignup setIsWelcome={setIsWelcome} setIsLogin={setIsLogin} />
       ) : (
         <>
           <main className="main">
-            <NavBar />
+            <NavBar setIsWelcome={setIsWelcome} setIsLogin={setIsLogin} />
             <div className="main-container">
               {/* <SvgLoader /> //Example */}
               <Routes>

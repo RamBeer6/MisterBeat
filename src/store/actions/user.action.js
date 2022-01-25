@@ -33,7 +33,10 @@ export function unlikeSong(song, user) {
 export function likeStation(stationId, user) {
   return async (dispatch) => {
     try {
-      const updatedUser = await stationService.addStationToLiked(stationId, user)
+      const updatedUser = await stationService.addStationToLiked(
+        stationId,
+        user
+      )
       dispatch({
         type: 'SET_USER',
         user: updatedUser,
@@ -113,7 +116,7 @@ export function onLogout() {
         type: 'SET_USER',
         user: {
           userName: 'Guest',
-          imgUrl:{avatar}
+          imgUrl: { avatar },
         },
       })
     } catch (err) {
