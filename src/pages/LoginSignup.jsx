@@ -3,7 +3,19 @@ import { useState } from "react";
 import logo from "../assets/imgs/logo.png";
 
 export function LoginSignup() {
-    const [isLogin, setIsLogin] = useState(true);
+    const [isLogin, setIsLogin] = useState(true)
+    const [user, setUser] = useState({
+        userName: '',
+        imgUrl: '',
+        password: '',
+        email: ''
+    })
+
+    const handleChange = (ev) => {
+        const field = ev.target.name;
+        const value = ev.target.value;
+        setUser({ ...user, [field]: value })
+    }
 
     return (
         <>
@@ -32,10 +44,10 @@ export function LoginSignup() {
                         <hr />
                     </div>
                     <form className="form-signin" action="">
-                        <label htmlFor="username">Username:</label>
-                        <input type="text" id="username" name="username" />
-                        <label htmlFor="pwd">Password:</label>
-                        <input type="password" id="pwd" name="pwd" />
+                        <label htmlFor="userName">Username:</label>
+                        <input type="text" value={user.userName} name="userName" onChange={handleChange} required/>
+                        <label htmlFor="password">Password:</label>
+                        <input type="password" value={user.password} name="password" onChange={handleChange} required/>
                         <input className="login-btn" type="submit" value="Log in" />
                     </form>
                     <hr />
@@ -46,7 +58,8 @@ export function LoginSignup() {
                 </section>
             ) : (
                 <section className="login-signup-page">
-                    <header style={{ marginBottom: "15px" }}>                        <img src={logo} alt="logo" />
+                    <header style={{ marginBottom: "15px" }}>
+                    <img src={logo} alt="logo" />
                     </header>
                     <ul style={{ marginTop: "40px" }}>
                         <h5>Sign up with your email address</h5>
@@ -70,8 +83,9 @@ export function LoginSignup() {
                         <label htmlFor="email">Enter your email:</label>
                         <input
                             type="email"
-                            id="email"
+                            value={user.email}
                             name="email"
+                            onChange={handleChange}
                             placeholder="Email..."
                         />
                         <label htmlFor="email">Confirm your email:</label>
@@ -81,19 +95,23 @@ export function LoginSignup() {
                             name="email"
                             placeholder="Email..."
                         />
-                        <label htmlFor="pwd">Enter password</label>
+                        <label htmlFor="password">Enter password</label>
                         <input
                             type="password"
-                            id="pwd"
-                            name="pwd"
+                            name="password"
+                            value={user.password}
+                            onChange={handleChange}
                             placeholder="Password..."
+                            required
                         />
-                        <label htmlFor="username">What should we call you?</label>
+                        <label htmlFor="userName">What should we call you?</label>
                         <input
                             type="text"
-                            id="username"
-                            name="username"
+                            name="userName"
+                            value={user.userName}
+                            onChange={handleChange}
                             placeholder="UserName..."
+                            required
                         />
                         <label htmlFor="birthday">Date of Birth:</label>
                         <input type="date" id="birthday" name="birthday" />
@@ -103,10 +121,9 @@ export function LoginSignup() {
                         <p>have an account?
                             <button className="btn" onClick={() => setIsLogin(!isLogin)}>Log in</button>
                         </p>
-
                     </div>
                 </section>
             )}
         </>
-    );
+    )
 }
