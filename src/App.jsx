@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Routes, Route } from "react-router";
-import routes from "./routes";
-import { StationDetails } from "./pages/StationDetails";
-import { LoginSignup } from "./pages/LoginSignup";
-import { MusicPlayer } from "./cmps/MusicPlayer";
-import NavBar from "./cmps/NavBar";
-import { WelcomePage } from "./pages/WelcomePage";
+import React, { useEffect, useState } from 'react';
+import { Routes, Route } from 'react-router';
+import routes from './routes';
+import { StationDetails } from './pages/StationDetails';
+import { LoginSignup } from './pages/LoginSignup';
+import { MusicPlayer } from './cmps/MusicPlayer';
+import { NavBar } from './cmps/NavBar';
+// import NavBar from "./cmps/NavBar";
+import { WelcomePage } from './pages/WelcomePage';
 
 export const App = () => {
   const [isWelcome, setIsWelcome] = useState(true);
@@ -18,9 +19,9 @@ export const App = () => {
         <LoginSignup />
       ) : (
         <>
-          <main className="main">
+          <main className='main'>
             <NavBar setIsWelcome={setIsWelcome} setIsLogin={setIsLogin} />
-            <div className="main-container">
+            <div className='main-container'>
               {/* <SvgLoader /> //Example */}
               <Routes>
                 {routes.map((route) => (
@@ -31,14 +32,11 @@ export const App = () => {
                     path={route.path}
                   />
                 ))}
-                <Route
-                  path="/station/:stationId"
-                  element={<StationDetails />}
-                />
+                <Route path='/station/:stationId' element={<StationDetails />} />
               </Routes>
             </div>
           </main>
-          <MusicPlayer videoId={"04854XqcfCY"} />
+          <MusicPlayer videoId={'04854XqcfCY'} />
         </>
       )}
     </section>
