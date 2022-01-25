@@ -14,17 +14,31 @@ import { likeSong, unlikeSong } from '../store/actions/user.action';
 
 function _SongPreview(props) {
   const [isHover, setIsHover] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isSongPlaying, setIsSongPlaying] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
     setIsLiked(user.likedSongs.find((likedSong) => likedSong.id === song.id));
   }, []);
 
+  useEffect(() => {
+    if (!props.isPlaying) {
+      setIsSongPlaying(false);
+    }
+  }, [props.isPlaying]);
+
+  useEffect(() => {
+    if (song.id === props.currSongId) {
+      setIsSongPlaying(true);
+    } else {
+      setIsSongPlaying(false);
+    }
+  }, [props.currSongId]);
+
   const onPlaySong = async (songId, songIdx) => {
     // console.log('song', props.song);
     try {
-      setIsPlaying(true); //this comp
+      setIsSongPlaying(true); //this comp
       props.onTogglePlay(true); //the store
       props.songDetails(props.song);
       // console.log(' 🚀 SongPreview - isPlaying to store', !isPlaying);
@@ -37,7 +51,7 @@ function _SongPreview(props) {
   const onPauseSong = async () => {
     try {
       props.onTogglePlay(false); //the store
-      setIsPlaying(false); //this comp
+      setIsSongPlaying(false); //this comp
       // await props.pauseSong(songId, songIdx);
     } catch (err) {
       console.log(err);
@@ -66,6 +80,7 @@ function _SongPreview(props) {
 
   // render() {
   const { song, idx, onRemoveSong, user } = props;
+  const { songs, currSongId, isPlaying } = props;
   return (
     <Draggable draggableId={song.id} index={idx}>
       {(provided) => (
@@ -76,7 +91,7 @@ function _SongPreview(props) {
           ref={provided.innerRef}
           onMouseEnter={() => setIsHover(true)}
           onMouseLeave={() => setIsHover(false)}>
-          {isHover && !isPlaying && (
+          {isHover && !isSongPlaying && (
             <button className='play-btn' onClick={() => onPlaySong(song.id, idx)}>
               <svg
                 height='18'
@@ -88,7 +103,7 @@ function _SongPreview(props) {
               </svg>
             </button>
           )}
-          {isHover && isPlaying && (
+          {isHover && isSongPlaying && (
             <button className='pause-btn' onClick={() => onPauseSong()}>
               <svg
                 height='18'
@@ -101,8 +116,8 @@ function _SongPreview(props) {
               </svg>
             </button>
           )}
-          {!isHover && isPlaying && <BarWave />}
-          {!isHover && !isPlaying && <h4 className='gray'>{idx + 1}</h4>}
+          {!isHover && isSongPlaying && <BarWave />}
+          {!isHover && !isSongPlaying && <h4 className='gray'>{idx + 1}</h4>}
           <div className='song-info'>
             <img src={song.imgUrl} />
             <div>
@@ -153,9 +168,11 @@ function _SongPreview(props) {
 
 function mapStateToProps(state) {
   return {
+    songs: state.stationModule.songs,
     player: state.musicPlayerModule.player,
     isPlaying: state.musicPlayerModule.isPlaying,
     currSongIdx: state.musicPlayerModule.currSongIdx,
+    currSongId: state.musicPlayerModule.currSongId,
     currStationId: state.musicPlayerModule.currStationId,
     user: state.userModule.user,
   };

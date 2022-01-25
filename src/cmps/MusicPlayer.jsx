@@ -1,15 +1,10 @@
 import React, { Component, useState } from 'react';
 import { connect } from 'react-redux';
-// import YouTube from "react-youtube";
-// import ReactPlayer from 'react-player/lazy';
 import ReactPlayer from 'react-player/youtube';
-import { utilService } from '../services/util.service';
-// import { IoIosArrowForward } from "react-icons/io";
-// import { IoIosArrowBack } from "react-icons/io";
-import { FaPlay } from 'react-icons/fa';
-import { FaPause } from 'react-icons/fa';
-// import { FaVolumeUp } from "react-icons/fa";
+
 import Duration from './Duration';
+import imgSong from '../assets/imgs/default-song.png';
+
 import {
   onTogglePlay,
   playSong,
@@ -32,22 +27,6 @@ class _MusicPlayer extends React.Component {
     duration: 0,
   };
 
-  // componentDidMount() {
-  //   const { currSongs, currSongIdx } = this.props;
-  //   const { playSong, songIdx } = this.props;
-  //   console.log(currSongs[currSongIdx]?.title);
-  //   console.log(currSongs[currSongIdx]?.artist);
-  // }
-
-  // componentDidUpdate(prevProps, prevState) {
-  // console.log('🎵 prevProps', prevProps);
-  // if (prevProps.currSongId !== this.props.currSongId && this.props.currSongId === '') {
-  //   // this.handlePlayPause();
-  //   this.handlePause();
-  // }
-  // console.log(' 🎵 cdu');
-  // }
-
   onReady = (ev) => {
     this.props.setPlayer(ev.target);
   };
@@ -57,22 +36,7 @@ class _MusicPlayer extends React.Component {
   };
 
   handlePlayPause = () => {
-    // console.log('handle play pause');
-    // this.setState((prevState) => ({
-    //   ...prevState,
-    //   playing: !this.state.playing,
-    // }));
-
-    // this.props.isPlaying(!this.props.isPlaying);
-    // console.log('🎵 ⏯');
     this.props.onTogglePlay(!this.props.isPlaying);
-    //local state
-    // this.props.onTogglePlay(!this.props.isPlaying); // toggle store
-    // if (this.props.isPlaying) {
-    //   this.props.pauseSong();
-    // } else {
-    //   this.props.playSong();
-    // }
   };
 
   handleVolumeChange = (event) => {
@@ -80,22 +44,6 @@ class _MusicPlayer extends React.Component {
       ...prevState,
       volume: parseFloat(event.target.value),
     }));
-  };
-
-  handlePlay = () => {
-    // console.log('🎵 ▶ handle play');
-    // this.props.onTogglePlay(true);
-    // this.setState((prevState) => ({ ...prevState, playing: true }));
-    // this.props.isPlaying(!this.props.isPlaying);
-    // this.props.onTogglePlay(this.state.playing);
-    // this.props.onTogglePlay(this.state.playing);// ???????????
-  };
-
-  handlePause = () => {
-    // console.log('🎵 ⏸ handle pause');
-    // this.props.onTogglePlay(false);
-    // this.setState((prevState) => ({ ...prevState, playing: false }));
-    // this.props.isPlaying(!this.props.isPlaying);
   };
 
   handelSeekMouseDown = (ev) => {
@@ -122,24 +70,17 @@ class _MusicPlayer extends React.Component {
     this.setState((prevState) => ({ ...prevState, duration: duration }));
   };
 
-  onStart = () => {
-    // console.log('start playing');
-    // console.log('this.props.isPlaying', this.props.isPlaying);
-    // console.log('this.playing', this.state.playing);
-    // console.log('currId song', this.props.currSongId);
-  };
-
   nextSong = () => {
-    const { currSongs, currSongIdx, isShuffle, shuffleSongs } = this.props;
+    const { currSongs, currSongIdx, isShuffle, shuffleSongs, songs } = this.props;
     const { playSong, songIdx } = this.props;
 
     if (!isShuffle) {
-      if (currSongIdx === currSongs.length - 1) {
+      if (currSongIdx === songs.length - 1) {
         songIdx(0);
-        playSong(currSongs[0].id);
+        playSong(songs[0].id);
       } else {
         songIdx(currSongIdx + 1);
-        playSong(currSongs[currSongIdx + 1].id);
+        playSong(songs[currSongIdx + 1].id);
       }
     } else {
       if (currSongIdx === shuffleSongs.length - 1) {
@@ -153,7 +94,7 @@ class _MusicPlayer extends React.Component {
   };
 
   prevSong = () => {
-    const { currSongs, currSongIdx, isShuffle, shuffleSongs } = this.props;
+    const { currSongs, currSongIdx, isShuffle, shuffleSongs, songs } = this.props;
     const { playSong, songIdx } = this.props;
     if (!isShuffle) {
       if (currSongIdx === 0) {
@@ -179,7 +120,7 @@ class _MusicPlayer extends React.Component {
     this.props.onTogglePlay(false);
     this.props.shuffle(true);
     // console.log('old array', this.props.currSongs);
-    const array = [...this.props.currSongs];
+    const array = [...this.props.songs];
     let currShuffleIdx = array.length;
     while (currShuffleIdx != 0) {
       let randomIdx = Math.floor(Math.random() * currShuffleIdx);
@@ -198,22 +139,19 @@ class _MusicPlayer extends React.Component {
   unShuffle = () => {
     this.props.onTogglePlay(false);
     this.props.shuffle(false);
+    this.props.shuffleCurrSongs([]);
+    this.props.setPlayerSongs(...this.props.songs);
     this.props.playSong(this.props.currSongs[0].id);
     this.props.onTogglePlay(true);
   };
 
   render() {
     const { playing, controls, volume, muted, played, loaded, duration } = this.state;
-    const { isPlaying, currSongs, currSongIdx, songDetails, isShuffle, shuffleSongs } = this.props;
+    const { isPlaying, currSongs, currSongIdx, songDetails, isShuffle, shuffleSongs, songs } =
+      this.props;
 
-    // console.log('🍕 curr songws', currSongs);
-    // console.log('🍕 title', currSongs[currSongIdx]?.title);
-
-    // const { videoId } = this.props
     const videoId = this.props.currSongId;
     let url = `https://www.youtube.com/watch?v=${videoId}`;
-    // console.log('currSongId:', this.props.currSongId);
-    // console.log('currSongId:', this.props.currSongs[currSongIdx].id);
 
     return (
       <section className='music-player-container'>
@@ -242,13 +180,12 @@ class _MusicPlayer extends React.Component {
         />
 
         <div className='left-side-container'>
-          {/* <i className="far fa-heart"></i> */}
           {!isShuffle && (
             <img
               src={
-                !currSongs && !currSongs.length && !songDetails
-                  ? 'https://t.scdn.co/images/3099b3803ad9496896c43f22fe9be8c4.png'
-                  : currSongs[currSongIdx]?.imgUrl || songDetails.imgUrl
+                !songs && !songs.length && !songDetails
+                  ? imgSong
+                  : songs[currSongIdx]?.imgUrl || songDetails.imgUrl
               }
               alt='image'
             />
@@ -257,36 +194,30 @@ class _MusicPlayer extends React.Component {
             <img
               src={
                 !currSongs && !currSongs.length && !songDetails
-                  ? 'https://t.scdn.co/images/3099b3803ad9496896c43f22fe9be8c4.png'
+                  ? imgSong
                   : shuffleSongs[currSongIdx]?.imgUrl
               }
               alt='image'
             />
           )}
           <div className='p-container'>
-            {/* {currSongIdx && <span>Choose song or playlist</span>} */}
             {
               <section>
-                {!isShuffle && <span>{currSongs[currSongIdx]?.artist || songDetails.artist}</span>}
+                {!isShuffle && <span>{songs[currSongIdx]?.artist || songDetails.artist}</span>}
                 {isShuffle && <span>{shuffleSongs[currSongIdx]?.artist}</span>}
                 <br></br>
-                {!isShuffle && <span>{currSongs[currSongIdx]?.title || songDetails.title}</span>}
+                {!isShuffle && <span>{songs[currSongIdx]?.title || songDetails.title}</span>}
                 {isShuffle && <span>{shuffleSongs[currSongIdx]?.title}</span>}
               </section>
             }
-
-            {/* <span>Beyonce</span>
-            // <span>Iressitable</span> */}
           </div>
-          {/* <p>currSongs[setSongIdx].title</p> */}
           <svg // love
-            role="img"
-            height="16"
-            width="16"
-            viewBox="0 0 16 16"
-            className="svg-love"
-          >
-            <path d="M13.764 2.727a4.057 4.057 0 00-5.488-.253.558.558 0 01-.31.112.531.531 0 01-.311-.112 4.054 4.054 0 00-5.487.253A4.05 4.05 0 00.974 5.61c0 1.089.424 2.113 1.168 2.855l4.462 5.223a1.791 1.791 0 002.726 0l4.435-5.195A4.052 4.052 0 0014.96 5.61a4.057 4.057 0 00-1.196-2.883zm-.722 5.098L8.58 13.048c-.307.36-.921.36-1.228 0L2.864 7.797a3.072 3.072 0 01-.905-2.187c0-.826.321-1.603.905-2.187a3.091 3.091 0 012.191-.913 3.05 3.05 0 011.957.709c.041.036.408.351.954.351.531 0 .906-.31.94-.34a3.075 3.075 0 014.161.192 3.1 3.1 0 01-.025 4.403z"></path>
+            role='img'
+            height='16'
+            width='16'
+            viewBox='0 0 16 16'
+            className='svg-love'>
+            <path d='M13.764 2.727a4.057 4.057 0 00-5.488-.253.558.558 0 01-.31.112.531.531 0 01-.311-.112 4.054 4.054 0 00-5.487.253A4.05 4.05 0 00.974 5.61c0 1.089.424 2.113 1.168 2.855l4.462 5.223a1.791 1.791 0 002.726 0l4.435-5.195A4.052 4.052 0 0014.96 5.61a4.057 4.057 0 00-1.196-2.883zm-.722 5.098L8.58 13.048c-.307.36-.921.36-1.228 0L2.864 7.797a3.072 3.072 0 01-.905-2.187c0-.826.321-1.603.905-2.187a3.091 3.091 0 012.191-.913 3.05 3.05 0 011.957.709c.041.036.408.351.954.351.531 0 .906-.31.94-.34a3.075 3.075 0 014.161.192 3.1 3.1 0 01-.025 4.403z'></path>
           </svg>
           {/* 
           <svg // song img
@@ -319,7 +250,6 @@ class _MusicPlayer extends React.Component {
                 </svg>
               </button>
               <button className='prev-btn' onClick={this.prevSong}>
-                {/* <IoIosArrowForward /> */}
                 <svg //prev
                   role='img'
                   height='16'
@@ -332,7 +262,6 @@ class _MusicPlayer extends React.Component {
             </div>
             <div className='middle-play-pause-controls'>
               <button className='play-pause' onClick={this.handlePlayPause}>
-                {/* {!playing ? <FaPlay className="play" /> : <FaPause />} */}
                 {!isPlaying ? (
                   <svg role='img' height='16' width='16' viewBox='0 0 16 16' className='svg-play'>
                     <path d='M4.018 14L14.41 8 4.018 2z'></path>
@@ -352,7 +281,6 @@ class _MusicPlayer extends React.Component {
             </div>
             <div className='middle-right-controls'>
               <button className='next-btn' onClick={this.nextSong}>
-                {/* <IoIosArrowBack /> */}
                 <svg // next
                   role='img'
                   height='16'
@@ -431,7 +359,6 @@ class _MusicPlayer extends React.Component {
           </svg> */}
 
           <div className='volume-container'>
-            {/* <FaVolumeUp className="volume" /> */}
             <button className='player-vol-btn'>
               {!volume ? (
                 <svg //volume on
@@ -475,6 +402,7 @@ class _MusicPlayer extends React.Component {
 
 function mapStateToProps(state) {
   return {
+    songs: state.stationModule.songs,
     player: state.musicPlayerModule.player,
     isPlaying: state.musicPlayerModule.isPlaying,
     currSongIdx: state.musicPlayerModule.currSongIdx,
