@@ -1,11 +1,10 @@
-import { LibraryNavBar } from "../cmps/LibraryNavBar";
-import { TagList } from "../cmps/TagList";
+import { LibraryList } from "../cmps/LibraryList";
+// import { stationService } from "../services/station.service";
 
 export function LibraryPage() {
     return (
         <section className="library-page">
-            <LibraryNavBar />
-            <TagList />
+            <LibraryList />
         </section>
     );
 }

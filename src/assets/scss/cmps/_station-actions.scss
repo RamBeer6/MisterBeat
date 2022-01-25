@@ -29,7 +29,7 @@
     svg {
       fill: rgba(255, 255, 255, 0.7);
       &.liked {
-        fill: #1DB954;
+        fill: #1db954;
       }
     }
   }
@@ -37,11 +37,11 @@
   .open-search {
     background: transparent;
     border: 0;
-    color: rgba(255,255,255,.6);
+    color: rgba(255, 255, 255, 0.6);
     font-size: rem(30px);
 
     &::first-child {
-        color: red;
+      color: red;
     }
   }
 }

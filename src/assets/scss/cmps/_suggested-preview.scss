@@ -7,11 +7,12 @@
   padding: 16px;
   // border-bottom: 1px solid #e5e5e5;
   box-sizing: content-box;
+  border-radius: 4px;
+  transition: background-color 200ms ease;
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid transparent;
-    border-radius: 4px;
+    // border: 1px solid transparent;
   }
 
   .song-info {
@@ -39,7 +40,7 @@
     background-color: transparent;
     color: rgba(255, 255, 255, 0.7);
     font-size: 22px;
-
+    transition: color 200ms ease;
     &:hover {
       color: #1db954;
     }
