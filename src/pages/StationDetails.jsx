@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { stationService } from '../services/station.service';
 import { loadSongs, updateSongs, removeSong, addSong, removeStation, updateStation } from '../store/actions/station.action';
-import { setPlayerSongs } from '../store/actions/music.player.action';
+import { onTogglePlay, setPlayerSongs, playSong } from '../store/actions/music.player.action';
 import { likeStation, unlikeStation } from '../store/actions/user.action';
 
 import { StationHero } from '../cmps/StationHero';
@@ -25,11 +25,11 @@ function _StationDetails(props) {
     (async () => {
       const { stationId } = params
       if (stationId) {
-        const station = await stationService.getById(stationId)
-        setStation(station)
-        setIsLikedStation(props.user.likedStations.includes(stationId))
-      } else stationService.save()
-    })()
+        const station = await stationService.getById(stationId);
+        setStation(station);
+        setIsLikedStation(props.user.likedStations.includes(stationId));
+      } else stationService.save();
+    })();
     //eslint-disable-next-line
   }, []);
 
@@ -93,11 +93,11 @@ function _StationDetails(props) {
   }
 
   const setLikedStation = async () => {
-    setIsLikedStation(true)
-    const user = props.user
-    const { stationId } = params
-    const isExists = user.likedStations.find(likedStation => likedStation === stationId)
-    if(isExists) return
+    setIsLikedStation(true);
+    const user = props.user;
+    const { stationId } = params;
+    const isExists = user.likedStations.find((likedStation) => likedStation === stationId);
+    if (isExists) return;
     try {
       await props.likeStation(station._id, user);
     } catch (err) {
@@ -106,27 +106,31 @@ function _StationDetails(props) {
   };
 
   const setUnlikedStation = async () => {
-    setIsLikedStation(false)
-    const user = props.user
-    const { stationId } = params
+    setIsLikedStation(false);
+    const user = props.user;
+    const { stationId } = params;
     try {
-      await props.unlikeStation(stationId, user)
+      await props.unlikeStation(stationId, user);
     } catch (err) {
       console.log(err);
     }
   };
 
   const onSetLikedStation = (value) => {
-    if(typeof value !== 'boolean') return
-    if(value) setLikedStation()
-    else setUnlikedStation()
-  }
+    if (typeof value !== 'boolean') return;
+    if (value) setLikedStation();
+    else setUnlikedStation();
+  };
 
   const onGetSongs = async (isStationPlaying) => {
     console.log('isStationPlaying', isStationPlaying);
+    console.log('songs', songs);
+    console.log('songs[0].id', songs[0].id);
     // func to action with songs
     try {
-      await props.setPlayerSongs(songs);
+      props.setPlayerSongs(songs);
+      props.onTogglePlay(isStationPlaying);
+      props.playSong(songs[0].id, 0);
     } catch (err) {
       // console.log(err);
     }
@@ -194,7 +198,9 @@ const mapDispatchToProps = {
   unlikeStation,
   setPlayerSongs,
   removeStation,
-  updateStation
+  updateStation,
+  onTogglePlay,
+  playSong,
 };
 
 export const StationDetails = connect(mapStateToProps, mapDispatchToProps)(_StationDetails);

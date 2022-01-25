@@ -18,9 +18,9 @@ export function StationActions({
         title='play'
         onClick={() => {
           setStationPlaying(!isStationPlaying);
-          onGetSongs(isStationPlaying);
+          onGetSongs(!isStationPlaying);
         }}>
-        {isStationPlaying ? (
+        {!isStationPlaying ? (
           <svg height='28' role='img' width='28' viewBox='0 0 24 24' aria-hidden='true'>
             <polygon points='21.57 12 5.98 3 5.98 21 21.57 12' fill='currentColor'></polygon>
           </svg>
@@ -73,4 +73,10 @@ export function StationActions({
       <button className="remove-btn" onClick={() => onRemoveStation(stationId)}><i className="fas fa-trash-alt"></i></button>
     </section>
   );
+}
+
+function mapStateToProps(state) {
+  return {
+    isPlaying: state.stationModule.isPlaying,
+  };
 }
