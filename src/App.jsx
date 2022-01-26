@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Routes, Route } from 'react-router';
 import routes from './routes';
+import { WelcomePage } from './pages/WelcomePage';
 import { StationDetails } from './pages/StationDetails';
 import { LoginSignup } from './pages/LoginSignup';
-import { MusicPlayer } from './cmps/MusicPlayer';
+
+import { AppHeader } from './cmps/AppHeader';
 import { NavBar } from './cmps/NavBar';
-// import NavBar from "./cmps/NavBar";
-import { WelcomePage } from './pages/WelcomePage';
+import { MusicPlayer } from './cmps/MusicPlayer';
 
 export const App = () => {
   const [isWelcome, setIsWelcome] = useState(true);
@@ -23,6 +24,7 @@ export const App = () => {
             <NavBar setIsWelcome={setIsWelcome} setIsLogin={setIsLogin} />
             <div className='main-container'>
               {/* <SvgLoader /> //Example */}
+              <AppHeader />
               <Routes>
                 {routes.map((route) => (
                   <Route

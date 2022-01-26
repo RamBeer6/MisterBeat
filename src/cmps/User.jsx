@@ -3,7 +3,7 @@ import { onLogout } from '../store/actions/user.action'
 
 import user_Img from "../assets/imgs/user-img.jpg"
 
-function _User({onLogout}) {
+function _User({ onLogout }) {
     return (
         <section className="user flex" onClick={onLogout}>
             <img src={user_Img} alt="image" />
