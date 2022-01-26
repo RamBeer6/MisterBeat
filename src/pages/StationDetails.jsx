@@ -24,11 +24,14 @@ function _StationDetails(props) {
   useEffect(() => {
     (async () => {
       const { stationId } = params
+      // console.log('stationDetails ID:' , stationId);
       if (stationId) {
-        const station = await stationService.getById(stationId);
+        const station = await stationService.getById(stationId)
+        console.log('stationDetails station:' , station)
         setStation(station);
-        setIsLikedStation(props.user.likedStations.includes(stationId));
-      } else stationService.save();
+        setIsLikedStation(props.user.likedStations.includes(stationId))
+      } 
+      // else stationService.save()
     })();
     //eslint-disable-next-line
   }, []);
@@ -74,32 +77,31 @@ function _StationDetails(props) {
 
   const executeScroll = () => myRef.current.scrollIntoView();
 
-  const onDragEnd = (result) => {
-    // console.log('result:' , result);
+  const onDragEnd = async (result) => {
     const { destination, source } = result;
-    if (!destination) return;
+    if (!destination) return
 
     // same place
     if (destination.droppableId === source.droppableId && destination.index === source.index)
       return;
 
-    const { songs } = props;
-    const { stationId } = params;
+    const { songs } = props
+    const { stationId } = params
 
-    const newSongs = songs.slice();
-    const [song] = newSongs.splice(source.index, 1);
-    newSongs.splice(destination.index, 0, song);
-    props.updateSongs(stationId, newSongs);
+    const newSongs = songs.slice()
+    const [song] = newSongs.splice(source.index, 1)
+    newSongs.splice(destination.index, 0, song)
+    await props.updateSongs(stationId, newSongs)
   }
 
   const setLikedStation = async () => {
-    setIsLikedStation(true);
-    const user = props.user;
-    const { stationId } = params;
-    const isExists = user.likedStations.find((likedStation) => likedStation === stationId);
-    if (isExists) return;
+    setIsLikedStation(true)
+    const user = props.user
+    const { stationId } = params
+    const isExists = user.likedStations.find((likedStation) => likedStation === stationId)
+    if (isExists) return
     try {
-      await props.likeStation(station._id, user);
+      await props.likeStation(station._id, user)
     } catch (err) {
       console.log(err);
     }
@@ -204,3 +206,5 @@ const mapDispatchToProps = {
 };
 
 export const StationDetails = connect(mapStateToProps, mapDispatchToProps)(_StationDetails);
+
+

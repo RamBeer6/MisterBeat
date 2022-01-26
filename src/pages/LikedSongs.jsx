@@ -3,13 +3,11 @@ import { DragDropContext } from 'react-beautiful-dnd'
 
 import { SongList } from '../cmps/SongList'
 import { updateLikedSongs } from '../store/actions/user.action'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 function _LikedSongs({ user, updateLikedSongs }) {
-  // console.log('user.likedSongs:' , user.likedSongs)
-  // const [likedSongs, setLikedSongs] = useState(user.likedSongs)
 
-  const onDragEnd = (result) => {
+  const onDragEnd = async (result) => {
     const { destination, source } = result
     if (!destination) return
 
@@ -23,9 +21,10 @@ function _LikedSongs({ user, updateLikedSongs }) {
     const [ song ] = newSongs.splice(source.index, 1)
     newSongs.splice(destination.index, 0, song)
     // setLikedSongs(likedSongs)
-    updateLikedSongs(newSongs)
+    await updateLikedSongs(newSongs)
   }
 
+  if(Object.keys(user).length !== 0) 
   return (
     <section className='liked-songs-page'>
       <div className='header-container'>
@@ -38,7 +37,7 @@ function _LikedSongs({ user, updateLikedSongs }) {
           <span>PLAYLIST</span>
           <h1>Liked Songs</h1>
           {/* <span>{user.userName} <span className="gray">∙ {likedSongs.length} songs</span></span> */}
-          <span>{user.userName} <span className="gray">∙ {user.likedSongs.length} songs</span></span>
+          <span>{user.userName} <span className="gray">∙ {user.likedSongs?.length} songs</span></span>
         </div>
       </div>
 
@@ -53,7 +52,7 @@ function _LikedSongs({ user, updateLikedSongs }) {
       <div className="liked-songs-list-container">
         <DragDropContext onDragEnd={onDragEnd}>
           {/* <SongList songs={likedSongs} fromLikedSong={true} /> */}
-          <SongList songs={user.likedSongs} fromLikedSong={true} />
+          <SongList songs={user?.likedSongs} fromLikedSong={true} />
         </DragDropContext>
       </div>
     </section>

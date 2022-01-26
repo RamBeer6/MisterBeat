@@ -16,7 +16,7 @@ export const App = () => {
       {isWelcome ? (
         <WelcomePage setIsWelcome={setIsWelcome} setIsLogin={setIsLogin} />
       ) : isLogin ? (
-        <LoginSignup />
+        <LoginSignup setIsWelcome={setIsWelcome} setIsLogin={setIsLogin} />
       ) : (
         <>
           <main className='main'>

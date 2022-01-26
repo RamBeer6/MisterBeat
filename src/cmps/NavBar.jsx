@@ -1,13 +1,26 @@
-import { Link, NavLink } from 'react-router-dom';
-import NavBarOptions from './NavBarOptions';
-import logo from '../assets/imgs/logo.png';
-import { connect } from 'react-redux';
-// import HomeIcon from '@mui/icons-material/Home';
-// import SearchIcon from '@mui/icons-material/Search';
-// import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
+import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
+import { stationService } from '../services/station.service'
+
+import NavBarOptions from './NavBarOptions'
+import logo from '../assets/imgs/logo.png'
 
 function _NavBar({ setIsWelcome, setIsLogin, user }) {
-  // console.log(user.likedStations);
+  const [ likedStations, setLikedStations ] = useState([])
+
+  useEffect(() => {
+    loadLikedStations()
+  }, [])
+
+  const loadLikedStations = async () => {
+    try {
+      const userLikedStations = await stationService.getLikedStations(user.likedStations)
+      setLikedStations(userLikedStations)
+  } catch (err) {
+      console.log(err)
+  }
+  }
 
   return (
     <nav className='nav-bar'>
@@ -63,14 +76,14 @@ function _NavBar({ setIsWelcome, setIsLogin, user }) {
       <strong className='nav-bar__title'>Liked Playlists</strong>
       <hr />
 
-      {user.likedStations.map((stationId) => {
+      {likedStations.map((station) => {
         return (
-          <NavLink to={`/station/${stationId}`} className='active-option'>
+          <NavLink to={`/station/${station._id}`} key={station._id} className='active-option'>
             <li>
-              <NavBarOptions title={stationId} />
+              <NavBarOptions title={station.name} />
             </li>
           </NavLink>
-        );
+        )
       })}
       {/* <li>
         <NavBarOptions title='Beyonce' />
@@ -91,7 +104,6 @@ function _NavBar({ setIsWelcome, setIsLogin, user }) {
 function mapStateToProps(state) {
   return {
     user: state.userModule.user,
-    songs: state.stationModule.songs,
   };
 }
 

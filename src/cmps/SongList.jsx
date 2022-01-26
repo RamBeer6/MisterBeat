@@ -8,7 +8,7 @@ import { SongPreview } from "./SongPreview";
 
 // function _SongList({ stationId = "likedSongs", songs, onRemoveSong, fromLikedSong = false, setPlayerSongs }) {
 function _SongList({
-  stationId,
+  stationId = "no_id",
   songs,
   onRemoveSong,
   fromLikedSong = false,

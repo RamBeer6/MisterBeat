@@ -20,12 +20,12 @@ export function loadSongs(stationId, filterBy) {
 export function updateSongs(stationId, songs) {
   return async (dispatch) => {
     try {
-      await stationService.updateSongs(stationId, songs)  
       dispatch({
         type: 'UPDATE_SONGS',
         songs,
         currStationId: stationId,
       })
+      await stationService.updateSongs(stationId, songs)
     } catch (err) {
       throw err
     }

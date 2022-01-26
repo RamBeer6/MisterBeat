@@ -5,7 +5,7 @@ import { LibraryPage } from "./pages/LibraryPage";
 import { LoginSignup } from "./pages/LoginSignup";
 // import { UserDetails } from "./pages/UserDetails";
 import { CreatePlaylist } from "./cmps/CreatePlaylist";
-import { StationDetails } from "./pages/StationDetails";
+import  {StationDetails}  from "./pages/StationDetails";
 import { LikedSongs } from "./pages/LikedSongs";
 
 const routes = [

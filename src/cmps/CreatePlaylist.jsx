@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { connect } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { DragDropContext } from 'react-beautiful-dnd'
-import { stationService } from '../services/station.service'
 
 import { addSong, loadSongs, removeSong, removeStation, updateSongs, addStation, updateStation } from '../store/actions/station.action'
 
@@ -37,7 +36,6 @@ function _CreatePlaylist({ addSong, user, songs, loadSongs, removeSong, removeSt
   }
 
   const onAddSong = async (song) => {
-    // if(!station._id) return <h1>First change playlist details</h1>
     try {
         await addSong(station._id, song)
         station.songs.push(song)
@@ -69,7 +67,7 @@ function _CreatePlaylist({ addSong, user, songs, loadSongs, removeSong, removeSt
     }
   }
 
-  const onDragEnd = (result) => {
+  const onDragEnd = async (result) => {
     const { destination, source } = result;
     if (!destination) return;
 
@@ -77,17 +75,11 @@ function _CreatePlaylist({ addSong, user, songs, loadSongs, removeSong, removeSt
     if (destination.droppableId === source.droppableId && destination.index === source.index)
       return;
 
-    // const { songs } = props;
-    // const { stationId } = params;
-
-    const newSongs = songs.slice();
-    const [song] = newSongs.splice(source.index, 1);
-    newSongs.splice(destination.index, 0, song);
-    updateSongs(station._id, newSongs);
+    const newSongs = songs.slice()
+    const [song] = newSongs.splice(source.index, 1)
+    newSongs.splice(destination.index, 0, song)
+    await updateSongs(station._id, newSongs)
   }
-
-  // console.log('songs?' , songs);
-  // console.log('station?' , station);
 
   return (
     <section className="create-playlist">
