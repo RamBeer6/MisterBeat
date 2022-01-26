@@ -153,11 +153,13 @@ export const stationService = {
   removeStationFromLiked,
   addNewStation,
   removeStation,
-  updateStation
+  updateStation,
+  getLikedStations,
+  getCreatedStations
 }
 
 async function query(filterBy = null) {
-  const query = !filterBy?.txt ? '' : `?name=${filterBy.txt}`;
+  const query = !filterBy?.txt ? '' : `?userid=${filterBy.txt}`;
   try {
     return await httpService.get(`station${query}`)
     // return await storageService.query(STORAGE_KEY).then((stations) => {
@@ -183,6 +185,7 @@ async function getById(stationId) {
   if (!stationId) return;
   try {
     const station = await httpService.get(`station/${stationId}`)
+    console.log('station??' , station);
     // return storageService.get(STORAGE_KEY, stationId)
     return station
   } catch (err) {
@@ -378,6 +381,28 @@ async function removeStation(stationId) {
       console.log(err);
       throw err;
     }
+}
+
+async function getLikedStations(userStations) {
+  try {
+    const likedStationsPromises = userStations.map(stationId => {
+      return getById(stationId)
+    })
+    return Promise.all(likedStationsPromises)
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
+async function getCreatedStations(userId) {
+  try {
+    const createdStations = query({txt: userId})
+    // console.log('createdStations' , createdStations);
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
 }
 
 function _createStation() {

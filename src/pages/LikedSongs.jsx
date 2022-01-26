@@ -6,8 +6,6 @@ import { updateLikedSongs } from '../store/actions/user.action'
 import React, { useEffect, useState } from 'react'
 
 function _LikedSongs({ user, updateLikedSongs }) {
-  // console.log('user.likedSongs:' , user.likedSongs)
-  // const [likedSongs, setLikedSongs] = useState(user.likedSongs)
 
   const onDragEnd = async (result) => {
     const { destination, source } = result
