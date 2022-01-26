@@ -24,6 +24,14 @@
     transition: background-color 0.3s ease;
     width: 100%;
     height: 250px;
+
+    // .card-img {
+    // }
+
+    &:hover {
+      cursor: pointer;
+      background: #282828;
+    }
   }
 
   .liked-songs {
@@ -33,5 +41,9 @@
     height: inherit;
     line-height: 24px;
     background: linear-gradient(149.46deg, #450af5, #8e8ee5 99.16%);
+
+    &:hover {
+      background: linear-gradient(149.46deg, #5d2af5, #a4a4eb 99.16%);
+    }
   }
 }

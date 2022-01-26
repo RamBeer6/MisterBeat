@@ -7,6 +7,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 // import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { BorderColor } from "@mui/icons-material";
 
 export function EditStationHero({ station, onSaveStation, onCloseEdit }) {
     const [stationInfo, setStationInfo] = useState({
@@ -15,7 +16,6 @@ export function EditStationHero({ station, onSaveStation, onCloseEdit }) {
         imgUrl: "",
         desc: "",
     });
-
 
     const [open, setOpen] = useState(true);
 
@@ -26,7 +26,6 @@ export function EditStationHero({ station, onSaveStation, onCloseEdit }) {
         onCloseEdit(false);
         setOpen(false);
     };
-
 
     useEffect(() => {
         if (station._id) setStationInfo({ ...station });
@@ -42,7 +41,15 @@ export function EditStationHero({ station, onSaveStation, onCloseEdit }) {
         <section className="edit-station-hero">
             {/* <Button variant="outlined" onClick={handleClickOpen} /> */}
             <Dialog open={open} onClose={handleClose}>
-                <section className="hero-main-container">
+                <section
+                    style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        color: "gainsboro",
+                        background: "#282828",
+                    }}
+                    className="hero-main-container"
+                >
                     <header className="edit-header">
                         <DialogTitle>Edit details</DialogTitle>
                         {/* <div className="close-btn">
@@ -50,8 +57,15 @@ export function EditStationHero({ station, onSaveStation, onCloseEdit }) {
                         </div> */}
                     </header>
                     <DialogContent>
-                        <main className="edit-details">
-                            <label className="edit-img">
+                        <main
+                            className="edit-details"
+                            style={{
+                                display: "grid",
+                                gridTemplateColumns: "1fr 1fr",
+                                gridTemplateRows: "1fr 1fr",
+                            }}
+                        >
+                            <label className="edit-img" style={{ gridArea: "1/1/3/2" }}>
                                 <input
                                     type="file"
                                     name="img"
@@ -64,20 +78,18 @@ export function EditStationHero({ station, onSaveStation, onCloseEdit }) {
                                 id="name"
                                 margin="dense"
                                 value={stationInfo.name}
-                                // placeholder="Edit playlist name"
                                 onChange={handleChange}
                                 label="Title"
                                 autoComplete="off"
-                            // variant="standard"
+                                style={{ color: "red" }}
                             />
                             <TextField
                                 type="text"
                                 id="desc"
                                 value={stationInfo.desc}
-                                // placeholder="Add description"
                                 onChange={handleChange}
                                 label="description"
-
+                                autoComplete="off"
                             />
                         </main>
                     </DialogContent>
@@ -88,6 +100,23 @@ export function EditStationHero({ station, onSaveStation, onCloseEdit }) {
                                 onClick={() => {
                                     onCloseEdit(false);
                                     onSaveStation(stationInfo);
+                                }}
+                                style={{
+                                    border: "2px solid transparent",
+                                    borderRadius: "500px",
+                                    color: "gray",
+                                    cursor: "pointer",
+                                    display: " inline-block",
+                                    fontSize: "12px",
+                                    fontWeight: "700",
+                                    letterSpacing: " 1.76px",
+                                    lineHeight: "18px",
+                                    padding: " 8px 34px",
+                                    textAlign: "center",
+                                    textTransform: "uppercase",
+                                    transition: "all 33ms cubic-bezier(.3,0,0,1)",
+                                    whiteSpace: "nowrap",
+                                    willChange: "transform",
                                 }}
                             >
                                 Save
