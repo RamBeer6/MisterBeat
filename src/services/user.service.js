@@ -1,11 +1,15 @@
-import { storageService } from './async-storage.service.js'
+import { httpService } from './http.service.js'
+import avatar from '../assets/imgs/avatar.jpg'
 
-const STORAGE_KEY = 'user'
+const STORAGE_KEY = 'loggedinUser'
 
 export const userService = {
   getLoggedinUser,
   updateUser,
   updateLikedSongs,
+  signup,
+  login,
+  logout,
 }
 
 function getLoggedinUser() {
@@ -13,25 +17,22 @@ function getLoggedinUser() {
   if (user) return user
   else {
     const guest = {
-      _id: 'u101',
+      // _id: 'u101',
       userName: 'Guest',
+      imgUrl: {avatar},
       likedSongs: [],
       likedStations: [],
-      imgUrl:
-        'https://pbs.twimg.com/profile_images/746460305396371456/4QYRblQD.jpg',
     }
-    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(guest))
+    _setLoggedinUser(guest)
     return guest
   }
 }
 
 async function updateUser(user) {
   try {
-    // const updatedUser = await httpService.put(`user`, user)
-    // sessionStorage.setItem(STORAGE_KEY, JSON.stringify(updatedUser))
-    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(user))
-    // return updatedUser
-    return user
+    const updatedUser = await httpService.put(`user/${user._id}`, user)
+    _setLoggedinUser(updatedUser)
+    return updatedUser
   } catch (err) {
     throw err
   }
@@ -45,4 +46,38 @@ async function updateLikedSongs(songs) {
   } catch (err) {
     throw err
   }
+}
+
+async function login(userCred) {
+  try {
+    const user = await httpService.post('auth/login', userCred)
+    _setLoggedinUser(user)
+    return user
+  } catch (err) {
+    throw err
+  }
+}
+
+async function signup(userInfo) {
+  try {
+    if (!userInfo.imgUrl) userInfo.imgUrl = { avatar }
+    const user = await httpService.post('auth/signup', userInfo)
+    _setLoggedinUser(user)
+    return user
+  } catch (err) {
+    throw err
+  }
+}
+
+async function logout() {
+  try {
+    sessionStorage.removeItem(STORAGE_KEY)
+    return await httpService.post('auth/logout')
+  } catch (err) {
+    throw err
+  }
+}
+
+function _setLoggedinUser(user) {
+  sessionStorage.setItem(STORAGE_KEY, JSON.stringify(user))
 }
