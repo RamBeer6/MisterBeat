@@ -1,6 +1,7 @@
 import React, { Component, useState } from 'react';
 import { connect } from 'react-redux';
 import ReactPlayer from 'react-player/youtube';
+import Slider from '@mui/material/Slider';
 
 import Duration from './Duration';
 import imgSong from '../assets/imgs/default-song.png';
@@ -43,24 +44,36 @@ class _MusicPlayer extends React.Component {
     this.setState((prevState) => ({
       ...prevState,
       volume: parseFloat(event.target.value),
-    }));
-  };
-
-  handelSeekMouseDown = (ev) => {
-    this.setState((prevState) => ({ ...prevState, seeking: true }));
-  };
+    }))
+    // this.setState((prevState) => ({
+    //   ...prevState,
+    //   volume: event.target.value,
+    // }))
+  }
 
   handleSeekChange = (ev) => {
+    console.log('seek handlechange' , ev.target.value);
     this.setState((prevState) => ({
       ...prevState,
       played: parseFloat(ev.target.value),
     }));
+    // this.setState((prevState) => ({
+    //   ...prevState,
+    //   played: ev.target.value,
+    // }));
   };
 
   handleSeekMouseUp = (ev) => {
-    this.setState((prevState) => ({ ...prevState, seeking: false }));
-    this.player.seekTo(parseFloat(ev.target.value));
-  };
+    // console.log('seek mouse up:' , ev.target.value);
+    this.setState((prevState) => ({ ...prevState, seeking: false }), () => {
+      this.player.seekTo(parseFloat(ev.target.value))
+    })
+    // this.player.seekTo(ev.target.value);
+  }
+  
+  handleSeekMouseDown = (ev) => {
+    this.setState((prevState) => ({ ...prevState, seeking: true }))
+  }
 
   handleProgress = (state) => {
     if (!this.state.seeking) this.setState(state);
@@ -310,7 +323,7 @@ class _MusicPlayer extends React.Component {
 
             {/**progres bar */}
 
-            <input
+            {/* <input
               type='range'
               className='progress-bar'
               min={0}
@@ -320,6 +333,20 @@ class _MusicPlayer extends React.Component {
               onMouseDown={this.onMouseDown}
               onChange={this.handleSeekChange}
               onMouseUp={this.handleSeekMouseUp}
+            /> */}
+
+            <Slider 
+              className="duration-slider"
+              size="medium"
+              aria-label="Medium"
+              min={0}
+              max={duration / 100}
+              step={0.00000001}
+              defaultValue={0}
+              value={played}
+              // onMouseDown={this.handleSeekMouseDown}
+              onChange={this.handleSeekChange}
+              // onMouseUp={this.handleSeekMouseUp}
             />
 
             {/**duration */}
@@ -384,7 +411,7 @@ class _MusicPlayer extends React.Component {
                 </svg>
               )}
             </button>
-            <input
+            {/* <input
               className='volume-input'
               type='range'
               min={0}
@@ -392,8 +419,20 @@ class _MusicPlayer extends React.Component {
               step='any'
               value={volume}
               onChange={this.handleVolumeChange}
-            />
+            />   */}
           </div>
+          <Slider 
+            className="volumn-slider"
+            size="medium"
+            min={0}
+            max={1}
+            step={0.05}
+            aria-label="Volume"
+            defaultValue={0.3}
+            value={volume}
+            onChange={this.handleVolumeChange}
+
+            />
         </div>
       </section>
     );

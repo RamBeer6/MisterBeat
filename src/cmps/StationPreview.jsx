@@ -62,7 +62,7 @@ function _StationPreview({
       <div className='station-content'>
         <h2>{station.name}</h2>
         <div className='station-info'>
-          <h4>Created by: {station.createdBy?.fullname}</h4>
+          <h4>Created by: {station.createdBy?.userName}</h4>
           <h4>Tags: {station.tags?.join(', ')}</h4>
         </div>
       </div>
