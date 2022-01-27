@@ -5,9 +5,10 @@ import { stationService } from '../services/station.service'
 
 import NavBarOptions from './NavBarOptions'
 import logo from '../assets/imgs/logo.png'
+import { ActivityLog } from './ActivityLog'
 
 function _NavBar({ setIsWelcome, setIsLogin, user }) {
-  const [ likedStations, setLikedStations ] = useState([])
+  const [likedStations, setLikedStations] = useState([])
 
   useEffect(() => {
     loadLikedStations()
@@ -17,96 +18,92 @@ function _NavBar({ setIsWelcome, setIsLogin, user }) {
     try {
       const userLikedStations = await stationService.getLikedStations(user.likedStations)
       setLikedStations(userLikedStations)
-  } catch (err) {
+    } catch (err) {
       console.log(err)
-  }
+    }
   }
 
   return (
-    <nav className='nav-bar'>
+    <nav className="nav-bar">
       {/* <Link to='/'> */}
       <img
-        className='nav-bar__logo'
+        className="nav-bar__logo"
         src={logo}
-        alt='logo'
+        alt="logo"
         onClick={() => {
-          setIsLogin(false);
-          setIsWelcome(true);
+          setIsLogin(false)
+          setIsWelcome(true)
         }}
       />
       {/* </Link> */}
 
-      <ul className='nav-bar-list'>
-        <NavLink to='/' className='active-option'>
+      <ul className="nav-bar-list">
+        <NavLink to="/" className="active-option">
           <li>
-            <div className='symbol fas fa-home' />
-            <NavBarOptions title='Home' />
+            <div className="symbol fas fa-home" />
+            <NavBarOptions title="Home" />
           </li>
         </NavLink>
 
-        <NavLink to='/search' className='active-option'>
+        <NavLink to="/search" className="active-option">
           <li>
-            <div className='symbol fas fa-search' />
-            <NavBarOptions title='Search' />
+            <div className="symbol fas fa-search" />
+            <NavBarOptions title="Search" />
           </li>
         </NavLink>
 
-        <NavLink to='/library' className='active-option'>
+        <NavLink to="/library" className="active-option">
           <li>
-            <div className='symbol fas fa-compact-disc' />
-            <NavBarOptions title='Your Library' />
+            <div className="symbol fas fa-compact-disc" />
+            <NavBarOptions title="Your Library" />
           </li>
         </NavLink>
 
-        <NavLink to='/station/create' className='active-option'>
+        <NavLink to="/station/create" className="active-option">
           <li>
-            <div className='symbol fas fa-plus-square' />
-            <NavBarOptions title='Create Playlist' />
+            <div className="symbol fas fa-plus-square" />
+            <NavBarOptions title="Create Playlist" />
           </li>
         </NavLink>
 
-        <NavLink to='/likedSongs' className='active-option'>
-          <li className='liked'>
-            <div className='symbol fas fa-thumbs-up' />
-            <NavBarOptions title='Liked Songs' />
+        <NavLink to="/likedSongs" className="active-option">
+          <li className="liked">
+            <div className="symbol fas fa-thumbs-up" />
+            <NavBarOptions title="Liked Songs" />
           </li>
         </NavLink>
       </ul>
 
-      <strong className='nav-bar__title'>Liked Playlists</strong>
+      <strong className="nav-bar__title">Liked Playlists</strong>
       <hr />
 
       {likedStations.map((station) => {
         return (
-          <NavLink to={`/station/${station._id}`} key={station._id} className='active-option'>
+          <NavLink
+            to={`/station/${station._id}`}
+            key={station._id}
+            className="active-option"
+          >
             <li>
               <NavBarOptions title={station.name} />
             </li>
           </NavLink>
         )
       })}
-      {/* <li>
-        <NavBarOptions title='Beyonce' />
-      </li>
-      <li>
-        <NavBarOptions title="90's Hits" />
-      </li>
-      <li>
-        <NavBarOptions title='Hip-Hop' />
-      </li>
-      <li>
-        <NavBarOptions title='Rock' />
-      </li> */}
+
+      <strong className="nav-bar__title">Activity Log</strong>
+      <hr />
+      <ActivityLog />
     </nav>
-  );
+  )
 }
 
 function mapStateToProps(state) {
   return {
     user: state.userModule.user,
-  };
+  }
 }
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {}
 
-export const NavBar = connect(mapStateToProps, mapDispatchToProps)(_NavBar);
+export const NavBar = connect(mapStateToProps, mapDispatchToProps)(_NavBar)

@@ -52,9 +52,7 @@ export function SongSearch({ stationId, onAddSong }) {
       setIsSearching(false);
       setSongs(songs.slice(0, 10));
     });
-  };
-
-  console.log(' SONG SEARCH - songs', songs);
+  }
 
   return (
     <section className='song-search'>

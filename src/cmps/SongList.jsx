@@ -2,32 +2,34 @@ import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { SvgLoader } from "./SvgLoader";
 import { Droppable } from "react-beautiful-dnd";
+import { socketService } from '../services/socket.service';
 
 import { setPlayerSongs } from "../store/actions/music.player.action";
+import { likeSongActivity } from "../store/actions/activity.log.action";
 import { SongPreview } from "./SongPreview";
 
 // function _SongList({ stationId = "likedSongs", songs, onRemoveSong, fromLikedSong = false, setPlayerSongs }) {
-function _SongList({
-  stationId = "no_id",
-  songs,
-  onRemoveSong,
-  fromLikedSong = false,
-  setPlayerSongs,
-}) {
+function _SongList({ stationId = "no_id", songs, onRemoveSong, fromLikedSong = false, setPlayerSongs, likeSongActivity }) {
   useEffect(() => {
-    // console.log('useEffect in songlist songs', songs);
-    setPlayerSongs(songs);
+    socketService.off('songChanged', socketDemo)
+    socketService.on('songChanged', socketDemo)
+    setPlayerSongs(songs)
   }, []);
 
-  if (!songs || !songs.length) return <React.Fragment></React.Fragment>;
+  const socketDemo = async ({ song, user }) => {
+    console.log('data from socket', song, user);
+    try {
+      await likeSongActivity(song, user)
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
-  // export function _SongList({
-  //   stationId = 'likedSongs',
-  //   songs,
-  //   onRemoveSong,
-  //   fromLikedSong = false,
-  //   setPlayerSongs,
-  // }) {
+  const onSongActivity = (song, user) => {
+    socketService.emit('changeSong', {song , user})
+  }
+
+  if (!songs || !songs.length) return <React.Fragment></React.Fragment>;
 
   if (!songs.length) return <SvgLoader />;
   return (
@@ -53,6 +55,7 @@ function _SongList({
                 idx={idx}
                 onRemoveSong={onRemoveSong}
                 fromLikedSong={fromLikedSong}
+                onSongActivity={onSongActivity}
               />
             );
           })}
@@ -71,6 +74,7 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
   setPlayerSongs,
+  likeSongActivity
 };
 
 export const SongList = connect(mapStateToProps, mapDispatchToProps)(_SongList);

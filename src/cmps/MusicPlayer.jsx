@@ -206,22 +206,24 @@ class _MusicPlayer extends React.Component {
             <img
               src={
                 !songs && !songs.length && !songDetails
-                  ? imgSong
+                  ? { imgSong }
                   : songs[currSongIdx]?.imgUrl || songDetails.imgUrl
               }
               alt='image'
             />
           )}
+
           {isShuffle && (
             <img
               src={
                 !currSongs && !currSongs.length && !songDetails
-                  ? imgSong
+                  ? ''
                   : shuffleSongs[currSongIdx]?.imgUrl
               }
-              alt='image'
+              // alt='image'
             />
           )}
+
           <div className='p-container'>
             {
               <section>

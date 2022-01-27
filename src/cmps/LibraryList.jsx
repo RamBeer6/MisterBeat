@@ -17,7 +17,9 @@ export function LibraryList({ countLikedSongs, userStations }) {
 
             {userStations?.map((station) => {
                 return (
-                    <section key={station._id} className="card liked-station">
+                    <section key={station._id} className="card liked-station" onClick={() => {
+                        navigate(`/station/${station._id}`);
+                    }}>
                         liked stations
                     </section>
                 );

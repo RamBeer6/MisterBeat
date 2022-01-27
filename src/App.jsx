@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router';
 import routes from './routes';
+import { socketService } from './services/socket.service';
+
 import { WelcomePage } from './pages/WelcomePage';
 import { StationDetails } from './pages/StationDetails';
 import { LoginSignup } from './pages/LoginSignup';
@@ -12,6 +14,13 @@ import { MusicPlayer } from './cmps/MusicPlayer';
 export const App = () => {
   const [isWelcome, setIsWelcome] = useState(true);
   const [isLogin, setIsLogin] = useState(false);
+
+  useEffect(() => {
+    return () => {
+      socketService.terminate()
+    }
+  }, [])
+
   return (
     <section>
       {isWelcome ? (

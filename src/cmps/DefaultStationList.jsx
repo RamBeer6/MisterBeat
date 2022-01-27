@@ -15,8 +15,8 @@ export function DefaultStationList({ stations }) {
             <StationPreview key={station._id} station={station} />
           ))}
         </div>
-        <a className='switchLeft sliderButton'> &lt; </a>
-        <a className='switchRight sliderButton'> &gt; </a>
+        {/* <a className='switchLeft sliderButton'> &lt; </a>
+        <a className='switchRight sliderButton'> &gt; </a> */}
       </div>
     </section>
   );

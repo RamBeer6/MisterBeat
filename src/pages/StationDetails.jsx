@@ -24,14 +24,11 @@ function _StationDetails(props) {
   useEffect(() => {
     (async () => {
       const { stationId } = params
-      // console.log('stationDetails ID:' , stationId);
       if (stationId) {
         const station = await stationService.getById(stationId)
-        console.log('stationDetails station:' , station)
         setStation(station);
         setIsLikedStation(props.user.likedStations.includes(stationId))
       } 
-      // else stationService.save()
     })();
     //eslint-disable-next-line
   }, []);
