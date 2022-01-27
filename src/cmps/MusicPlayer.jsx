@@ -205,8 +205,8 @@ class _MusicPlayer extends React.Component {
           {!isShuffle && (
             <img
               src={
-                !songs && !songs.length && !songDetails
-                  ? { imgSong }
+                !songs || (!songs.length && !songDetails)
+                  ? 'https://t.scdn.co/images/3099b3803ad9496896c43f22fe9be8c4.png'
                   : songs[currSongIdx]?.imgUrl || songDetails.imgUrl
               }
               alt='image'
@@ -216,8 +216,8 @@ class _MusicPlayer extends React.Component {
           {isShuffle && (
             <img
               src={
-                !currSongs && !currSongs.length && !songDetails
-                  ? ''
+                !currSongs || (!currSongs.length && !songDetails)
+                  ? 'https://t.scdn.co/images/3099b3803ad9496896c43f22fe9be8c4.png'
                   : shuffleSongs[currSongIdx]?.imgUrl
               }
               // alt='image'
