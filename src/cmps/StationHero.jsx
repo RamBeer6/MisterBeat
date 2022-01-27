@@ -7,7 +7,7 @@ import { utilService } from "../services/util.service";
 import { EditStationHero } from "../cmps/EditStationHero";
 
 function _StationHero({ user, station = {}, onSaveStation }) {
-  const [isEdit, setIsEdit] = useState(false);
+  const [isEdit, setIsEdit] = useState(false)
 
   const onCloseEdit = (value) => {
     setIsEdit(value);
@@ -28,8 +28,9 @@ function _StationHero({ user, station = {}, onSaveStation }) {
     }
   };
   const { stationId } = station;
+
   return (
-    <section className="station-hero">
+    <section className="station-hero" >
       <div className="linear-hero">
         <div className="station-hero__info" onClick={() => setIsEdit(!isEdit)}>
           <img src={station.imgUrl} className="station-hero__img" />
@@ -37,12 +38,11 @@ function _StationHero({ user, station = {}, onSaveStation }) {
             <strong className="label">Playlist</strong>
             <h2>{station?.name ? station.name : "My Playlist #1"}</h2>
             <div className="total-durtion-user">
+              <p className="duration__desc">{station?.desc}</p>
               <p className="duration__nums">
-                {station.likedByUser ? station.likedByUser.length : "0"} likes ∙{" "}
+                <span className="user-info">{user.userName}</span> • {station.likedByUser ? station.likedByUser.length : "0"} likes • {" "}
                 {calcDuration(station)}
               </p>
-              <p className="duration__desc">{station?.desc}</p>
-              <p>{user.userName}</p>
             </div>
           </div>
         </div>

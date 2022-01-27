@@ -11,12 +11,13 @@
     box-sizing: content-box;
     height: 36px;
     margin: 0 -16px 8px;
-    padding: 0 32px;
+    padding: 0 24px;
     // position: sticky;
     top: 64px;
     z-index: 2;
     display: grid;
-    grid-template-columns: 16px 4fr 2fr minmax(120px, 1fr);
+    // grid-template-columns: 16px 4fr 2fr minmax(120px, 1fr);
+    grid-template-columns: 16px 4fr 120px 50px;
     grid-gap: 16px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     color: #b3b3b3;

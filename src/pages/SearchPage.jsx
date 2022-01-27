@@ -7,13 +7,8 @@ import useDebounce from '../cmps/UseDebounce'
 import { LoaderDots } from '../cmps/LoaderDots'
 import { SearchedSongList } from '../cmps/SearchedSongList'
 
-// export class SearchPage extends React.Component {
+
 export function SearchPage() {
-  // state = {
-  //   filterBy: {
-  //     txt: "",
-  //   },
-  // }
   const [txt, setTxt] = useState('')
   const [songs, setSongs] = useState([])
   const [isSearching, setIsSearching] = useState(false)
@@ -70,7 +65,6 @@ export function SearchPage() {
     setTxt(txt)
   }
 
-  // render() {
     return (
       <section className="search-page">
         <SearchBar onSetFilter={onSetFilter} />
@@ -81,5 +75,4 @@ export function SearchPage() {
         )}
       </section>
     )
-  // }
 }

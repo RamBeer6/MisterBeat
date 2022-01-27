@@ -19,10 +19,10 @@ function _ActivityLog({ getActivities, activities }) {
         }
     }
 
-    if(!activities || !activities.length) return <span>No activites</span>
+    if(!activities || !activities.length) return <span className="lg-menu">No activites</span>
 
     return (
-        <section className="activity-log">
+        <section className="activity-log lg-menu">
             <ul>
                 {activities?.map((activity, idx) => <li key={activity._id}>
                     {/* <span >{activity._id}</span> */}

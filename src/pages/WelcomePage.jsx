@@ -11,7 +11,6 @@ export const WelcomePage = ({ setIsWelcome, setIsLogin }) => {
 
   return (
     <section className='welcome-page'>
-      {/* <LoginSignup /> */}
       <header>
         <ul>
           <li
@@ -35,15 +34,6 @@ export const WelcomePage = ({ setIsWelcome, setIsLogin }) => {
       <main className='hero'>
         <div className='content'>
           <h2>Mister.Beat</h2>
-          {/* <img
-            className='nav-bar__logo'
-            src={logo}
-            alt='logo'
-            onClick={() => {
-              setIsLogin(false);
-              setIsWelcome(true);
-            }}
-          /> */}
           <p>Start listening to the best new releases.</p>
         </div>
         <button className='hero-btn' onClick={() => setIsWelcome(false)}>

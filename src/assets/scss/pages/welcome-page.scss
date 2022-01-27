@@ -15,7 +15,8 @@
     color: white;
 
     ul {
-      margin: 10px;
+      // margin: 10px;
+      margin: 0 10px;
       display: flex;
       flex-direction: row;
       list-style: none;
@@ -23,7 +24,7 @@
     }
 
     li {
-      margin-right: 35px;
+      // margin-right: 35px;
       margin-left: 35px;
       transition: color 300ms ease-in-out;
 
@@ -32,7 +33,18 @@
         color: var(--color);
       }
     }
+
+    @include for-wide-layout {
+      ul {
+        margin: 10px;
+      }
+
+      li {
+        margin-right: 35px;
+      }
+    }
   }
+
   .hero {
     // z-index: 2;
     position: relative;
@@ -47,9 +59,9 @@
 
     .content {
       z-index: 2;
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 0 20px;
+      // max-width: 600px;
+      // margin: 0 auto;
+      // padding: 0 20px;
 
       h2 {
         position: relative;
@@ -69,11 +81,21 @@
         line-height: 1.4;
       }
     }
+
+    @include for-wide-layout {
+      .content {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+    }
   }
+
   .hero-btn {
     z-index: 2;
     margin-bottom: 55px;
     position: relative;
+    font-family: inherit;
     font-size: 15px;
     font-size: 700;
     border: none;
@@ -89,6 +111,7 @@
     }
   }
 }
+
 /* ========================= */
 
 .waves {

@@ -19,19 +19,30 @@
       line-height: 24px;
       font-size: rem(22px);
       font-weight: 700;
+      padding: 20px 0 10px;
     }
 
     .station-info {
+      -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       display: -webkit-box;
       margin-top: 4px;
+      overflow: hidden;
       text-overflow: ellipsis;
+      white-space: normal;
       color: rgb(179, 179, 179);
     }
   }
 
   .station-img-container {
     position: relative;
+    width: 100%;
+    height: 70%;
+
+    img {
+      height: 100%;
+      object-fit: cover;
+    }
 
     .station-play-btn {
       position: absolute;
@@ -71,7 +82,8 @@
     }
 
     .station-play-btn {
-      transform: translateY(-50%);
+      // transform: translateY(-50%);
+      transform: translateY(-10%);
       opacity: 1;
     }
   }

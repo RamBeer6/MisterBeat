@@ -1,14 +1,26 @@
 .suggested-preview {
   display: grid;
-  grid-template-columns: 16px 4fr 2fr minmax(120px, 1fr);
+  // grid-template-columns: 16px 4fr 2fr minmax(120px, 1fr);
+  grid-template-columns: 16px 4fr 120px 50px;
   grid-gap: 16px;
   align-items: center;
-  margin: 10px 0;
-  padding: 16px;
+  margin: 2px 0;
+  padding: 8px;
   // border-bottom: 1px solid #e5e5e5;
   box-sizing: content-box;
   border-radius: 4px;
   transition: background-color 200ms ease;
+
+  .song-info-img {
+    width: 40px;
+    height: 40px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);

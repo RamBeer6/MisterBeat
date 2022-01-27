@@ -25,9 +25,9 @@ function _NavBar({ setIsWelcome, setIsLogin, user }) {
 
   return (
     <nav className="nav-bar">
-      {/* <Link to='/'> */}
+      <div className="logo">
       <img
-        className="nav-bar__logo"
+        className="nav-bar-logo"
         src={logo}
         alt="logo"
         onClick={() => {
@@ -35,7 +35,7 @@ function _NavBar({ setIsWelcome, setIsLogin, user }) {
           setIsWelcome(true)
         }}
       />
-      {/* </Link> */}
+      </div>
 
       <ul className="nav-bar-list">
         <NavLink to="/" className="active-option">
@@ -74,7 +74,7 @@ function _NavBar({ setIsWelcome, setIsLogin, user }) {
         </NavLink>
       </ul>
 
-      <strong className="nav-bar__title">Liked Playlists</strong>
+      <strong className="nav-bar__title lg-menu">Liked Playlists</strong>
       <hr />
 
       {likedStations.map((station) => {
@@ -82,7 +82,7 @@ function _NavBar({ setIsWelcome, setIsLogin, user }) {
           <NavLink
             to={`/station/${station._id}`}
             key={station._id}
-            className="active-option"
+            className="active-option lg-menu"
           >
             <li>
               <NavBarOptions title={station.name} />
@@ -91,9 +91,9 @@ function _NavBar({ setIsWelcome, setIsLogin, user }) {
         )
       })}
 
-      <strong className="nav-bar__title">Activity Log</strong>
-      <hr />
-      <ActivityLog />
+      <strong className="nav-bar__title lg-menu">Activity</strong>
+      <hr className="lg-menu" />
+      <ActivityLog className="lg-menu" />
     </nav>
   )
 }

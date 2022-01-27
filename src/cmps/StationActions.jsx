@@ -10,9 +10,11 @@ export function StationActions({
 }) {
   // console.log('isLikedStation' , isLikedStation);
   const [isStationPlaying, setStationPlaying] = useState(false);
+  const [isHover, setIsHover] = useState(false)
 
   return (
-    <section className="station-actions">
+    <section className="station-actions" onMouseEnter={() => setIsHover(true)}
+       onMouseLeave={() => setIsHover(false)}>
       <button
         className="play-btn"
         title="play"
@@ -77,7 +79,7 @@ export function StationActions({
             fillRule="evenodd"
             clipRule="evenodd"
           >
-            <path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402m5.726-20.583c-2.203 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248-3.183 0-6.281 2.187-6.281 6.191 0 4.661 5.571 9.429 12 15.809 6.43-6.38 12-11.148 12-15.809 0-4.011-3.095-6.181-6.274-6.181" />
+            <path style={{stroke: '#ffffffb3', strokeWidth: 1.2}} d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402m5.726-20.583c-2.203 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248-3.183 0-6.281 2.187-6.281 6.191 0 4.661 5.571 9.429 12 15.809 6.43-6.38 12-11.148 12-15.809 0-4.011-3.095-6.181-6.274-6.181" />
           </svg>
         </button>
       )}
@@ -94,22 +96,14 @@ export function StationActions({
           clipRule="evenodd"
         >
           <path
+           style={{stroke: '#ffffffb3', strokeWidth: 2}}
             fill="currentColor"
             d="M11 11v-11h1v11h11v1h-11v11h-1v-11h-11v-1h11z"
           />
         </svg>
-        {/* <svg
-          role='img'
-          height='32'
-          width='32'
-          viewBox='0 0 32 32'
-          className='Svg-sc-1bi12j5-0 hDgDGI'>
-          <path
-            fill='currentColor'
-            d='M5.998 13.999A2 2 0 105.999 18a2 2 0 00-.001-4zm10.001 0A2 2 0 1016 18a2 2 0 000-4zm10.001 0A2 2 0 1026.001 18 2 2 0 0026 14z'></path>
-        </svg> */}
       </button>
-      <button
+      {isHover ? 
+        <button
         style={{
           background: "transparent",
           border: "none",
@@ -117,6 +111,7 @@ export function StationActions({
         }}
         className="remove-btn"
         onClick={() => onRemoveStation(stationId)}
+        title="Delete playlist"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -130,8 +125,9 @@ export function StationActions({
             d="M3 6v18h18v-18h-18zm5 14c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4-18v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.315c0 .901.73 2 1.631 2h5.712z"
           />
         </svg>
-        {/* <i className="fas fa-trash-alt"></i> */}
-      </button>
+      </button> : ''
+      }
+      
     </section>
   );
 }

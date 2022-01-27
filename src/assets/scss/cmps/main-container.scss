@@ -2,14 +2,12 @@
   position: static;
   height: 100%;
   min-height: 100vh;
-  // padding: 30px;
   padding-top: 60px;
   padding-bottom: 100px;
-  // flex: 0.85;
   width: 100vw;
   color: whitesmoke;
-  background: linear-gradient(#16351d, rgba(0, 0, 0, 1));
-  // overflow-y: unset;
+  // background: linear-gradient(#16351d , black 50%);
+  background: linear-gradient(#16351d , black 70%);
 
   &::-webkit-scrollbar {
     background-color: rgb(58, 58, 58);

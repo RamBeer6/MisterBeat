@@ -1,3 +1,5 @@
 .main {
-  display: flex;
+  @include for-wide-layout {
+    display: flex;
+  }
 }
