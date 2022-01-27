@@ -17,9 +17,9 @@
   svg {
     transition: fill 300ms ease-in-out;
 
-    &:hover {
-      fill: white;
-    }
+    // &:hover {
+    //   fill: white;
+    // }
   }
 
   button {
@@ -126,9 +126,8 @@
         cursor: pointer;
       }
     }
-
   }
-  .duration-slider{
+  .duration-slider {
     color: $clr1;
     width: 50%;
     // padding: 0 50px;
@@ -154,5 +153,4 @@
     color: $clr1;
     width: 50%;
   }
-
 }

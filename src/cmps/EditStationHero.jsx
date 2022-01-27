@@ -1,13 +1,15 @@
 // import { useEffect, useState } from 'react'
 import React, { useEffect, useState } from "react";
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 // import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { BorderColor } from "@mui/icons-material";
+import { ColorPicker } from "material-ui-color";
+// import { ColorInput } from "s@mui/icons-material";
+import { ColorInput } from "./ColorInput";
 
 import { uploadImg } from "../services/cloudinary.service";
 
@@ -66,6 +68,13 @@ export function EditStationHero({ station, onSaveStation, onCloseEdit }) {
         } catch (err) { }
     };
 
+    const onChangeColor = (bgc) => {
+        this.setState((prevState) => ({
+            ...prevState,
+            hero: { ...prevState.hero, bgc },
+        }));
+    };
+
     return (
         <section className="edit-station-hero">
             {/* <Button variant="outlined" onClick={handleClickOpen} /> */}
@@ -75,7 +84,7 @@ export function EditStationHero({ station, onSaveStation, onCloseEdit }) {
                         display: "flex",
                         flexDirection: "column",
                         color: "gainsboro",
-                        background: "#282828",
+                        backgroundColor: "gray",
                     }}
                     className="hero-main-container"
                 >
@@ -89,8 +98,10 @@ export function EditStationHero({ station, onSaveStation, onCloseEdit }) {
                                 display: "grid",
                                 gridTemplateColumns: "1fr 1fr",
                                 gridTemplateRows: "1fr 1fr",
+                                backgroundColor: "gray",
                             }}
                         >
+                            {/* <ColorPicker defaultValue="transparent" /> */}
                             <label className="edit-img" style={{ gridArea: "1/1/3/2" }}>
                                 <input
                                     className="hero-upload-btn"
@@ -98,7 +109,15 @@ export function EditStationHero({ station, onSaveStation, onCloseEdit }) {
                                     name="imgUrl"
                                     onChange={handleImage}
                                 />
-                                <img className="hero-upload-img" src={image} alt="img" />
+                                <img
+                                    className="hero-upload-img"
+                                    src={
+                                        stationInfo.imgUrl.length
+                                            ? image
+                                            : "https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2014/png/iconmonstr-disc-5.png&r=122&g=122&b=122"
+                                    }
+                                    alt="img"
+                                />
                             </label>
                             <TextField
                                 type="text"
@@ -119,6 +138,7 @@ export function EditStationHero({ station, onSaveStation, onCloseEdit }) {
                                 autoComplete="off"
                             />
                         </main>
+                        {/* <ColorInput onChangeColor={onChangeColor} /> */}
                     </DialogContent>
                     <footer className="edit-footer">
                         <DialogActions>

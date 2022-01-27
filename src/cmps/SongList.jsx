@@ -8,7 +8,6 @@ import { setPlayerSongs } from "../store/actions/music.player.action";
 import { likeSongActivity } from "../store/actions/activity.log.action";
 import { SongPreview } from "./SongPreview";
 
-// function _SongList({ stationId = "likedSongs", songs, onRemoveSong, fromLikedSong = false, setPlayerSongs }) {
 function _SongList({ stationId = "no_id", songs, onRemoveSong, fromLikedSong = false, setPlayerSongs, likeSongActivity }) {
   useEffect(() => {
     socketService.off('songChanged', socketDemo)
@@ -26,7 +25,8 @@ function _SongList({ stationId = "no_id", songs, onRemoveSong, fromLikedSong = f
   }
 
   const onSongActivity = (song, user) => {
-    socketService.emit('changeSong', {song , user})
+    console.log('onSongActivity from');
+    socketService.emit('changeSong', { song, user })
   }
 
   if (!songs || !songs.length) return <React.Fragment></React.Fragment>;
