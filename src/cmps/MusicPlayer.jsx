@@ -44,19 +44,20 @@ class _MusicPlayer extends React.Component {
     this.setState((prevState) => ({
       ...prevState,
       volume: parseFloat(event.target.value),
-    }))
+    }));
     // this.setState((prevState) => ({
     //   ...prevState,
     //   volume: event.target.value,
     // }))
-  }
+  };
 
   handleSeekChange = (ev) => {
-    console.log('seek handlechange' , ev.target.value);
+    console.log('seek handlechange', ev.target.value);
     this.setState((prevState) => ({
       ...prevState,
       played: parseFloat(ev.target.value),
     }));
+    console.log('this.state.played', this.state.played);
     // this.setState((prevState) => ({
     //   ...prevState,
     //   played: ev.target.value,
@@ -65,18 +66,23 @@ class _MusicPlayer extends React.Component {
 
   handleSeekMouseUp = (ev) => {
     // console.log('seek mouse up:' , ev.target.value);
-    this.setState((prevState) => ({ ...prevState, seeking: false }), () => {
-      this.player.seekTo(parseFloat(ev.target.value))
-    })
-    // this.player.seekTo(ev.target.value);
-  }
-  
+
+    // this.setState((prevState) => ({ ...prevState, seeking: false }), () => {
+    //   this.player.seekTo(parseFloat(ev.target.value))
+    // })
+
+    this.setState((prevState) => ({ ...prevState, seeking: false }));
+    this.player.seekTo(parseFloat(ev.target.value));
+  };
+
   handleSeekMouseDown = (ev) => {
-    this.setState((prevState) => ({ ...prevState, seeking: true }))
-  }
+    // this.setState((prevState) => ({ ...prevState, seeking: true })); //ORIGINAL
+    this.setState((prevState) => ({ ...prevState, played: ev.target.value }));
+    this.player.seekTo(parseFloat(ev.target.value));
+  };
 
   handleProgress = (state) => {
-    if (!this.state.seeking) this.setState(state);
+    if (!this.state.seeking) this.setState(state); //ORIGINAL
   };
 
   handleDuration = (duration) => {
@@ -165,6 +171,9 @@ class _MusicPlayer extends React.Component {
 
     const videoId = this.props.currSongId;
     let url = `https://www.youtube.com/watch?v=${videoId}`;
+
+    console.log('played', played);
+    console.log('duration', duration);
 
     return (
       <section className='music-player-container'>
@@ -335,17 +344,18 @@ class _MusicPlayer extends React.Component {
               onMouseUp={this.handleSeekMouseUp}
             /> */}
 
-            <Slider 
-              className="duration-slider"
-              size="medium"
-              aria-label="Medium"
+            <Slider
+              className='duration-slider'
+              size='medium'
+              aria-label='Medium'
               min={0}
-              max={duration / 100}
+              max={0.999999}
               step={0.00000001}
               defaultValue={0}
               value={played}
               // onMouseDown={this.handleSeekMouseDown}
-              onChange={this.handleSeekChange}
+              // onChange={this.handleSeekChange}
+              onChange={this.handleSeekMouseDown}
               // onMouseUp={this.handleSeekMouseUp}
             />
 
@@ -421,18 +431,17 @@ class _MusicPlayer extends React.Component {
               onChange={this.handleVolumeChange}
             />   */}
           </div>
-          <Slider 
-            className="volumn-slider"
-            size="medium"
+          <Slider
+            className='volumn-slider'
+            size='medium'
             min={0}
             max={1}
             step={0.05}
-            aria-label="Volume"
+            aria-label='Volume'
             defaultValue={0.3}
             value={volume}
             onChange={this.handleVolumeChange}
-
-            />
+          />
         </div>
       </section>
     );

@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import { BarWave } from '../cmps/BarWave';
 
+import { userService } from '../services/user.service';
+
 import {
   playSong,
   pauseSong,
@@ -59,6 +61,8 @@ function _SongPreview(props) {
   };
 
   const setLikeSong = async () => {
+    let guest = userService.getLoggedinUser;
+    if (!guest._id) return;
     setIsLiked(true);
     const user = props.user;
     try {
