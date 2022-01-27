@@ -36,7 +36,7 @@
   .hero {
     // z-index: 2;
     position: relative;
-    background: #333333;
+    background: #1d1a1a;
     color: white;
     height: 100vh;
     display: flex;
@@ -104,7 +104,7 @@
 
   &::before,
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     width: 300vw;
     height: 300vw;
