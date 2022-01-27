@@ -1,0 +1,35 @@
+.activity-log {
+  width: 100%;
+
+  span {
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+
+    // -webkit-line-clamp: 1;
+    // -webkit-box-orient: vertical;
+    // display: -webkit-box;
+    // white-space: unset;
+    // word-break: break-all;
+    // text-overflow: ellipsis;
+    
+  }
+
+  span:hover {
+    animation-name: scroll;
+    animation-duration: 10s;
+    // text-overflow: clip;
+    // word-break: normal;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+}

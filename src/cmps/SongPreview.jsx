@@ -4,13 +4,9 @@ import { connect } from 'react-redux';
 
 import { BarWave } from '../cmps/BarWave';
 
-import {
-  playSong,
-  pauseSong,
-  onTogglePlay,
-  songDetails,
-} from '../store/actions/music.player.action';
+import { playSong, pauseSong, onTogglePlay, songDetails } from '../store/actions/music.player.action';
 import { likeSong, unlikeSong } from '../store/actions/user.action';
+import { likeSongActivity } from '../store/actions/activity.log.action';
 
 function _SongPreview(props) {
   const [isHover, setIsHover] = useState(false);
@@ -62,7 +58,8 @@ function _SongPreview(props) {
     setIsLiked(true);
     const user = props.user;
     try {
-      await props.likeSong(song, user);
+      await props.likeSong(song, user)
+      props.onSongActivity(song, user)
     } catch (err) {
       console.log(err);
     }
@@ -185,6 +182,7 @@ const mapDispatchToProps = {
   unlikeSong,
   onTogglePlay,
   songDetails,
+  likeSongActivity
 };
 
 export const SongPreview = connect(mapStateToProps, mapDispatchToProps)(_SongPreview);

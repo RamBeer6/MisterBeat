@@ -1,5 +1,6 @@
 import { userService } from '../../services/user.service'
 import { stationService } from '../../services/station.service'
+
 import avatar from '../../assets/imgs/avatar.jpg'
 
 export function likeSong(song, user) {
@@ -33,10 +34,7 @@ export function unlikeSong(song, user) {
 export function likeStation(stationId, user) {
   return async (dispatch) => {
     try {
-      const updatedUser = await stationService.addStationToLiked(
-        stationId,
-        user
-      )
+      const updatedUser = await stationService.addStationToLiked(stationId, user)
       dispatch({
         type: 'SET_USER',
         user: updatedUser,
