@@ -7,7 +7,8 @@
   width: 100vw;
   color: whitesmoke;
   // background: linear-gradient(#16351d , black 50%);
-  background: linear-gradient(#16351d , black 70%);
+  // background: linear-gradient(#16351d , black 70%);
+  background-color: $clr7;
 
   &::-webkit-scrollbar {
     background-color: rgb(58, 58, 58);

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
-
+import GoogleLogin from "react-google-login";
 import { onLogin, onSignup } from "../store/actions/user.action";
 import logo from "../assets/imgs/logo.png";
 
@@ -13,6 +13,12 @@ function _LoginSignup({ user, setIsWelcome, setIsLogin, onLogin, onSignup }) {
     password: "",
     email: "",
   });
+
+  // const [loginData, setLoginData] = useState(
+  //   localStorage.getItem("loginData")
+  //     ? JSON.parse(localStorage.getItem("loginData"))
+  //     : null
+  // );
 
   const navigate = useNavigate();
 
@@ -45,6 +51,36 @@ function _LoginSignup({ user, setIsWelcome, setIsLogin, onLogin, onSignup }) {
     }
   };
 
+  // const handleFailure = (result) => {
+  //   alert(result);
+  // };
+
+  // const handleLogin = async (googleData) => {
+  //   const res = await fetch("/api/google-login", {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       token: googleData.tokenId,
+  //     }),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+  // };
+
+  // const data = await res.json();
+  // setLoginData(data);
+  // localStorage.setItem("loginData", JSON.stringify(data));
+
+  // const handleLogout = () => {
+  //   localStorage.removeItem("loginData");
+  //   setLoginData(null);
+  // };
+
+  const responseGoogle = (response) => {
+    console.log(response);
+    console.log(response.porfileObj);
+  }
+
   return (
     <>
       {isLoginForm ? (
@@ -60,11 +96,20 @@ function _LoginSignup({ user, setIsWelcome, setIsLogin, onLogin, onSignup }) {
                 <span>continue with facebook</span>
               </i>
             </li>
-            <li className="media google">
-              <i className="fab fa-google">
-                <span>continue with google</span>
-              </i>
+            {/* <li className="media google"> */}
+            <li>
+              <GoogleLogin
+                clientId="700873867407-i37i35b14k35o5ot4aopvaibpgvn53j5.apps.googleusercontent.com"
+                buttonText="Login"
+                onSuccess={(responseGoogle)}
+                onFailure={(responseGoogle)}
+                cookiePolicy={"single_host_origin"}
+              />
             </li>
+            {/* <i className="fab fa-google">
+                <span>continue with google</span>
+              </i> */}
+            {/* </li> */}
           </ul>
           <div className="hr-or-container">
             <hr />

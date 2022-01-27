@@ -42,7 +42,7 @@ function _StationPreview({
   return (
     <section className='station-preview' onClick={() => navigate(`/station/${station._id}`)}>
       <div className='station-img-container'>
-        <img src={imgSrc} alt='station' />
+        <img src={imgSrc} className='station-img' alt='station' />
         <div className='station-play-btn'>
           <button onClick={toggleIsPlaying}>
             {isStationPlaying ? (

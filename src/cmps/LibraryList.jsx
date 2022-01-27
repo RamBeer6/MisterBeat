@@ -16,11 +16,19 @@ export function LibraryList({ countLikedSongs, userStations }) {
             </section>
 
             {userStations?.map((station) => {
+                console.log(station);
                 return (
-                    <section key={station._id} className="card liked-station" onClick={() => {
-                        navigate(`/station/${station._id}`);
-                    }}>
-                        liked stations
+                    <section
+                        key={station._id}
+                        className="card liked-station"
+                        onClick={() => {
+                            navigate(`/station/${station._id}`);
+                        }}
+                    >
+                        <div className="card-img">
+                            <img src={station.imgUrl} alt="image-url" />
+                        </div>
+                        {station.name}
                     </section>
                 );
             })}

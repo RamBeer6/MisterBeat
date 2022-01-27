@@ -1,4 +1,6 @@
 .main {
+  background-color: $clr7;
+  
   @include for-wide-layout {
     display: flex;
   }

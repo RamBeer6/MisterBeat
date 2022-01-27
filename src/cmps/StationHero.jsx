@@ -3,8 +3,9 @@ import { useState } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
 // import { User } from './User'
-import { utilService } from "../services/util.service";
+// import { utilService } from "../services/util.service";
 import { EditStationHero } from "../cmps/EditStationHero";
+import defaultImg from "../assets/imgs/default-img.png";
 
 function _StationHero({ user, station = {}, onSaveStation }) {
   const [isEdit, setIsEdit] = useState(false)
@@ -33,7 +34,14 @@ function _StationHero({ user, station = {}, onSaveStation }) {
     <section className="station-hero" >
       <div className="linear-hero">
         <div className="station-hero__info" onClick={() => setIsEdit(!isEdit)}>
-          <img src={station.imgUrl} className="station-hero__img" />
+          <img
+            src={
+              station.imgUrl?.length
+                ? station.imgUrl
+                : "https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2014/png/iconmonstr-disc-5.png&r=122&g=122&b=122"
+            }
+            className="station-hero__img"
+          />
           <div className="station-hero__text">
             <strong className="label">Playlist</strong>
             <h2>{station?.name ? station.name : "My Playlist #1"}</h2>
@@ -49,7 +57,7 @@ function _StationHero({ user, station = {}, onSaveStation }) {
       </div>
       {/* <WhatsappShareButton
         url={`/station/${stationId}`}
-        title="I like to share with you this playlist from Marimba!"
+        title=""
       >
         <div className="whatsapp-btn fab fa-whatsapp"></div>
       </WhatsappShareButton>

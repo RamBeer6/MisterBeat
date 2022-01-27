@@ -6,6 +6,9 @@ import Slider from '@mui/material/Slider';
 import Duration from './Duration';
 import imgSong from '../assets/imgs/default-song.png';
 
+import { FaPlay } from 'react-icons/fa';
+import { FaPause } from 'react-icons/fa';
+
 import {
   onTogglePlay,
   playSong,
@@ -205,23 +208,25 @@ class _MusicPlayer extends React.Component {
           {!isShuffle && (
             <img
               src={
-                !songs && !songs.length && !songDetails
-                  ? imgSong
+                !songs || (!songs.length && !songDetails)
+                  ? 'https://t.scdn.co/images/3099b3803ad9496896c43f22fe9be8c4.png'
                   : songs[currSongIdx]?.imgUrl || songDetails.imgUrl
               }
               alt='image'
             />
           )}
+
           {isShuffle && (
             <img
               src={
-                !currSongs && !currSongs.length && !songDetails
-                  ? imgSong
+                !currSongs || (!currSongs.length && !songDetails)
+                  ? 'https://t.scdn.co/images/3099b3803ad9496896c43f22fe9be8c4.png'
                   : shuffleSongs[currSongIdx]?.imgUrl
               }
-              alt='image'
+              // alt='image'
             />
           )}
+
           <div className='p-container'>
             {
               <section>
@@ -233,12 +238,39 @@ class _MusicPlayer extends React.Component {
               </section>
             }
           </div>
+
+          {/* {!isLiked ? ( */}
+          <button className='like-btn'>
+            <svg
+              className='unliked'
+              width='24'
+              height='24'
+              xmlns='http://www.w3.org/2000/svg'
+              fillRule='evenodd'
+              clipRule='evenodd'>
+              <path d='M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402m5.726-20.583c-2.203 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248-3.183 0-6.281 2.187-6.281 6.191 0 4.661 5.571 9.429 12 15.809 6.43-6.38 12-11.148 12-15.809 0-4.011-3.095-6.181-6.274-6.181' />
+            </svg>
+          </button>
+          {/* ) : (
+                <button className='like-btn' onClick={setUnlikeSong}>
+                  <svg
+                    className='liked'
+                    xmlns='http://www.w3.org/2000/svg'
+                    width='24'
+                    height='24'
+                    viewBox='0 0 24 24'>
+                    <path d='M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 12-15.808 0-6.792-8.875-8.306-12-2.944z' />
+                  </svg>
+                </button>
+              )} */}
+
           <svg // love
             role='img'
             height='16'
             width='16'
             viewBox='0 0 16 16'
-            className='svg-love'>
+            className='svg-love'
+            display='none'>
             <path d='M13.764 2.727a4.057 4.057 0 00-5.488-.253.558.558 0 01-.31.112.531.531 0 01-.311-.112 4.054 4.054 0 00-5.487.253A4.05 4.05 0 00.974 5.61c0 1.089.424 2.113 1.168 2.855l4.462 5.223a1.791 1.791 0 002.726 0l4.435-5.195A4.052 4.052 0 0014.96 5.61a4.057 4.057 0 00-1.196-2.883zm-.722 5.098L8.58 13.048c-.307.36-.921.36-1.228 0L2.864 7.797a3.072 3.072 0 01-.905-2.187c0-.826.321-1.603.905-2.187a3.091 3.091 0 012.191-.913 3.05 3.05 0 011.957.709c.041.036.408.351.954.351.531 0 .906-.31.94-.34a3.075 3.075 0 014.161.192 3.1 3.1 0 01-.025 4.403z'></path>
           </svg>
           {/* 
@@ -282,6 +314,7 @@ class _MusicPlayer extends React.Component {
                 </svg>
               </button>
             </div>
+
             <div className='middle-play-pause-controls'>
               <button className='play-pause' onClick={this.handlePlayPause}>
                 {!isPlaying ? (
@@ -301,6 +334,7 @@ class _MusicPlayer extends React.Component {
                 )}
               </button>
             </div>
+
             <div className='middle-right-controls'>
               <button className='next-btn' onClick={this.nextSong}>
                 <svg // next
