@@ -1,23 +1,114 @@
-.edit-img {
-  margin-right: 15px;
-  position: relative;
-  display: flex;
-  &:hover {
-    background-image: url(https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2018/png/iconmonstr-cloud-upload-thin.png&r=71&g=71&b=71);
-    background-color: rgba($color: #000000, $alpha: 1);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-  .hero-upload-img {
-    height: 200px;
-    width: 200px;
+.hero-main-container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(24, 23, 23, 0.9);
+  top: 0;
+  left: 0;
+  z-index: 100;
+
+  .edit-details-header {
+    display: flex;
+    justify-content: flex-start;
+    position: fixed;
+    width: fit-content;
+    height: fit-content;
+    top: 35%;
+    left: 45%;
+    transform: scale(3) translate(-50%, -67%);
   }
 
-  .hero-upload-btn {
-    visibility: hidden;
+  .edit-details {
+    border-radius: 5px;
+    grid-gap: 15px;
+    display: grid;
+    grid-template: 50px 105px 20px /180px 1fr;
+    grid-template-areas:
+      "album-image title"
+      "album-image description"
+      ".save-button";
+    padding: 24px 24px 24px;
     position: absolute;
-    height: 100%;
-    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(44, 43, 43, 0.979);
+    max-width: 100%;
+
+    // .edit-details-header {
+    //   text-align: left;
+    //   grid-area: head;
+    // }
+
+    .edit-img {
+      box-shadow: 0 4px 4px rgb(0 0 0 / 30%);
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: transparent;
+      display: flex;
+      grid-area: album-image;
+      margin: 0;
+      position: relative;
+      border-radius: 5px;
+      img {
+        position: absolute;
+        object-fit: cover;
+        height: 100%;
+      }
+      input {
+        visibility: hidden;
+      }
+    }
+
+    label {
+      input,
+      textarea {
+        // display: flex;
+        font-size: 15px;
+        font-family: gotham, sans-serif;
+        color: rgb(255, 255, 255);
+        height: 100%;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        border-radius: 5px;
+        resize: none;
+        font-family: monospace;
+        &:focus {
+          background-color: rgba(7, 7, 7, 0.514);
+        }
+
+        &::placeholder {
+          color: rgb(255, 255, 255);
+          // justify-content: end;
+        }
+      }
+
+      .title-input {
+        grid-area: title;
+      }
+      .desc-input {
+        grid-area: description;
+        // margin-top: 100px;
+      }
+    }
+
+    .save-btn-container {
+      grid-area: save-button;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      .save-btn {
+        font-weight: bold;
+        justify-self: flex-end;
+        padding: 0 24px;
+        height: 150%;
+        border: none;
+        border-radius: 20px;
+        background-color: rgb(214, 209, 209);
+        color: #181818;
+      }
+    }
   }
 }

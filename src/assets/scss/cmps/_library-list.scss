@@ -32,6 +32,17 @@
       cursor: pointer;
       background: #282828;
     }
+
+    .card-img {
+      width: 100%;
+      height: 70%;
+      position: relative;
+
+      img {
+        height: 100%;
+        object-fit: cover;
+      }
+    }
   }
 
   .liked-songs {
