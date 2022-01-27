@@ -61,7 +61,7 @@ function _SongPreview(props) {
   };
 
   const setLikeSong = async () => {
-    let guest = userService.getLoggedinUser;
+    let guest = userService.getLoggedinUser();
     if (!guest._id) return;
     setIsLiked(true);
     const user = props.user;
