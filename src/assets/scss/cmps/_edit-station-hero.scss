@@ -1,0 +1,23 @@
+.edit-img {
+  margin-right: 15px;
+  position: relative;
+  display: flex;
+  .hero-upload-img {
+    height: 200px;
+    width: 200px;
+  }
+
+  .hero-upload-btn {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+
+    &:hover {
+      background-image: url(https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2018/png/iconmonstr-cloud-upload-thin.png&r=71&g=71&b=71);
+      background-color: rgba($color: #000000, $alpha: 0.5);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  }
+}

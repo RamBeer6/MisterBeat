@@ -1,8 +1,9 @@
 import { useState } from "react";
+// import { WhatsappShareButton, FacebookShareButton } from "react-share";
 import { connect } from "react-redux";
 import moment from "moment";
 // import { User } from './User'
-// import add_img from "../assets/imgs/add-img.png"
+import { utilService } from "../services/util.service";
 import { EditStationHero } from "../cmps/EditStationHero";
 
 function _StationHero({ user, station = {}, onSaveStation }) {
@@ -26,25 +27,38 @@ function _StationHero({ user, station = {}, onSaveStation }) {
               ${moment.utc(totalDurations.asMilliseconds()).format("mm")} min`;
     }
   };
-
+  const { stationId } = station;
   return (
     <section className="station-hero">
-      <div className="station-hero__info" onClick={() => setIsEdit(!isEdit)}>
-        <div className="station-hero__img" />
-        <div className="station-hero__text">
-          <strong className="label">Playlist</strong>
-          <h2>{station?.name ? station.name : "My Playlist #1"}</h2>
-          <div className="total-durtion-user">
-            <p className="duration__nums">
-              {station.likedByUser ? station.likedByUser.length : "0"} likes ∙{" "}
-              {calcDuration(station)}
-            </p>
-            <p className="duration__desc">{station?.desc}</p>
-            <p>{user.userName}</p>
+      <div className="linear-hero">
+        <div className="station-hero__info" onClick={() => setIsEdit(!isEdit)}>
+          <img src={station.imgUrl} className="station-hero__img" />
+          <div className="station-hero__text">
+            <strong className="label">Playlist</strong>
+            <h2>{station?.name ? station.name : "My Playlist #1"}</h2>
+            <div className="total-durtion-user">
+              <p className="duration__nums">
+                {station.likedByUser ? station.likedByUser.length : "0"} likes ∙{" "}
+                {calcDuration(station)}
+              </p>
+              <p className="duration__desc">{station?.desc}</p>
+              <p>{user.userName}</p>
+            </div>
           </div>
         </div>
       </div>
-
+      {/* <WhatsappShareButton
+        url={`/station/${stationId}`}
+        title="I like to share with you this playlist from Marimba!"
+      >
+        <div className="whatsapp-btn fab fa-whatsapp"></div>
+      </WhatsappShareButton>
+      <FacebookShareButton
+        url={`/station/${stationId}`}
+        title="I like to share with you this playlist from Marimba!"
+      >
+        <div className="facebook-btn fab fa-facebook"></div>
+      </FacebookShareButton> */}
       {isEdit && (
         <EditStationHero
           station={station}
