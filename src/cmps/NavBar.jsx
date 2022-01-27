@@ -91,7 +91,7 @@ function _NavBar({ setIsWelcome, setIsLogin, user }) {
         )
       })}
 
-      <strong className="nav-bar__title">Activity Log</strong>
+      <strong className="nav-bar__title">Activities</strong>
       <hr />
       <ActivityLog />
     </nav>
