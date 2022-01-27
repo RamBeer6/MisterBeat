@@ -36,6 +36,7 @@
       .svg-pause {
         height: 20px;
         width: 20px;
+        margin-top: 2.5px;
       }
     }
   }
@@ -113,10 +114,15 @@
     gap: 50px;
     justify-content: center;
     // justify-content: space-between;
-    font-family: "Times New Roman", Times, serif;
+    font-family: 'Times New Roman', Times, serif;
     font-size: 12px;
     font-weight: 200;
     width: 70%;
+
+    time {
+      font-family: circular;
+      font-size: 13px;
+    }
 
     input {
       width: 30vw;
@@ -129,7 +135,7 @@
   }
   .duration-slider {
     color: $clr1;
-    width: 50%;
+    width: 70%;
     // padding: 0 50px;
   }
 }

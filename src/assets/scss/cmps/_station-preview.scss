@@ -1,10 +1,10 @@
 .station-preview {
-  background-color: gold;
   padding: 16px;
   transition: background-color 0.3s ease;
   border-radius: 4px;
-  background-color: #181818;
+  background-color: $clr8;
   transition: transform 0.2s ease 0s;
+  margin-bottom: 20px;
 
   img {
     margin-bottom: 16px;
