@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import { DragDropContext } from 'react-beautiful-dnd'
 
 import { addSong, loadSongs, removeSong, removeStation, updateSongs, addStation, updateStation } from '../store/actions/station.action'
-
 import { StationHero } from '../cmps/StationHero'
 import { StationActions } from '../cmps/StationActions'
 import { SongList } from '../cmps/SongList'
@@ -23,7 +22,7 @@ function _CreatePlaylist({ addSong, user, songs, loadSongs, removeSong, removeSt
   const onSaveStation = async (station) => {
     try {
       let newStation;
-      if(station._id) {
+      if (station._id) {
         newStation = await updateStation(station, user)
       } else {
         // newStation = await stationService.addNewStation(station, user)
@@ -37,23 +36,23 @@ function _CreatePlaylist({ addSong, user, songs, loadSongs, removeSong, removeSt
 
   const onAddSong = async (song) => {
     try {
-        await addSong(station._id, song)
-        station.songs.push(song)
-        const newSongs = station.songs
-        setStation({...station, songs: newSongs })
+      await addSong(station._id, song)
+      station.songs.push(song)
+      const newSongs = station.songs
+      setStation({ ...station, songs: newSongs })
     } catch (err) {
       console.log(err)
     }
   }
 
   const onRemoveSong = async (songId) => {
-      try {
-        await removeSong(station._id, songId)
-        const newSongs = station.songs.filter(song => song.id !== songId)
-        setStation({...station, songs: newSongs })
-      } catch (err) {
-        console.log(err);
-      }
+    try {
+      await removeSong(station._id, songId)
+      const newSongs = station.songs.filter(song => song.id !== songId)
+      setStation({ ...station, songs: newSongs })
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   const onRemoveStation = async (stationId) => {
@@ -84,7 +83,7 @@ function _CreatePlaylist({ addSong, user, songs, loadSongs, removeSong, removeSt
   return (
     <section className="create-playlist">
       <StationHero station={station} onSaveStation={onSaveStation} />
-      <StationActions  stationId={station._id} onRemoveStation={onRemoveStation} />
+      <StationActions stationId={station._id} onRemoveStation={onRemoveStation} />
 
       <DragDropContext onDragEnd={onDragEnd}>
         <SongList stationId={station._id} songs={songs} onRemoveSong={onRemoveSong} />

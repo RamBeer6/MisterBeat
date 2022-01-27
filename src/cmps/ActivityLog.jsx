@@ -27,7 +27,7 @@ function _ActivityLog({ getActivities, activities }) {
                 {activities?.map((activity, idx) => <li key={activity._id}>
                     {/* <span >{activity._id}</span> */}
                     {/* <span >{activity.createdBy.userName}</span> | */}
-                    <span >{activity?.songTitle.substring(0,23)}</span>
+                    <span >{activity?.songTitle.substring(0,20)}</span>
                 </li>)}
             </ul>
         </section>

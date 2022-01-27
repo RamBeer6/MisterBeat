@@ -1,55 +1,55 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { connect } from "react-redux";
 
-import { onLogin,  onSignup } from '../store/actions/user.action'
-import logo from '../assets/imgs/logo.png'
+import { onLogin, onSignup } from "../store/actions/user.action";
+import logo from "../assets/imgs/logo.png";
 
 function _LoginSignup({ user, setIsWelcome, setIsLogin, onLogin, onSignup }) {
-  const [isLoginForm, setIsLoginForm] = useState(true)
+  const [isLoginForm, setIsLoginForm] = useState(true);
   const [userForm, setUserForm] = useState({
-    userName: '',
-    imgUrl: '',
-    password: '',
-    email: '',
-  })
+    userName: "",
+    imgUrl: "",
+    password: "",
+    email: "",
+  });
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleChange = (ev) => {
-    const field = ev.target.name
-    const value = ev.target.value
-    setUserForm({ ...userForm, [field]: value })
-  }
+    const field = ev.target.name;
+    const value = ev.target.value;
+    setUserForm({ ...userForm, [field]: value });
+  };
 
   const onLoginSingup = async (isLoginForm, userForm) => {
     try {
-        if(isLoginForm) {
-            const loggedinUser = await onLogin(userForm)
-            if(loggedinUser) {
-                console.log('loggedin successfully')
-                setIsWelcome(false)
-                setIsLogin(false)
-                navigate('/')
-            } else {
-                console.log('worng username or password!!!')
-            }
+      if (isLoginForm) {
+        const loggedinUser = await onLogin(userForm);
+        if (loggedinUser) {
+          console.log("loggedin successfully");
+          setIsWelcome(false);
+          setIsLogin(false);
+          navigate("/");
         } else {
-            await onSignup(userForm)
-            setIsWelcome(false)
-            setIsLogin(false)
-            navigate('/')
+          console.log("worng username or password!!!");
         }
+      } else {
+        await onSignup(userForm);
+        setIsWelcome(false);
+        setIsLogin(false);
+        navigate("/");
+      }
     } catch (err) {
-        console.log('something went wrong with login/signup');
+      console.log("something went wrong with login/signup");
     }
-  }
+  };
 
   return (
     <>
       {isLoginForm ? (
         <section className="login-signup-page">
-          <header style={{ marginBottom: '15px' }}>
+          <header style={{ marginBottom: "15px" }}>
             <img src={logo} alt="logo" />
           </header>
           <hr />
@@ -71,10 +71,13 @@ function _LoginSignup({ user, setIsWelcome, setIsLogin, onLogin, onSignup }) {
             <p>Or</p>
             <hr />
           </div>
-          <form className="form-signin" onSubmit={(ev) => {
-              ev.preventDefault()
-              onLoginSingup(isLoginForm, userForm)
-          }}>
+          <form
+            className="form-signin"
+            onSubmit={(ev) => {
+              ev.preventDefault();
+              onLoginSingup(isLoginForm, userForm);
+            }}
+          >
             <label htmlFor="userName">Username:</label>
             <input
               type="text"
@@ -96,17 +99,20 @@ function _LoginSignup({ user, setIsWelcome, setIsLogin, onLogin, onSignup }) {
           <hr />
           <footer className="signup-footer">
             <h4>Don't have an account?</h4>
-            <button className="signup-btn" onClick={() => setIsLoginForm(!isLoginForm)}>
+            <button
+              className="signup-btn"
+              onClick={() => setIsLoginForm(!isLoginForm)}
+            >
               sign up for Mister.beat
             </button>
           </footer>
         </section>
       ) : (
         <section className="login-signup-page">
-          <header style={{ marginBottom: '15px' }}>
+          <header style={{ marginBottom: "15px" }}>
             <img src={logo} alt="logo" />
           </header>
-          <ul style={{ marginTop: '40px' }}>
+          <ul style={{ marginTop: "40px" }}>
             <h5>Sign up with your email address</h5>
             <li className="media facebook">
               <i className="fab fa-facebook-square">
@@ -125,12 +131,12 @@ function _LoginSignup({ user, setIsWelcome, setIsLogin, onLogin, onSignup }) {
             <hr />
           </div>
           <form
-            style={{ height: '100vh', justifyContent: 'start' }}
+            style={{ height: "100vh", justifyContent: "start" }}
             className="form-signin"
             onSubmit={(ev) => {
-              ev.preventDefault()
-              onLoginSingup(isLoginForm, userForm)
-          }}
+              ev.preventDefault();
+              onLoginSingup(isLoginForm, userForm);
+            }}
           >
             <label htmlFor="email">Enter your email:</label>
             <input
@@ -168,7 +174,7 @@ function _LoginSignup({ user, setIsWelcome, setIsLogin, onLogin, onSignup }) {
             <label htmlFor="birthday">Date of Birth:</label>
             <input type="date" id="birthday" name="birthday" />
             <input
-              style={{ marginTop: '30px' }}
+              style={{ marginTop: "30px" }}
               className="login-btn"
               type="submit"
               value="Sign up"
@@ -177,7 +183,10 @@ function _LoginSignup({ user, setIsWelcome, setIsLogin, onLogin, onSignup }) {
           <div className="log-in-again">
             <p>
               have an account?
-              <button className="btn" onClick={() => setIsLoginForm(!isLoginForm)}>
+              <button
+                className="btn"
+                onClick={() => setIsLoginForm(!isLoginForm)}
+              >
                 Log in
               </button>
             </p>
@@ -185,18 +194,20 @@ function _LoginSignup({ user, setIsWelcome, setIsLogin, onLogin, onSignup }) {
         </section>
       )}
     </>
-  )
+  );
 }
 
 function mapStateToProps(state) {
-    return {
-        user: state.userModule.user
-    }
+  return {
+    user: state.userModule.user,
+  };
 }
 const mapDispatchToProps = {
-    onLogin,
-    onSignup
-}
+  onLogin,
+  onSignup,
+};
 
-
-export const LoginSignup = connect(mapStateToProps, mapDispatchToProps)(_LoginSignup)
+export const LoginSignup = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(_LoginSignup);

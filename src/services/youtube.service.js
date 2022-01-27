@@ -54,7 +54,7 @@ function _getMusicItems(videos) {
 async function _getDurations(musicItems) {
   if (!musicItems) return
   const ids = musicItems.map((item) => `id=${item.id}&`).join('')
-  const url = `https://www.googleapis.com/youtube/v3/videos?id=${ids}&key=${API_KEY}&part=snippet,contentDetails,statistics,status`
+  const url = `https://www.googleapis.com/youtube/v3/videos?${ids}&key=${API_KEY}&part=snippet,contentDetails,statistics,status`
   try {
       const { data } = await axios.get(url)
       return _durationFormat(data.items)

@@ -17,8 +17,7 @@ html {
 }
 
 body {
-  overflow-y: scroll;
-  overflow-x: hidden;
+  overflow-y: auto;
   margin: 0;
 
   &::-webkit-scrollbar {

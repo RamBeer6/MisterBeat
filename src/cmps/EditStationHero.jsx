@@ -9,6 +9,8 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { BorderColor } from "@mui/icons-material";
 
+import { uploadImg } from "../services/cloudinary.service";
+
 export function EditStationHero({ station, onSaveStation, onCloseEdit }) {
     const [stationInfo, setStationInfo] = useState({
         _id: "",
@@ -19,9 +21,6 @@ export function EditStationHero({ station, onSaveStation, onCloseEdit }) {
 
     const [open, setOpen] = useState(true);
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
     const handleClose = () => {
         onCloseEdit(false);
         setOpen(false);
@@ -35,6 +34,36 @@ export function EditStationHero({ station, onSaveStation, onCloseEdit }) {
         const field = ev.target.id;
         const value = ev.target.value;
         setStationInfo({ ...stationInfo, [field]: value });
+    };
+
+    const [image, setImage] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    const uploadImage = async (e) => {
+        const files = e.target.files;
+        const data = new FormData();
+        data.append("file", files[0]);
+        data.append("upload_preset", "eyb0hduc");
+        setLoading(true);
+        const res = await fetch(
+            "	https://api.cloudinary.com/v1_1/rambeer6/image/upload",
+            {
+                method: "POST",
+                body: data,
+            }
+        );
+        const file = await res.json();
+        return file.url;
+    };
+
+    const handleImage = async (ev) => {
+        try {
+            const field = ev.target.name;
+            const value = await uploadImage(ev);
+            setImage(value);
+            setLoading(false);
+            setStationInfo({ ...stationInfo, [field]: value });
+        } catch (err) { }
     };
 
     return (
@@ -52,9 +81,6 @@ export function EditStationHero({ station, onSaveStation, onCloseEdit }) {
                 >
                     <header className="edit-header">
                         <DialogTitle>Edit details</DialogTitle>
-                        {/* <div className="close-btn">
-                            <button>X</button>
-                        </div> */}
                     </header>
                     <DialogContent>
                         <main
@@ -67,11 +93,12 @@ export function EditStationHero({ station, onSaveStation, onCloseEdit }) {
                         >
                             <label className="edit-img" style={{ gridArea: "1/1/3/2" }}>
                                 <input
+                                    className="hero-upload-btn"
                                     type="file"
-                                    name="img"
-                                    value={stationInfo.imgUrl}
-                                    onChange={handleChange}
+                                    name="imgUrl"
+                                    onChange={handleImage}
                                 />
+                                <img className="hero-upload-img" src={image} alt="img" />
                             </label>
                             <TextField
                                 type="text"
