@@ -58,7 +58,7 @@
       display: grid;
       grid-auto-flow: column;
       // grid-auto-columns: var(---size);
-      gap: 24px;
+      gap: 30px;
       // padding-inline: var(--gap);
       // padding-block-end: var(--gap);
 
@@ -70,7 +70,7 @@
       &::-webkit-scrollbar {
         background-color: #1d1a1a;
         width: 2px;
-        height: 5px;
+        height: 10px;
       }
 
       &::-webkit-scrollbar-track {
