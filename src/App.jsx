@@ -1,19 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import { Routes, Route } from 'react-router';
-import routes from './routes';
-import { socketService } from './services/socket.service';
+import React, { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
+import { Routes, Route } from 'react-router'
+import routes from './routes'
+import { socketService } from './services/socket.service'
 
-import { WelcomePage } from './pages/WelcomePage';
-import { StationDetails } from './pages/StationDetails';
-import { LoginSignup } from './pages/LoginSignup';
+import { WelcomePage } from './pages/WelcomePage'
+import { StationDetails } from './pages/StationDetails'
+import { LoginSignup } from './pages/LoginSignup'
 
-import { AppHeader } from './cmps/AppHeader';
-import { NavBar } from './cmps/NavBar';
-import { MusicPlayer } from './cmps/MusicPlayer';
+import { AppHeader } from './cmps/AppHeader'
+import { NavBar } from './cmps/NavBar'
+import { MusicPlayer } from './cmps/MusicPlayer'
 
-export const App = () => {
-  const [isWelcome, setIsWelcome] = useState(true);
-  const [isLogin, setIsLogin] = useState(false);
+import { insertStationInStore } from './store/actions/station.action'
+
+const _App = ({ updateStationInStore }) => {
+  const [isWelcome, setIsWelcome] = useState(true)
+  const [isLogin, setIsLogin] = useState(false)
+
+  useEffect(() => {
+    socketService.on('follow you', (userId) => {
+      // console.log('follow you:', userId)
+    })
+    socketService.on('stationAdded', (station) => {
+      console.log('station added:' , station)
+      // insertStationInStore(station._id)
+    })
+  })
 
   useEffect(() => {
     return () => {
@@ -29,9 +42,9 @@ export const App = () => {
         <LoginSignup setIsWelcome={setIsWelcome} setIsLogin={setIsLogin} />
       ) : (
         <>
-          <main className='main'>
+          <main className="main">
             <NavBar setIsWelcome={setIsWelcome} setIsLogin={setIsLogin} />
-            <div className='main-container'>
+            <div className="main-container">
               {/* <SvgLoader /> //Example */}
               <AppHeader />
               <Routes>
@@ -43,7 +56,10 @@ export const App = () => {
                     path={route.path}
                   />
                 ))}
-                <Route path='/station/:stationId' element={<StationDetails />} />
+                <Route
+                  path="/station/:stationId"
+                  element={<StationDetails />}
+                />
               </Routes>
             </div>
           </main>
@@ -51,5 +67,18 @@ export const App = () => {
         </>
       )}
     </section>
-  );
-};
+  )
+}
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.userModule.user,
+    users: state.userModule.users,
+  }
+}
+
+const mapDispatchToProps = {
+  insertStationInStore
+}
+
+export const App = connect(mapStateToProps, mapDispatchToProps)(_App)

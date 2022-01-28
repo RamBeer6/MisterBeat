@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { connect } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { DragDropContext } from 'react-beautiful-dnd'
+import { socketService } from '../services/socket.service'
 
 import { addSong, loadSongs, removeSong, removeStation, updateSongs, addStation, updateStation } from '../store/actions/station.action'
 import { StationHero } from '../cmps/StationHero'
@@ -24,9 +25,11 @@ function _CreatePlaylist({ addSong, user, songs, loadSongs, removeSong, removeSt
       let newStation;
       if (station._id) {
         newStation = await updateStation(station, user)
+        // socketService.emit('add station', newStation)
       } else {
         // newStation = await stationService.addNewStation(station, user)
         newStation = await addStation(station, user)
+        socketService.emit('addStation', newStation)
       }
       setStation({ ...newStation })
     } catch (err) {
@@ -40,6 +43,7 @@ function _CreatePlaylist({ addSong, user, songs, loadSongs, removeSong, removeSt
       station.songs.push(song)
       const newSongs = station.songs
       setStation({ ...station, songs: newSongs })
+      socketService.emit('changeSongs', newSongs)
     } catch (err) {
       console.log(err)
     }
@@ -50,6 +54,7 @@ function _CreatePlaylist({ addSong, user, songs, loadSongs, removeSong, removeSt
       await removeSong(station._id, songId)
       const newSongs = station.songs.filter(song => song.id !== songId)
       setStation({ ...station, songs: newSongs })
+      socketService.emit('changeSongs', newSongs)
     } catch (err) {
       console.log(err);
     }
@@ -78,6 +83,7 @@ function _CreatePlaylist({ addSong, user, songs, loadSongs, removeSong, removeSt
     const [song] = newSongs.splice(source.index, 1)
     newSongs.splice(destination.index, 0, song)
     await updateSongs(station._id, newSongs)
+    socketService.emit('changeSongs', newSongs)
   }
 
   return (

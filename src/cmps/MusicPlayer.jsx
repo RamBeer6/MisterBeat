@@ -55,12 +55,12 @@ class _MusicPlayer extends React.Component {
   };
 
   handleSeekChange = (ev) => {
-    console.log('seek handlechange', ev.target.value);
+    // console.log('seek handlechange', ev.target.value);
     this.setState((prevState) => ({
       ...prevState,
       played: parseFloat(ev.target.value),
     }));
-    console.log('this.state.played', this.state.played);
+    // console.log('this.state.played', this.state.played);
     // this.setState((prevState) => ({
     //   ...prevState,
     //   played: ev.target.value,
@@ -146,7 +146,7 @@ class _MusicPlayer extends React.Component {
     let currShuffleIdx = array.length;
     while (currShuffleIdx != 0) {
       let randomIdx = Math.floor(Math.random() * currShuffleIdx);
-      console.log(randomIdx, randomIdx);
+      // console.log(randomIdx, randomIdx);
       currShuffleIdx--;
 
       [array[currShuffleIdx], array[randomIdx]] = [array[randomIdx], array[currShuffleIdx]];
@@ -175,8 +175,8 @@ class _MusicPlayer extends React.Component {
     const videoId = this.props.currSongId;
     let url = `https://www.youtube.com/watch?v=${videoId}`;
 
-    console.log('played', played);
-    console.log('duration', duration);
+    // console.log('played', played);
+    // console.log('duration', duration);
 
     return (
       <section className='music-player-container'>

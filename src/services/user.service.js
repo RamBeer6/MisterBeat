@@ -10,6 +10,8 @@ export const userService = {
   signup,
   login,
   logout,
+  getUsers,
+  addFollow
 }
 
 function getLoggedinUser() {
@@ -19,7 +21,7 @@ function getLoggedinUser() {
     const guest = {
       // _id: 'u101',
       userName: 'Guest',
-      imgUrl: {avatar},
+      imgUrl: { avatar },
       likedSongs: [],
       likedStations: [],
     }
@@ -73,6 +75,24 @@ async function logout() {
   try {
     sessionStorage.removeItem(STORAGE_KEY)
     return await httpService.post('auth/logout')
+  } catch (err) {
+    throw err
+  }
+}
+
+async function getUsers() {
+  try {
+    return await httpService.get('user')
+  } catch (err) {
+    throw err
+  }
+}
+
+async function addFollow(userId) {
+  try {
+    const loggedinUser = getLoggedinUser()
+    loggedinUser.followUsers.push(userId)
+    return updateUser(loggedinUser)
   } catch (err) {
     throw err
   }
