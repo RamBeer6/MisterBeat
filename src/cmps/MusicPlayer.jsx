@@ -240,7 +240,7 @@ class _MusicPlayer extends React.Component {
           </div>
 
           {/* {!isLiked ? ( */}
-          <button className='like-btn'>
+          <button className='like-btn hide-to-moblie'>
             <svg
               className='unliked'
               width='24'
@@ -292,7 +292,7 @@ class _MusicPlayer extends React.Component {
 
         <div className='middle-player-container'>
           <div className='middle-controls-container'>
-            <div className='middle-left-controls'>
+            <div className='middle-left-controls hide-to-moblie'>
               <button className='shuffle-btn' onClick={this.onShuffle}>
                 <svg //shuffle
                   role='img'
@@ -335,7 +335,7 @@ class _MusicPlayer extends React.Component {
               </button>
             </div>
 
-            <div className='middle-right-controls'>
+            <div className='middle-right-controls hide-to-moblie'>
               <button className='next-btn' onClick={this.nextSong}>
                 <svg // next
                   role='img'
@@ -398,7 +398,7 @@ class _MusicPlayer extends React.Component {
             <Duration seconds={duration} />
           </div>
         </div>
-        <div className='right-side-container'>
+        <div className='right-side-container hide-to-moblie'>
           {/* <svg // lyrics
             role="img"
             height="16"

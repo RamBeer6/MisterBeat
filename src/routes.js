@@ -3,6 +3,7 @@ import { HomePage } from "./pages/HomePage";
 import { SearchPage } from "./pages/SearchPage";
 import { LibraryPage } from "./pages/LibraryPage";
 import { LoginSignup } from "./pages/LoginSignup";
+import { Friends } from "./pages/Friends";
 // import { UserDetails } from "./pages/UserDetails";
 import { CreatePlaylist } from "./cmps/CreatePlaylist";
 // import  {StationDetails}  from "./pages/StationDetails";
@@ -17,6 +18,10 @@ const routes = [
   //   path: "/station/:stationId",
   //   component: <StationDetails />,
   // },
+  {
+    path: "/friends",
+    component: <Friends />
+  },
   {
     path: "/search",
     component: <SearchPage />,

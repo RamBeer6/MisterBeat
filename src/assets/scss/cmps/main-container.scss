@@ -4,11 +4,15 @@
   min-height: 100vh;
   padding-top: 60px;
   padding-bottom: 100px;
-  width: 100vw;
+  // width: 89vw;
   color: whitesmoke;
   // background: linear-gradient(#16351d , black 50%);
   // background: linear-gradient(#16351d , black 70%);
   background-color: $clr7;
+
+  @include for-wide-layout {
+    width: 89vw;
+  }
 
   &::-webkit-scrollbar {
     background-color: rgb(58, 58, 58);

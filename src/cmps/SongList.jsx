@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { SvgLoader } from "./SvgLoader";
 import { Droppable } from "react-beautiful-dnd";
