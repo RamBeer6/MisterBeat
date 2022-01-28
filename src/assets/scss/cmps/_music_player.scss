@@ -1,19 +1,23 @@
 .music-player-container {
-  // position: fixed;
-  // z-index: 50;
-  // display: flex;
-  // align-items: center;
-  // border-top: 1px solid rgb(59, 59, 59);
-  // justify-content: space-between;
+  position: fixed;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid rgb(59, 59, 59);
+  justify-content: space-between;
   // bottom: 0;
-  // height: 12vh;
-  // width: 100vw;
-  // background-color: #1d1a1a;
-  // padding: 0 16px;
-  // color: rgb(172, 172, 172);
-  // fill: rgb(172, 172, 172);
-  // padding: 45px;
-  display: none;
+  bottom: 100px;
+  height: 12vh;
+  width: 100vw;
+  background-color: #1d1a1a;
+  padding: 0 16px;
+  color: rgb(172, 172, 172);
+  fill: rgb(172, 172, 172);
+  padding: 45px;
+
+  .hide-to-moblie {
+    display: none;
+  }
 
   @include for-wide-layout {
     position: fixed;
@@ -30,14 +34,18 @@
     color: rgb(172, 172, 172);
     fill: rgb(172, 172, 172);
     padding: 45px;
+
+    .hide-to-moblie {
+      display: inline-block;
+    }
+
+    .right-side-container {
+      display: flex;
+    }
   }
 
   svg {
     transition: fill 300ms ease-in-out;
-
-    // &:hover {
-    //   fill: white;
-    // }
   }
 
   button {
@@ -93,16 +101,23 @@
 }
 
 .middle-player-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
 
   .middle-controls-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50vw;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+    // width: 50vw;
+
+    @include for-wide-layout {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50vw;
+    }
   }
 
   .middle-left-controls,
@@ -110,6 +125,13 @@
   .middle-play-pause-controls {
     margin-left: 5px;
     margin-right: 5px;
+  }
+
+  @include for-wide-layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   .svg-again {
@@ -157,6 +179,10 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
+
+  @include for-wide-layout {
+    display: flex;
+  }
 
   .volume-container {
     display: flex;
