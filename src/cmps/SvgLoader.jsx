@@ -3,8 +3,11 @@ import ScaleLoader from "react-spinners/ScaleLoader";
 
 export function SvgLoader() {
     const [loading, setLoading] = useState(false);
-    const color = "#5BD321";
+    const color = "#1DB954";
     const size = 200;
+    const radius = 10;
+    const margin = 4;
+    const width = 6;
 
     useEffect(() => {
         setLoading(true);
@@ -16,7 +19,7 @@ export function SvgLoader() {
     return (
         <section className="svg-loader">
             <div>
-                <ScaleLoader color={color} loading={loading} size={size} />
+                <ScaleLoader color={color} loading={loading} width={width} size={size} radius={radius} margin={margin} />
             </div>
         </section>
     );

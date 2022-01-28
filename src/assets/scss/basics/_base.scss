@@ -81,3 +81,19 @@ button {
 a {
   text-decoration: none;
 }
+
+.logo-container {
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 180px;
+  .logo-img {
+    display: flex;
+    align-items: center;
+  }
+  h1 {
+    font-family: audiowide, cursive;
+    font-size: 22px;
+    font-weight: 800;
+  }
+}
