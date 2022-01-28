@@ -14,12 +14,6 @@ function _LoginSignup({ user, setIsWelcome, setIsLogin, onLogin, onSignup }) {
     email: "",
   });
 
-  // const [loginData, setLoginData] = useState(
-  //   localStorage.getItem("loginData")
-  //     ? JSON.parse(localStorage.getItem("loginData"))
-  //     : null
-  // );
-
   const navigate = useNavigate();
 
   const handleChange = (ev) => {
@@ -51,9 +45,15 @@ function _LoginSignup({ user, setIsWelcome, setIsLogin, onLogin, onSignup }) {
     }
   };
 
-  // const handleFailure = (result) => {
-  //   alert(result);
-  // };
+  const [loginData, setLoginData] = useState(
+    localStorage.getItem("loginData")
+      ? JSON.parse(localStorage.getItem("loginData"))
+      : null
+  );
+
+  const handleFailure = (result) => {
+    alert(result);
+  };
 
   // const handleLogin = async (googleData) => {
   //   const res = await fetch("/api/google-login", {
@@ -65,27 +65,35 @@ function _LoginSignup({ user, setIsWelcome, setIsLogin, onLogin, onSignup }) {
   //       "Content-Type": "application/json",
   //     },
   //   });
-  // };
 
-  // const data = await res.json();
-  // setLoginData(data);
-  // localStorage.setItem("loginData", JSON.stringify(data));
-
-  // const handleLogout = () => {
-  //   localStorage.removeItem("loginData");
-  //   setLoginData(null);
+  //   const data = await res.json();
+  //   setLoginData(data);
+  //   localStorage.setItem("loginData", JSON.stringify(data));
   // };
+  const handleLogout = () => {
+    localStorage.removeItem("loginData");
+    setLoginData(null);
+  };
 
   const responseGoogle = (response) => {
-    console.log(response);
-    console.log(response.porfileObj);
-  }
+    // setIsLogin(false);
+    setUserForm({
+      ...userForm,
+      userName: response.profileObj.name,
+      password: response.profileObj.googleId,
+      imgUrl: response.profileObj.imageUrl,
+    });
+    // console.log(response.profileObj.name);
+    // console.log(response.profileObj.imageUrl);
+    // console.log(response.profileObj.googleId);
+  };
+  console.log(userForm);
 
   return (
     <>
       {isLoginForm ? (
         <section className="login-signup-page">
-          <header style={{ marginBottom: "15px" }}>
+          <header>
             <img src={logo} alt="logo" />
           </header>
           <hr />
@@ -96,20 +104,22 @@ function _LoginSignup({ user, setIsWelcome, setIsLogin, onLogin, onSignup }) {
                 <span>continue with facebook</span>
               </i>
             </li>
-            {/* <li className="media google"> */}
-            <li>
+            {loginData ? (
+              <div>
+                <h3>You logged in as {loginData.email}</h3>
+                <button onClick={handleLogout}>Logout</button>
+              </div>
+            ) : (
               <GoogleLogin
-                clientId="700873867407-i37i35b14k35o5ot4aopvaibpgvn53j5.apps.googleusercontent.com"
-                buttonText="Login"
-                onSuccess={(responseGoogle)}
-                onFailure={(responseGoogle)}
+                clientId={
+                  "700873867407-i37i35b14k35o5ot4aopvaibpgvn53j5.apps.googleusercontent.com"
+                }
+                buttonText="Log in with Google"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
                 cookiePolicy={"single_host_origin"}
-              />
-            </li>
-            {/* <i className="fab fa-google">
-                <span>continue with google</span>
-              </i> */}
-            {/* </li> */}
+              ></GoogleLogin>
+            )}
           </ul>
           <div className="hr-or-container">
             <hr />
@@ -154,10 +164,10 @@ function _LoginSignup({ user, setIsWelcome, setIsLogin, onLogin, onSignup }) {
         </section>
       ) : (
         <section className="login-signup-page">
-          <header style={{ marginBottom: "15px" }}>
+          <header>
             <img src={logo} alt="logo" />
           </header>
-          <ul style={{ marginTop: "40px" }}>
+          <ul>
             <h5>Sign up with your email address</h5>
             <li className="media facebook">
               <i className="fab fa-facebook-square">
