@@ -20,24 +20,21 @@
 
   @include for-mobile-layout {
     background-color: $clr8;
-    bottom: 78px;
-    left: 27px;
+    bottom: 66px;
     justify-content: unset;
     padding: 0px;
     margin: -1px;
-    width: 93vw;
+    width: 100vw;
     background: rgb(47, 42, 51);
     background: linear-gradient(
       90deg,
-      rgb(42, 51, 46) 0%,
-      rgb(34, 36, 34) 50%,
-      rgb(41, 41, 41) 100%
+      rgba(42, 51, 46, 0.7) 0%,
+      rgba(34, 36, 34, 0.7) 50%,
+      rgba(41, 41, 41, 0.7) 100%
     );
     margin: auto;
     border-radius: 10px;
     border: 1px solid rgba(126, 125, 125, 0.521);
-    // grid-template-columns: repeat(5, 1fr);
-    // grid-template-rows: repeat(2, 1fr);
   }
 
   svg {

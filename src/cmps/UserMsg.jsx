@@ -2,12 +2,12 @@ import { connect } from 'react-redux'
 
 function _UserMsg({ msg }) {
   const classname = msg ? `user-msg show ${msg?.type}` : 'user-msg'
-//   console.log('msg?' , msg);
+  //   console.log('msg?' , msg);
   return (
-    <section style={{position: 'relative'}}>
-    <div className={classname}>
-      <h3>{msg?.txt}</h3>
-    </div>
+    <section className='msg-container' style={{ position: 'relative' }}>
+      <div className={classname}>
+        <h3>{msg?.txt}</h3>
+      </div>
     </section>
   )
 }

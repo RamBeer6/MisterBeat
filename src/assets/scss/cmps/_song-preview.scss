@@ -45,10 +45,11 @@
 
       .song-name-h4 {
         h4 {
-          font-weight: 10px;
+          // font-weight: 10px;
 
           @include for-mobile-layout {
             margin-left: 30px;
+            font-size: 14px;
           }
         }
       }

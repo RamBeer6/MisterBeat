@@ -53,6 +53,7 @@
 
       @include for-mobile-layout {
         grid-template-columns: min-content;
+        margin-right: 12px;
       }
 
       &::-webkit-scrollbar {
