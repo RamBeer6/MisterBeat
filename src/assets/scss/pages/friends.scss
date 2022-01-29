@@ -1,14 +1,21 @@
 :root {
-  --minimumColumnWidth: 1500px;
+  --minimumColumnWidth: 180px;
 }
 
 .friends {
-  grid-gap: 24px;
+  gap: 24px;
   display: grid;
   grid-template-columns: repeat(
-    auto-fill,
+    auto-fit,
     minmax(var(--minimumColumnWidth), 180px)
   );
   padding: 30px;
   justify-content: start;
+
+  @include for-mobile-layout {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(150px, 180px));
+    gap: 16px;
+    margin-bottom: 40px;
+  }
 }
