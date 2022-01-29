@@ -213,6 +213,7 @@ class _MusicPlayer extends React.Component {
                   : songs[currSongIdx]?.imgUrl || songDetails.imgUrl
               }
               alt='image'
+              className='song-img'
             />
           )}
 
@@ -224,6 +225,7 @@ class _MusicPlayer extends React.Component {
                   : shuffleSongs[currSongIdx]?.imgUrl
               }
               // alt='image'
+              className='song-img'
             />
           )}
 
@@ -240,7 +242,7 @@ class _MusicPlayer extends React.Component {
           </div>
 
           {/* {!isLiked ? ( */}
-          <button className='like-btn hide-to-moblie'>
+          <button className='like-btn'>
             <svg
               className='unliked'
               width='24'

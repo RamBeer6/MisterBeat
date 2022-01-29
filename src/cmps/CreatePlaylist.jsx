@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { connect } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { DragDropContext } from "react-beautiful-dnd";
-import { socketService } from "../services/socket.service";
+import { useState } from 'react';
+import { connect } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { DragDropContext } from 'react-beautiful-dnd';
+import { socketService } from '../services/socket.service';
 
 import {
   addSong,
@@ -12,11 +12,11 @@ import {
   updateSongs,
   addStation,
   updateStation,
-} from "../store/actions/station.action";
-import { StationHero } from "../cmps/StationHero";
-import { StationActions } from "../cmps/StationActions";
-import { SongList } from "../cmps/SongList";
-import { SongSearch } from "../cmps/SongSearch";
+} from '../store/actions/station.action';
+import { StationHero } from '../cmps/StationHero';
+import { StationActions } from '../cmps/StationActions';
+import { SongList } from '../cmps/SongList';
+import { SongSearch } from '../cmps/SongSearch';
 
 function _CreatePlaylist({
   addSong,
@@ -30,10 +30,10 @@ function _CreatePlaylist({
   updateStation,
 }) {
   const [station, setStation] = useState({
-    _id: "",
-    name: "",
-    imgUrl: "",
-    desc: "",
+    _id: '',
+    name: '',
+    imgUrl: '',
+    desc: '',
   });
   const navigate = useNavigate();
 
@@ -46,7 +46,7 @@ function _CreatePlaylist({
       } else {
         // newStation = await stationService.addNewStation(station, user)
         newStation = await addStation(station, user);
-        socketService.emit("addStation", newStation);
+        socketService.emit('addStation', newStation);
       }
       setStation({ ...newStation });
     } catch (err) {
@@ -60,7 +60,7 @@ function _CreatePlaylist({
       station.songs.push(song);
       const newSongs = station.songs;
       setStation({ ...station, songs: newSongs });
-      socketService.emit("changeSongs", newSongs);
+      socketService.emit('changeSongs', newSongs);
     } catch (err) {
       console.log(err);
     }
@@ -71,7 +71,7 @@ function _CreatePlaylist({
       await removeSong(station._id, songId);
       const newSongs = station.songs.filter((song) => song.id !== songId);
       setStation({ ...station, songs: newSongs });
-      socketService.emit("changeSongs", newSongs);
+      socketService.emit('changeSongs', newSongs);
     } catch (err) {
       console.log(err);
     }
@@ -81,8 +81,8 @@ function _CreatePlaylist({
     try {
       await removeStation(stationId);
       setStation({});
-      loadSongs("");
-      navigate("/");
+      loadSongs('');
+      navigate('/');
     } catch (err) {
       console.log(err);
     }
@@ -103,11 +103,11 @@ function _CreatePlaylist({
     const [song] = newSongs.splice(source.index, 1);
     newSongs.splice(destination.index, 0, song);
     await updateSongs(station._id, newSongs);
-    socketService.emit("changeSongs", newSongs);
+    socketService.emit('changeSongs', newSongs);
   };
 
   return (
-    <section className="create-playlist">
+    <section className='create-playlist'>
       <StationHero station={station} onSaveStation={onSaveStation} />
       <StationActions
         stationId={station._id}
@@ -121,12 +121,13 @@ function _CreatePlaylist({
           onRemoveSong={onRemoveSong}
         />
       </DragDropContext>
-      <SongSearch />
-      {/* <div className="add-song-container">
-        <h4 className="song-search-header">
-          Let's find something for your playlist
-        </h4> <SongSearch onAddSong={onAddSong} />
-      </div> */}
+
+      <section className='search-in-playlist-container'>
+        <div className='add-song-container'>
+          <h4 className='song-search-header'> Let's find something for your playlist</h4>
+          <SongSearch onAddSong={onAddSong} />
+        </div>
+      </section>
     </section>
   );
 }
@@ -147,7 +148,4 @@ const mapDispatchToProps = {
   updateStation,
 };
 
-export const CreatePlaylist = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(_CreatePlaylist);
+export const CreatePlaylist = connect(mapStateToProps, mapDispatchToProps)(_CreatePlaylist);

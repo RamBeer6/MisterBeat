@@ -1,18 +1,15 @@
 .create-playlist {
   height: 100%;
 
-  // .add-song-container {
-  //   display: inline-block;
-  //   padding: 0 16px;
+  .search-in-playlist-container {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 24px;
+    padding: 24px 0px;
+  }
 
-  //   .song-search-header {
-  //     font-size: 24px;
-  //     font-weight: 700;
-  //     letter-spacing: -0.04em;
-  //     line-height: 28px;
-  //     text-transform: none;
-  //     color: rgb(255, 255, 255);
-  //     margin-bottom: 16px;
-  //   }
-  // }
+  .song-search-header {
+    margin-top: 6px;
+    margin-left: 21px;
+    font-size: 24px;
+  }
 }

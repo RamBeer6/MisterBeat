@@ -28,6 +28,23 @@
         height: 100%;
         object-fit: cover;
       }
+
+      @include for-mobile-layout {
+        .song-info-img {
+          height: 50px;
+          width: 50px;
+        }
+      }
+    }
+
+    @include for-mobile-layout {
+      display: flex;
+
+      .song-name-h4 {
+        h4 {
+          font-weight: 10px;
+        }
+      }
     }
   }
 
@@ -43,6 +60,12 @@
     max-width: 75px;
     margin-bottom: 10px;
     object-fit: cover;
+
+    @include for-mobile-layout {
+      width: 50px;
+      height: 50px;
+      padding-right: 9px;
+    }
   }
 
   .play-btn,
@@ -89,6 +112,12 @@
       font-size: 18px;
       padding: 0;
       margin-left: 20px;
+    }
+  }
+
+  @include for-mobile-layout {
+    .hide-mobile-songpreview {
+      display: none;
     }
   }
 }

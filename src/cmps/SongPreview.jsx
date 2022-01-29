@@ -83,7 +83,7 @@ function _SongPreview(props) {
 
   const { song, idx, onRemoveSong, user } = props;
   const { songs, currSongId, isPlaying } = props;
-  
+
   return (
     <div>
       <Draggable draggableId={song.id} index={idx}>
@@ -121,17 +121,19 @@ function _SongPreview(props) {
               </button>
             )}
             {!isHover && isSongPlaying && <BarWave />}
-            {!isHover && !isSongPlaying && <h4 className="gray">{idx + 1}</h4>}
-            <div className="song-info">
-              <div className="song-info-img"><img src={song.imgUrl} /></div>
-              <div>
+            {!isHover && !isSongPlaying && <h4 className='gray'>{idx + 1}</h4>}
+            <div className='song-info'>
+              <div className='song-info-img'>
+                <img src={song.imgUrl} />
+              </div>
+              <div className='song-name-h4'>
                 <h4>{song.title}</h4>
                 <h4 className='small gray'>{song.artist}</h4>
               </div>
             </div>
-            <h4 className="small gray">{song.album}</h4>
+            <h4 className='small gray'>{song.album}</h4>
             {/* <h4 className="small gray">{song.duration}</h4> */}
-            <div className="song-actions">
+            <div className='song-actions'>
               {!isLiked ? (
                 <button className='like-btn' onClick={setLikeSong}>
                   <svg
@@ -156,7 +158,7 @@ function _SongPreview(props) {
                   </svg>
                 </button>
               )}
-              <h4 className="small gray">{song.duration}</h4>
+              <h4 className='small gray hide-mobile-songpreview'>{song.duration}</h4>
               {isHover && !props.fromLikedSong && (
                 <button className='remove-btn' onClick={() => onRemoveSong(song.id, song.title)}>
                   <i className='fas fa-trash-alt'></i>
