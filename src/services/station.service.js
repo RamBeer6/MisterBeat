@@ -185,7 +185,6 @@ async function getById(stationId) {
   if (!stationId) return;
   try {
     const station = await httpService.get(`station/${stationId}`)
-    console.log('station??' , station);
     // return storageService.get(STORAGE_KEY, stationId)
     return station
   } catch (err) {
@@ -233,7 +232,7 @@ async function removeSongStation(stationId, songId) {
   try {
     const station = await getById(stationId)
     station.songs = station.songs.filter(song => song.id !== songId)
-    await httpService.put(`station/${station._id}`, station)
+    return await httpService.put(`station/${station._id}`, station)
 
     // getById(stationId).then((station) => {
     //   station.songs = station.songs.filter((song) => song.id !== songId);
@@ -249,7 +248,7 @@ async function addSongStation(stationId, song) {
   try {
     const station = await getById(stationId)
     station.songs.push(song)
-    await httpService.put(`station/${station._id}`, station)
+    return await httpService.put(`station/${station._id}`, station)
     // getById(stationId).then((station) => {
     //   station.songs.push(song);
     //   return storageService.put(STORAGE_KEY, station);

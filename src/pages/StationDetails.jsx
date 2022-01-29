@@ -4,6 +4,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import { connect } from 'react-redux';
 
 import { stationService } from '../services/station.service';
+import { socketService } from '../services/socket.service';
 import { loadSongs, updateSongs, removeSong, addSong, removeStation, updateStation } from '../store/actions/station.action';
 import { onTogglePlay, setPlayerSongs, playSong } from '../store/actions/music.player.action';
 import { likeStation, unlikeStation } from '../store/actions/user.action';
@@ -28,6 +29,9 @@ function _StationDetails(props) {
         const station = await stationService.getById(stationId)
         setStation(station);
         setIsLikedStation(props.user.likedStations.includes(stationId))
+        socketService.on('songsChanged', (songs) => {
+           props.loadSongs(stationId)
+        })
       } 
     })();
     //eslint-disable-next-line
@@ -52,9 +56,9 @@ function _StationDetails(props) {
   }, [isSongSearch]);
 
   const onRemoveSong = async (songId, songTitle) => {
-    // const { stationId } = params
     try {
-      await props.removeSong(station._id, songId);
+      const updatedUser = await props.removeSong(station._id, songId)
+      socketService.emit('changeSongs', updatedUser.songs)
     } catch (err) {
       console.log(err);
     }
@@ -66,7 +70,8 @@ function _StationDetails(props) {
 
   const onAddSong = async (song) => {
     try {
-      await props.addSong(station._id, song);
+      const updatedUser = await props.addSong(station._id, song)
+      socketService.emit('changeSongs', updatedUser.songs)
     } catch (err) {
       console.log(err);
     }
@@ -89,6 +94,7 @@ function _StationDetails(props) {
     const [song] = newSongs.splice(source.index, 1)
     newSongs.splice(destination.index, 0, song)
     await props.updateSongs(stationId, newSongs)
+    socketService.emit('changeSongs', newSongs)
   }
 
   const setLikedStation = async () => {
