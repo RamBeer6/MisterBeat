@@ -9,6 +9,12 @@
   padding: 8px;
   box-sizing: content-box;
 
+  @include for-mobile-layout {
+    grid-template-columns: 9px 1fr 40px;
+    grid-template-rows: none;
+    grid-gap: 20px;
+  }
+
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 4px;
@@ -27,6 +33,24 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+
+        @include for-mobile-layout {
+          width: 60px;
+        }
+      }
+    }
+
+    @include for-mobile-layout {
+      display: flex;
+
+      .song-name-h4 {
+        h4 {
+          font-weight: 10px;
+
+          @include for-mobile-layout {
+            margin-left: 30px;
+          }
+        }
       }
     }
   }
@@ -39,11 +63,17 @@
     color: #b3b3b3;
   }
 
-  img {
-    max-width: 75px;
-    margin-bottom: 10px;
-    object-fit: cover;
-  }
+  // img {
+  //   max-width: 75px;
+  //   margin-bottom: 10px;
+  //   object-fit: cover;
+  //   border-radius: 4px;
+  //   @include for-mobile-layout {
+  //     width: 60px;
+  //     height: 60px;
+  //     padding-right: 9px;
+  //   }
+  // }
 
   .play-btn,
   .pause-btn {
@@ -89,6 +119,15 @@
       font-size: 18px;
       padding: 0;
       margin-left: 20px;
+    }
+    @include for-mobile-layout {
+      grid-area: 1/3/1/4;
+    }
+  }
+
+  @include for-mobile-layout {
+    .hide-mobile-songpreview {
+      display: none;
     }
   }
 }

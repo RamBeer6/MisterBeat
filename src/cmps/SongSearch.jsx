@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { youtubeService } from "../services/youtube.service";
+import React, { useEffect, useState } from 'react';
+import { youtubeService } from '../services/youtube.service';
 
-import { SuggestedSongList } from "../cmps/SuggestedSongList";
-import useDebounce from "../cmps/UseDebounce";
-import { LoaderDots } from "../cmps/LoaderDots";
+import { SuggestedSongList } from '../cmps/SuggestedSongList';
+import useDebounce from '../cmps/UseDebounce';
+import { LoaderDots } from '../cmps/LoaderDots';
 
 export function SongSearch({ stationId, onAddSong, onSetMsg }) {
   const [txt, setTxt] = useState("");
@@ -21,7 +21,7 @@ export function SongSearch({ stationId, onAddSong, onSetMsg }) {
       setIsSearching(true);
       loadSongs(debouncedSearchTerm).then((songs) => {
         setIsSearching(false);
-        setSongs(songs.slice(0, 10));
+        setSongs(songs?.slice(0, 10));
       });
     } else {
       setSongs([]);
@@ -44,7 +44,7 @@ export function SongSearch({ stationId, onAddSong, onSetMsg }) {
   };
 
   const cleanForm = () => {
-    setTxt("");
+    setTxt('');
   };
 
   // const onSearch = (ev) => {
@@ -56,22 +56,28 @@ export function SongSearch({ stationId, onAddSong, onSetMsg }) {
   // }
 
   return (
-    <section className="song-search">
+    <section className='song-search'>
       {/* <form onSubmit={onSearch}> */}
-      <form>
-        <input
-          name="txt"
-          value={txt}
-          type="text"
-          placeholder="Add songs or podcasts to playlist..."
-          autoComplete="off"
-          onChange={handleChange}
-        />
-        <a className="search-button" onClick={cleanForm}>
-          <div className="icon" />
-        </a>
-        {/* <button>Search</button> */}
-      </form>
+      <div className='add-song-container'>
+        <form>
+          <h4 className='song-search-header'>Let's find something for your playlist</h4>
+          <div className='song-search-input-container'>
+            <input
+              name='txt'
+              value={txt}
+              type='text'
+              placeholder='Search for songs or artists'
+              autoComplete='off'
+              onChange={handleChange}
+              spellCheck='false'
+            />
+          </div>
+          <a className='search-button' onClick={cleanForm}>
+            <div className='icon' />
+          </a>
+        </form>
+      </div>
+      {/* <button>Search</button> */}
 
       {/* {isSearching && <div>Searching ...</div>} */}
       {isSearching && <LoaderDots />}

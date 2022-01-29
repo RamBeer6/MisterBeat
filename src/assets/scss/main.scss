@@ -1,22 +1,22 @@
 // SETUP
-@import 'setup/variables.scss';
-@import 'setup/functions.scss';
-@import 'setup/mixin.scss';
-@import 'setup/typography';
+@import "setup/variables.scss";
+@import "setup/functions.scss";
+@import "setup/mixin.scss";
+@import "setup/typography";
 
 // BASICS
-@import 'basics/helpers.scss';
-@import 'basics/layout.scss';
-@import 'basics/base.scss';
-@import 'basics/font-awesome.scss';
+@import "basics/helpers.scss";
+@import "basics/layout.scss";
+@import "basics/base.scss";
+@import "basics/font-awesome.scss";
 
 // PAGES
-@import 'pages/welcome-page.scss';
-@import 'pages/login-signup-page.scss';
-@import 'pages/home-page.scss';
-@import 'pages/library-page.scss';
-@import 'pages/create-playlist.scss';
-@import 'pages/friends.scss';
+@import "pages/welcome-page.scss";
+@import "pages/login-signup-page.scss";
+@import "pages/home-page.scss";
+@import "pages/library-page.scss";
+@import "pages/create-playlist.scss";
+@import "pages/friends.scss";
 
 //CMPS
 @import 'cmps/app-header.scss';
@@ -45,5 +45,6 @@
 @import 'cmps/library-list.scss';
 @import 'cmps/edit-station-hero';
 @import 'cmps/activity-log';
+@import 'cmps/user-preview';
 @import 'cmps/user-msg';
 

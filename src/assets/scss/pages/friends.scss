@@ -1,5 +1,14 @@
+:root {
+  --minimumColumnWidth: 1500px;
+}
+
 .friends {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 120px);
   grid-gap: 24px;
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(var(--minimumColumnWidth), 180px)
+  );
+  padding: 30px;
+  justify-content: start;
 }

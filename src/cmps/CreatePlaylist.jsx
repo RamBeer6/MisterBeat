@@ -12,15 +12,20 @@ import { StationActions } from '../cmps/StationActions'
 import { SongList } from '../cmps/SongList'
 import { SongSearch } from '../cmps/SongSearch'
 
-
 function _CreatePlaylist({ addSong, user, songs, loadSongs, removeSong, removeStation, updateSongs, addStation, updateStation, addPlaylistActivity, onSetMsg }) {
   const [station, setStation] = useState({
     _id: '',
     name: '',
     imgUrl: '',
-    desc: ''
-  })
-  const navigate = useNavigate()
+    desc: '',
+  });
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    return () => {
+      loadSongs('');
+    };
+  }, []);
 
   useEffect(() => {
     return() => {
@@ -32,7 +37,7 @@ function _CreatePlaylist({ addSong, user, songs, loadSongs, removeSong, removeSt
     try {
       let newStation;
       if (station._id) {
-        newStation = await updateStation(station, user)
+        newStation = await updateStation(station, user);
         // socketService.emit('add station', newStation)
       } else {
         // newStation = await stationService.addNewStation(station, user)
@@ -41,12 +46,12 @@ function _CreatePlaylist({ addSong, user, songs, loadSongs, removeSong, removeSt
         addPlaylistActivity(station, user)
         onSetMsg('success', 'Added new playlist')
       }
-      setStation({ ...newStation })
+      setStation({ ...newStation });
     } catch (err) {
       // console.log(err)
       onSetMsg('error', 'Could not create playlist, please try again')
     }
-  }
+  };
 
   const onAddSong = async (song) => {
     try {
@@ -60,7 +65,7 @@ function _CreatePlaylist({ addSong, user, songs, loadSongs, removeSong, removeSt
       // console.log(err)
       onSetMsg('error', 'Could not add song to playlist, please try again')
     }
-  }
+  };
 
   const onRemoveSong = async (songId) => {
     try {
@@ -73,59 +78,68 @@ function _CreatePlaylist({ addSong, user, songs, loadSongs, removeSong, removeSt
       // console.log(err);
       onSetMsg('error', 'Could not remove song from playlist, please try again')
     }
-  }
+  };
 
   const onRemoveStation = async (stationId) => {
     try {
-      await removeStation(stationId)
-      setStation({})
-      loadSongs('')
-      navigate('/')
+      await removeStation(stationId);
+      setStation({});
+      loadSongs('');
+      navigate('/');
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   const onDragEnd = async (result) => {
     const { destination, source } = result;
     if (!destination) return;
 
     // same place
-    if (destination.droppableId === source.droppableId && destination.index === source.index)
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    )
       return;
 
-    const newSongs = songs.slice()
-    const [song] = newSongs.splice(source.index, 1)
-    newSongs.splice(destination.index, 0, song)
-    await updateSongs(station._id, newSongs)
-    socketService.emit('changeSongs', newSongs)
-  }
+    const newSongs = songs.slice();
+    const [song] = newSongs.splice(source.index, 1);
+    newSongs.splice(destination.index, 0, song);
+    await updateSongs(station._id, newSongs);
+    socketService.emit('changeSongs', newSongs);
+  };
 
   return (
-    <section className="create-playlist">
+    <section className='create-playlist'>
       <StationHero station={station} onSaveStation={onSaveStation} />
-      <StationActions stationId={station._id} onRemoveStation={onRemoveStation} />
+      <StationActions
+        stationId={station._id}
+        onRemoveStation={onRemoveStation}
+      />
 
       <DragDropContext onDragEnd={onDragEnd}>
-        <SongList stationId={station._id} songs={songs} onRemoveSong={onRemoveSong} />
+        <SongList
+          stationId={station._id}
+          songs={songs}
+          onRemoveSong={onRemoveSong}
+        />
       </DragDropContext>
 
-      <div className="add-song-container">
-        <h4 className="song-search-header">
-          {' '}
-          Let's find something for your playlist
-        </h4>
-        <SongSearch onAddSong={onAddSong} />
-      </div>
+      <section className='search-in-playlist-container'>
+        <div className='add-song-container'>
+          {/* <h4 className='song-search-header'> Let's find something for your playlist</h4> */}
+          <SongSearch onAddSong={onAddSong} />
+        </div>
+      </section>
     </section>
-  )
+  );
 }
 
 function mapStateToProps(state) {
   return {
     songs: state.stationModule.songs,
-    user: state.userModule.user
-  }
+    user: state.userModule.user,
+  };
 }
 const mapDispatchToProps = {
   addSong,
@@ -139,7 +153,4 @@ const mapDispatchToProps = {
   onSetMsg
 }
 
-export const CreatePlaylist = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(_CreatePlaylist)
+export const CreatePlaylist = connect(mapStateToProps, mapDispatchToProps)(_CreatePlaylist);
