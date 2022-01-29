@@ -9,7 +9,7 @@ export function UserPreview({ user, onAddFollow }) {
         </div>
         <div className="user-name-follow">
           <h3>{user.userName}</h3>
-          <input type={'checkbox'} className="follow-btn" onClick={() => onAddFollow(user._id)} />
+          <input type={'checkbox'} className="follow-btn" onChange={() => onAddFollow(user._id)} />
         </div>
       </div>
     </section>
