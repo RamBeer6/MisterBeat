@@ -1,10 +1,8 @@
 .login-signup-page {
+  font-family: circular;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  // overflow: scroll;
-  // height: 100vh;
-  // width: 100vw;
   justify-content: center;
   align-items: center;
   background-color: white;
@@ -16,12 +14,23 @@
     align-items: center;
     width: 100%;
     background-color: #1b1919;
-    color: white;
 
-    img {
-      height: 12vh;
-      width: 35vh;
+    .logo-header {
+      img {
+        width: 100%;
+      }
+      h1 {
+        font-size: 40px;
+        font-family: audiowide, cursive;
+        color: $clr1;
+      }
     }
+  }
+
+  .header-h5 {
+    font-family: circular;
+    font-size: 18px;
+    margin-top: 20px;
   }
 
   ul {
@@ -32,8 +41,6 @@
     list-style: none;
     width: 30%;
     min-width: 240px;
-    //   margin-top: 15vh;
-    //   padding: 20px;
   }
 
   .hr-or-container {
@@ -45,6 +52,7 @@
     width: 410px;
 
     p {
+      font-family: circular;
       text-transform: uppercase;
       margin: 0;
       margin-left: 10px;
@@ -80,17 +88,22 @@
     }
   }
 
-  .facebook {
-    color: white;
-    background-color: rgb(60, 85, 158);
-    margin-bottom: 20px;
-    margin-top: 15px;
-  }
-
-  .google {
-    border: 1px solid gray;
-    span {
-      color: gray;
+  .btn-warpper {
+    margin-top: 10px;
+    width: 100%;
+    // text-align: center;
+    button {
+      // margin: auto;
+      justify-content: center;
+      display: flex;
+      width: 100%;
+      // svg {
+      // margin: auto;
+      // }
+      span {
+        font-family: circular;
+        font-weight: 600;
+      }
     }
   }
 
@@ -102,29 +115,19 @@
     list-style: none;
     width: 30%;
     min-width: 240px;
-    //   margin-top: 15vh;
-    //   padding: 20px;
   }
 
   header {
     position: relative;
-    //   top: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    //   min-height: 10vh;
-    width: 100%;
     background-color: #1b1919;
-    //   margin-bottom: 15px;
     color: white;
-
-    img {
-      height: 12vh;
-      width: 35vh;
-    }
   }
 
   form {
+    font-family: circular;
     padding: 0;
     margin: 0;
     display: flex;
@@ -136,6 +139,7 @@
 
     label {
       margin-top: 15px;
+      font-family: circular;
     }
 
     input {
@@ -146,18 +150,24 @@
       border: 1px solid black;
       border-radius: 5px;
       transition: border 200ms ease;
+      font-family: circular;
+
+      &::placeholder {
+        font-family: circular;
+      }
 
       &:hover {
         border: 2px solid black;
       }
 
       &:focus {
-        background-color: rgba(131, 206, 198, 0.274);
+        background-color: rgba($clr1, 0.274);
       }
     }
   }
 
   .login-btn {
+    font-family: circular;
     margin-top: 20px;
     width: 150px;
     color: rgb(53, 52, 54);
@@ -178,8 +188,10 @@
     width: 100%;
     align-items: center;
     justify-content: center;
+    margin-top: 20px;
 
     .signup-btn {
+      font-family: circular;
       border: none;
       border-radius: 22px;
       height: 46px;
@@ -196,6 +208,10 @@
       &:hover {
         border: 2px solid black;
       }
+
+      &:focus {
+        border: 3px solid black;
+      }
     }
   }
 
@@ -204,6 +220,7 @@
     align-items: center;
     justify-items: center;
     .btn {
+      font-family: circular;
       color: #1db954;
       background: transparent;
       border: none;

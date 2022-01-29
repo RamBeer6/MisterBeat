@@ -4,8 +4,11 @@
   // //   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   // grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
   // grid-gap: 24px;
-  padding: 0 32px;
+  padding: 0 0 32px 32px;
 
+  @include for-mobile-layout {
+    padding: 0 0 16px 16px;
+  }
   .section-station {
     display: flex;
     flex-direction: column;
@@ -14,6 +17,9 @@
     min-width: 100%;
     position: relative;
 
+    @include for-mobile-layout {
+      margin-bottom: 12px;
+    }
     // .switchLeft {
     //   position: absolute;
     //   left: -30px;

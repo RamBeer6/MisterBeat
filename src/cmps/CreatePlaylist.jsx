@@ -99,7 +99,10 @@ function _CreatePlaylist({
     if (!destination) return;
 
     // same place
-    if (destination.droppableId === source.droppableId && destination.index === source.index)
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    )
       return;
 
     const newSongs = songs.slice();
@@ -112,15 +115,22 @@ function _CreatePlaylist({
   return (
     <section className='create-playlist'>
       <StationHero station={station} onSaveStation={onSaveStation} />
-      <StationActions stationId={station._id} onRemoveStation={onRemoveStation} />
+      <StationActions
+        stationId={station._id}
+        onRemoveStation={onRemoveStation}
+      />
 
       <DragDropContext onDragEnd={onDragEnd}>
-        <SongList stationId={station._id} songs={songs} onRemoveSong={onRemoveSong} />
+        <SongList
+          stationId={station._id}
+          songs={songs}
+          onRemoveSong={onRemoveSong}
+        />
       </DragDropContext>
 
       <section className='search-in-playlist-container'>
         <div className='add-song-container'>
-          <h4 className='song-search-header'> Let's find something for your playlist</h4>
+          {/* <h4 className='song-search-header'> Let's find something for your playlist</h4> */}
           <SongSearch onAddSong={onAddSong} />
         </div>
       </section>

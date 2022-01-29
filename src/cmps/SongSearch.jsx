@@ -57,20 +57,26 @@ export function SongSearch({ stationId, onAddSong }) {
   return (
     <section className='song-search'>
       {/* <form onSubmit={onSearch}> */}
-      <form>
-        <input
-          name='txt'
-          value={txt}
-          type='text'
-          placeholder='Add songs or podcasts to playlist...'
-          autoComplete='off'
-          onChange={handleChange}
-        />
-        <a className='search-button' onClick={cleanForm}>
-          <div className='icon' />
-        </a>
-        {/* <button>Search</button> */}
-      </form>
+      <div className='add-song-container'>
+        <form>
+          <h4 className='song-search-header'>Let's find something for your playlist</h4>
+          <div className='song-search-input-container'>
+            <input
+              name='txt'
+              value={txt}
+              type='text'
+              placeholder='Search for songs or artists'
+              autoComplete='off'
+              onChange={handleChange}
+              spellCheck='false'
+            />
+          </div>
+          <a className='search-button' onClick={cleanForm}>
+            <div className='icon' />
+          </a>
+        </form>
+      </div>
+      {/* <button>Search</button> */}
 
       {/* {isSearching && <div>Searching ...</div>} */}
       {isSearching && <LoaderDots />}

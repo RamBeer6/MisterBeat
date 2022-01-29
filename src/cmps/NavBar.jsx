@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { stationService } from '../services/station.service'
 
 import NavBarOptions from './NavBarOptions'
-import logo from '../assets/imgs/logo.png'
+import { Logo } from './Logo';
 import { ActivityLog } from './ActivityLog'
 
 function _NavBar({ setIsWelcome, setIsLogin, user }) {
+  const navigate = useNavigate();
   const [likedStations, setLikedStations] = useState([])
 
   useEffect(() => {
@@ -26,15 +27,7 @@ function _NavBar({ setIsWelcome, setIsLogin, user }) {
   return (
     <nav className="nav-bar">
       <div className="logo">
-      <img
-        className="nav-bar-logo"
-        src={logo}
-        alt="logo"
-        onClick={() => {
-          setIsLogin(false)
-          setIsWelcome(true)
-        }}
-      />
+        <Logo />
       </div>
 
       <ul className="nav-bar-list">
