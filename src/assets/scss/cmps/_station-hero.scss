@@ -1,6 +1,11 @@
 .station-hero {
   position: relative;
 
+  @include for-mobile-layout {
+    display: flex;
+    flex-direction: column;
+  }
+
   .label {
     text-transform: uppercase;
     letter-spacing: 2;
@@ -13,7 +18,7 @@
     height: 250px;
   }
   .linear-hero {
-    background: linear-gradient(#1DB954 , #16351d)
+    background: linear-gradient(#1db954, #16351d);
   }
 
   .station-hero__text {
@@ -28,6 +33,10 @@
       letter-spacing: -0.04em;
       font-size: rem(78px);
       font-weight: 900;
+
+      @include for-mobile-layout {
+        font-size: rem(25px);
+      }
     }
     .total-durtion-user {
       display: flex;
@@ -62,5 +71,10 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+
+    @include for-mobile-layout {
+      min-width: 100px;
+      min-height: 100px;
+    }
   }
 }

@@ -16,6 +16,10 @@
     top: 35%;
     left: 45%;
     transform: scale(3) translate(-50%, -67%);
+
+    @include for-mobile-layout {
+      left: 51%;
+    }
   }
 
   .edit-details {
@@ -24,9 +28,9 @@
     display: grid;
     grid-template: 50px 105px 20px /180px 1fr;
     grid-template-areas:
-      "album-image title"
-      "album-image description"
-      ".save-button";
+      'album-image title'
+      'album-image description'
+      '.save-button';
     padding: 24px 24px 24px;
     position: absolute;
     top: 50%;

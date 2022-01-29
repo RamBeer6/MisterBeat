@@ -23,4 +23,10 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     color: #b3b3b3;
   }
+
+  @include for-mobile-layout {
+    .hide-mobile-songlist {
+      display: none;
+    }
+  }
 }
