@@ -35,12 +35,13 @@ export function updateSongs(stationId, songs) {
 export function removeSong(stationId, songId) {
   return async (dispatch) => {
     try {
-      await stationService.removeSongStation(stationId, songId)
+      const newSongs= await stationService.removeSongStation(stationId, songId)
       dispatch({
         type: 'REMOVE_SONG',
         songId,
         currStationId: stationId,
       })
+      return newSongs
     } catch (err) {
       throw err
     }
@@ -62,6 +63,15 @@ export function addStation(station, user) {
   }
 }
 
+export function insertStationInStore(stationId) {
+  return (dispatch) => {
+    dispatch({
+      type: 'INSERT_STATION',
+      currStationId: stationId
+    })
+  }
+}
+
 export function updateStation(station, user) {
   return async (dispatch) => {
     try {
@@ -76,7 +86,7 @@ export function updateStation(station, user) {
   }
 }
 
-export function removeStation(stationId){
+export function removeStation(stationId) {
   return async (dispatch) => {
     try {
       await stationService.removeStation(stationId)
@@ -94,12 +104,13 @@ export function removeStation(stationId){
 export function addSong(stationId, song) {
   return async (dispatch) => {
     try {
-      await stationService.addSongStation(stationId, song)
+      const newSong = await stationService.addSongStation(stationId, song)
       dispatch({
         type: 'ADD_SONG',
         song,
         currStationId: stationId,
       })
+      return newSong
     } catch (err) {
       throw err
     }

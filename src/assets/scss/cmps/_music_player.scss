@@ -148,7 +148,7 @@
     gap: 50px;
     justify-content: center;
     // justify-content: space-between;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: "Times New Roman", Times, serif;
     font-size: 12px;
     font-weight: 200;
     width: 70%;
@@ -168,9 +168,13 @@
     }
   }
   .duration-slider {
-    color: $clr1;
+    color: gray;
     width: 70%;
     // padding: 0 50px;
+
+    &:hover {
+      color: $clr1;
+    }
   }
 }
 
@@ -194,7 +198,11 @@
   }
 
   .volumn-slider {
-    color: $clr1;
+    color: gray;
     width: 50%;
+
+    &:hover {
+      color: $clr1;
+    }
   }
 }

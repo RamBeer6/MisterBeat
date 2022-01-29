@@ -99,14 +99,15 @@
     position: relative;
     font-family: inherit;
     font-size: 15px;
-    font-size: 700;
+    // font-size: 400;
     border: none;
     border-radius: 18px;
     background-color: var(--color);
     color: #333333;
     height: 40px;
-    width: 150px;
+    width: 200px;
     transition: color 200ms ease-in-out;
+    font-family: audiowide;
 
     &:hover {
       color: white;
