@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { youtubeService } from "../services/youtube.service";
+import React, { useEffect, useState } from 'react';
+import { youtubeService } from '../services/youtube.service';
 
-import { SuggestedSongList } from "../cmps/SuggestedSongList";
-import useDebounce from "../cmps/UseDebounce";
-import { LoaderDots } from "../cmps/LoaderDots";
+import { SuggestedSongList } from '../cmps/SuggestedSongList';
+import useDebounce from '../cmps/UseDebounce';
+import { LoaderDots } from '../cmps/LoaderDots';
 
 export function SongSearch({ stationId, onAddSong }) {
-  const [txt, setTxt] = useState("");
+  const [txt, setTxt] = useState('');
   const [songs, setSongs] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
 
@@ -21,7 +21,7 @@ export function SongSearch({ stationId, onAddSong }) {
       setIsSearching(true);
       loadSongs(debouncedSearchTerm).then((songs) => {
         setIsSearching(false);
-        setSongs(songs.slice(0, 10));
+        setSongs(songs?.slice(0, 10));
       });
     } else {
       setSongs([]);
@@ -43,7 +43,7 @@ export function SongSearch({ stationId, onAddSong }) {
   };
 
   const cleanForm = () => {
-    setTxt("");
+    setTxt('');
   };
 
   // const onSearch = (ev) => {
@@ -55,19 +55,19 @@ export function SongSearch({ stationId, onAddSong }) {
   // }
 
   return (
-    <section className="song-search">
+    <section className='song-search'>
       {/* <form onSubmit={onSearch}> */}
       <form>
         <input
-          name="txt"
+          name='txt'
           value={txt}
-          type="text"
-          placeholder="Add songs or podcasts to playlist..."
-          autoComplete="off"
+          type='text'
+          placeholder='Add songs or podcasts to playlist...'
+          autoComplete='off'
           onChange={handleChange}
         />
-        <a className="search-button" onClick={cleanForm}>
-          <div className="icon" />
+        <a className='search-button' onClick={cleanForm}>
+          <div className='icon' />
         </a>
         {/* <button>Search</button> */}
       </form>

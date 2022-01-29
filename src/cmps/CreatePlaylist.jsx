@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { DragDropContext } from 'react-beautiful-dnd';
@@ -36,6 +36,12 @@ function _CreatePlaylist({
     desc: '',
   });
   const navigate = useNavigate();
+
+  useEffect(() => {
+    return () => {
+      loadSongs('');
+    };
+  }, []);
 
   const onSaveStation = async (station) => {
     try {
