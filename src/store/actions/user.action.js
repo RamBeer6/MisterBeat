@@ -76,6 +76,7 @@ export function unlikeStation(stationId, user) {
         type: 'SET_USER',
         user: updatedUser,
       })
+      return updatedUser
     } catch (err) {
       throw err
     }

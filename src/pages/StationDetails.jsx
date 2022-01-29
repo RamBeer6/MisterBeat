@@ -107,8 +107,14 @@ function _StationDetails(props) {
     const isExists = user.likedStations.find((likedStation) => likedStation === stationId)
     if (isExists) return
     try {
-      await props.likeStation(station._id, user)
+      const updatedUser = await props.likeStation(station._id, user)
       props.onSetMsg('success', 'Liked playlist')
+      const miniUser = {
+        _id: updatedUser._id,
+        imgUrl: updatedUser.imgUrl,
+        userName: updatedUser.userName
+      }
+      setStation((prevStation) => ({...prevStation, likedByUsers: [...prevStation.likedByUsers, miniUser]}))
     } catch (err) {
       // console.log(err);
       props.onSetMsg('error', 'Something went wrong, please try again')
@@ -120,7 +126,9 @@ function _StationDetails(props) {
     const user = props.user;
     const { stationId } = params;
     try {
-      await props.unlikeStation(stationId, user);
+      const updatedUser = await props.unlikeStation(stationId, user);
+      const filteredUsers = station.likedByUsers.filter(user => user._id !== updatedUser._id)
+      setStation((prevStation) => ({...prevStation, likedByUsers: filteredUsers}))
     } catch (err) {
       // console.log(err);
       props.onSetMsg('error', 'Something went wrong, please try again')

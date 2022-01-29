@@ -25,9 +25,9 @@ async function addActivitylog(type, user, songTitle, stationInfo) {
   }
 }
 
-async function query() {
+async function query(filterBy) {
   try {
-    const activitieslog = await httpService.get('activitylog')
+    const activitieslog = await httpService.get('activitylog', filterBy)
     return activitieslog.slice(activitieslog.lengh - 10, activitieslog.lengh)
   } catch (err) {
     throw err

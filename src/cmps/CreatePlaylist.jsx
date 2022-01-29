@@ -38,11 +38,8 @@ function _CreatePlaylist({ addSong, user, songs, loadSongs, removeSong, removeSt
       let newStation;
       if (station._id) {
         newStation = await updateStation(station, user);
-        // socketService.emit('add station', newStation)
       } else {
-        // newStation = await stationService.addNewStation(station, user)
         newStation = await addStation(station, user)
-        socketService.emit('addStation', newStation)
         addPlaylistActivity(station, user)
         onSetMsg('success', 'Added new playlist')
       }
