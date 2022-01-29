@@ -4,7 +4,7 @@
   // //   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   // grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
   // grid-gap: 24px;
-  padding: 0 0 32px 32px;
+  padding: 0 0 10px 32px;
 
   @include for-mobile-layout {
     padding: 0 0 16px 16px;
@@ -33,45 +33,27 @@
     .section-head {
       align-items: flex-end;
       display: flex;
-      margin-bottom: 16px;
       justify-content: space-between;
+      margin-bottom: 24px;
+      // margin-top: 41px;
+
+      @include for-mobile-layout {
+        margin-top: 0;
+      }
     }
 
     .section-content {
-      /*RONA*/
-      // display: grid;
-      // grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      // grid-gap: 24px;
-
-      //* SCROLL
-      // grid-auto-flow: column;
-      // grid-auto-columns: minmax(230px, 1fr);
-      // overflow-x: auto;
-
-      // TRYING LIKE NETFILIX
-      // height: 25px;
-      // width: auto;
-      // overflow: scroll;
-      // white-space: nowrap;
-      // display: inline-block;
-      // text-align: center;
-      // padding-bottom: 10px !important;
-      // display: flex;
-      // align-items: center;
-
-      // ---gap: 2.5rem;
-
       display: grid;
       grid-auto-flow: column;
-      // grid-auto-columns: var(---size);
       gap: 30px;
-      // padding-inline: var(--gap);
-      // padding-block-end: var(--gap);
-
       overflow-x: auto;
       overscroll-behavior-x: contain;
       scroll-snap-type: x proximity;
-      // scroll-padding-inline-start: var(--gap);
+      margin-right: 50px;
+
+      @include for-mobile-layout {
+        grid-template-columns: min-content;
+      }
 
       &::-webkit-scrollbar {
         background-color: #1d1a1a;

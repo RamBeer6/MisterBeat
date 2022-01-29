@@ -27,12 +27,12 @@ function _LoginSignup({ user, setIsWelcome, setIsLogin, onLogin, onSignup }) {
       if (isLoginForm) {
         const loggedinUser = await onLogin(userForm);
         if (loggedinUser) {
-          console.log("loggedin successfully");
+          // console.log("loggedin successfully");
           setIsWelcome(false);
           setIsLogin(false);
           navigate("/");
         } else {
-          console.log("worng username or password!!!");
+          // console.log("worng username or password!!!");
         }
       } else {
         await onSignup(userForm);
@@ -87,7 +87,7 @@ function _LoginSignup({ user, setIsWelcome, setIsLogin, onLogin, onSignup }) {
     // console.log(response.profileObj.imageUrl);
     // console.log(response.profileObj.googleId);
   };
-  console.log(userForm);
+  // console.log(userForm);
 
   return (
     <>

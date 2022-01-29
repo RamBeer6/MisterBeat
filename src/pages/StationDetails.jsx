@@ -7,7 +7,7 @@ import { stationService } from '../services/station.service';
 import { socketService } from '../services/socket.service';
 import { loadSongs, updateSongs, removeSong, addSong, removeStation, updateStation } from '../store/actions/station.action';
 import { onTogglePlay, setPlayerSongs, playSong } from '../store/actions/music.player.action';
-import { likeStation, unlikeStation } from '../store/actions/user.action';
+import { likeStation, unlikeStation, onSetMsg } from '../store/actions/user.action';
 
 import { StationHero } from '../cmps/StationHero';
 import { StationActions } from '../cmps/StationActions';
@@ -37,7 +37,6 @@ function _StationDetails(props) {
     //eslint-disable-next-line
   }, []);
 
-  // ComponentWillUnmount
   useEffect(() => {
     return () => {
       setStation({})
@@ -59,8 +58,10 @@ function _StationDetails(props) {
     try {
       const updatedUser = await props.removeSong(station._id, songId)
       socketService.emit('changeSongs', updatedUser.songs)
+      props.onSetMsg('success', 'Removed song from playlist')
     } catch (err) {
       console.log(err);
+      props.onSetMsg('error', 'Could not remove song, please try again')
     }
   };
 
@@ -72,8 +73,10 @@ function _StationDetails(props) {
     try {
       const updatedUser = await props.addSong(station._id, song)
       socketService.emit('changeSongs', updatedUser.songs)
+      props.onSetMsg('success', 'Add song to playlist')
     } catch (err) {
-      console.log(err);
+      // console.log(err);
+      props.onSetMsg('error', 'Could not add song to playlist, please try again')
     }
   };
 
@@ -105,8 +108,10 @@ function _StationDetails(props) {
     if (isExists) return
     try {
       await props.likeStation(station._id, user)
+      props.onSetMsg('success', 'Liked playlist')
     } catch (err) {
-      console.log(err);
+      // console.log(err);
+      props.onSetMsg('error', 'Something went wrong, please try again')
     }
   };
 
@@ -117,20 +122,22 @@ function _StationDetails(props) {
     try {
       await props.unlikeStation(stationId, user);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
+      props.onSetMsg('error', 'Something went wrong, please try again')
     }
   };
 
   const onSetLikedStation = (value) => {
     if (typeof value !== 'boolean') return;
+    // console.log('onSetLikedStation', value);
     if (value) setLikedStation();
     else setUnlikedStation();
   };
 
   const onGetSongs = async (isStationPlaying) => {
-    console.log('isStationPlaying', isStationPlaying);
-    console.log('songs', songs);
-    console.log('songs[0].id', songs[0].id);
+    // console.log('isStationPlaying', isStationPlaying);
+    // console.log('songs', songs);
+    // console.log('songs[0].id', songs[0].id);
     // func to action with songs
     try {
       props.setPlayerSongs(songs);
@@ -147,17 +154,19 @@ function _StationDetails(props) {
       setStation({})
       navigate('/')
     } catch (err) {
-      console.log(err);
+      // console.log(err);
+      props.onSetMsg('error', 'Something went wrong, please try again')
     }
   }
 
   const onSaveStation = async (station) => {
-    console.log('onSave stationDetails:' , station);
+    // console.log('onSave stationDetails:' , station);
     try {
       const newStation = await props.updateStation(station, props.user)
       setStation({ ...newStation })
     } catch (err) {
-      console.log(err);
+      // console.log(err);
+      props.onSetMsg('error', 'Something went wrong, please try again')
     }
   }
 
@@ -180,7 +189,7 @@ function _StationDetails(props) {
 
       {isSongSearch && (
         <section ref={myRef}>
-          <SongSearch stationId={params.stationId} onAddSong={onAddSong} />
+          <SongSearch stationId={params.stationId} onAddSong={onAddSong} onSetMsg={props.onSetMsg} />
         </section>
       )}
     </section>
@@ -206,6 +215,7 @@ const mapDispatchToProps = {
   updateStation,
   onTogglePlay,
   playSong,
+  onSetMsg
 };
 
 export const StationDetails = connect(mapStateToProps, mapDispatchToProps)(_StationDetails);

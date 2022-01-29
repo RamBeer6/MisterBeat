@@ -35,7 +35,7 @@ export function updateSongs(stationId, songs) {
 export function removeSong(stationId, songId) {
   return async (dispatch) => {
     try {
-      const newSongs= await stationService.removeSongStation(stationId, songId)
+      const newSongs = await stationService.removeSongStation(stationId, songId)
       dispatch({
         type: 'REMOVE_SONG',
         songId,
@@ -67,7 +67,7 @@ export function insertStationInStore(stationId) {
   return (dispatch) => {
     dispatch({
       type: 'INSERT_STATION',
-      currStationId: stationId
+      currStationId: stationId,
     })
   }
 }
@@ -113,6 +113,29 @@ export function addSong(stationId, song) {
       return newSong
     } catch (err) {
       throw err
+    }
+  }
+}
+
+export function loadStations(filter) {
+  return async (dispatch) => {
+    try {
+      const stations = await stationService.query(filter)
+      return stations
+      // dispatch({ type: 'SET_STATIONS', stations })
+    } catch (err) {
+      console.log('StationActions: err in loadStation', err)
+    }
+  }
+}
+
+export function getLikedStations(userStations) {
+  return async (dispatch) => {
+    try {
+      return await stationService.getLikedStations(userStations)
+      // dispatch({ type: 'SET_STATIONS', stations })
+    } catch (err) {
+      console.log('StationActions: err in getLikedStations', err)
     }
   }
 }

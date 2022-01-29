@@ -11,7 +11,7 @@ import {
   onTogglePlay,
   songDetails,
 } from '../store/actions/music.player.action';
-import { onSetMsg, likeSong, unlikeSong } from '../store/actions/user.action';
+import { likeSong, unlikeSong, onSetMsg } from '../store/actions/user.action';
 import { likeSongActivity } from '../store/actions/activity.log.action';
 
 function _SongPreview(props) {
@@ -59,15 +59,16 @@ function _SongPreview(props) {
 
   const setLikeSong = async () => {
     let guest = userService.getLoggedinUser();
-    console.log('setLikeSong', guest._id);
     if (!guest._id) return;
     setIsLiked(true);
     const user = props.user;
     try {
       await props.likeSong(song, user);
-      props.onSongActivity(song, user);
+      props.likeSongActivity(song, user);
+      props.onSetMsg('success', 'Liked song')
     } catch (err) {
-      console.log(err);
+      // console.log(err);
+      props.onSetMsg('error', 'Something went wrong, please try again')
     }
   };
 
@@ -76,14 +77,16 @@ function _SongPreview(props) {
     const user = props.user;
     try {
       await props.unlikeSong(song, user);
+      props.onSetMsg('success', 'Unliked song')
     } catch (err) {
-      console.log(err);
+      // console.log(err);
+      props.onSetMsg('error', 'Something went wrong, please try again')
     }
   };
 
   const { song, idx, onRemoveSong, user } = props;
-  const { songs, currSongId, isPlaying } = props;
-
+  // const { songs, currSongId, isPlaying } = props;
+  
   return (
     <div>
       <Draggable draggableId={song.id} index={idx}>
@@ -193,6 +196,7 @@ const mapDispatchToProps = {
   onTogglePlay,
   songDetails,
   likeSongActivity,
+  onSetMsg
 };
 
 export const SongPreview = connect(mapStateToProps, mapDispatchToProps)(_SongPreview);

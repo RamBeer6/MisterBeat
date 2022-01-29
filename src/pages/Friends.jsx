@@ -1,28 +1,34 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { socketService } from '../services/socket.service'
-import { loadUsers, addFollow } from '../store/actions/user.action'
+import { loadUsers, addFollow, onSetMsg } from '../store/actions/user.action'
 
 import { UserPreview } from '../cmps/UserPreview'
 
-function _Friends({ user, users, loadUsers, addFollow }) {
-
+function _Friends({ user, users, loadUsers, addFollow, onSetMsg }) {
   useEffect(() => {
     loadUsers()
   }, [])
 
-  const onAddFollow = async (userId) => {
-    console.log('add follow:' , userId);
-    await addFollow(userId)
-    socketService.emit('addFollow', user._id)
+  const onAddFollow = async (followUser) => {
+    try {
+      await addFollow(followUser._id)
+      socketService.emit('addFollow', user._id)
+      onSetMsg('success', `Start following after ${followUser.userName}`)
+    } catch (err) {
+      onSetMsg('error', 'Something went wrong, please try again')
+    }
   }
 
   return (
     <section className="friends">
-        {users?.map(user => {
-            return <UserPreview key={user._id} user={user} onAddFollow={onAddFollow} />
-        })}
-    </section>)
+      {users?.map((user) => {
+        return (
+          <UserPreview key={user._id} user={user} onAddFollow={onAddFollow} />
+        )
+      })}
+    </section>
+  )
 }
 
 const mapStateToProps = (state) => {
@@ -34,7 +40,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   loadUsers,
-  addFollow
+  addFollow,
+  onSetMsg,
 }
 
-export const Friends = connect(mapStateToProps, mapDispatchToProps )(_Friends)
+export const Friends = connect(mapStateToProps, mapDispatchToProps)(_Friends)

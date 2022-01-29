@@ -21,14 +21,11 @@
   @include for-mobile-layout {
     background-color: $clr8;
     bottom: 78px;
+    left: 27px;
     justify-content: unset;
-
-    // display: flex;
-    // align-content: center;
     padding: 0px;
     margin: -1px;
-    // justify-content: flex-start;
-    // width: 95%;
+    width: 93vw;
     background: rgb(47, 42, 51);
     background: linear-gradient(
       90deg,
@@ -79,7 +76,8 @@
 
   .left-side-container {
     display: flex;
-    width: 22vw;
+    flex-grow: 1;
+    // width: 22vw;
     align-items: center;
     // justify-content: space-between;
     // color: rgb(172, 172, 172);
@@ -148,6 +146,7 @@
 
 .middle-player-container {
   display: flex;
+  flex-grow: 2;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -262,10 +261,10 @@
 }
 
 .right-side-container {
-  width: 25vw;
+  // width: 20vw;
+  flex-grow: 1;
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  // margin-inline-end: 50px;
 
   .volume-container {
     display: flex;

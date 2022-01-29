@@ -16,7 +16,6 @@ export function LibraryList({ countLikedSongs, userStations }) {
             </section>
 
             {userStations?.map((station) => {
-                console.log(station);
                 return (
                     <section
                         key={station._id}
@@ -28,7 +27,8 @@ export function LibraryList({ countLikedSongs, userStations }) {
                         <div className="card-img">
                             <img src={station.imgUrl} alt="image-url" />
                         </div>
-                        {station.name}
+                        <div>{station.name}</div>
+                        <div>{station.desc}</div>
                     </section>
                 );
             })}
