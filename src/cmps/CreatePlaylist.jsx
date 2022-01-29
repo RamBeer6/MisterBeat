@@ -124,7 +124,7 @@ function _CreatePlaylist({
 
       <section className='search-in-playlist-container'>
         <div className='add-song-container'>
-          <h4 className='song-search-header'> Let's find something for your playlist</h4>
+          {/* <h4 className='song-search-header'> Let's find something for your playlist</h4> */}
           <SongSearch onAddSong={onAddSong} />
         </div>
       </section>
