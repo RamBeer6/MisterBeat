@@ -7,7 +7,6 @@ export const activitylogService = {
 }
 
 async function addActivitylog(type, user, songTitle, stationInfo) {
-  // const user = userService.getLoggedinUser()
   try {
     const activitylog = {
       type,

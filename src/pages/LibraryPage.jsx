@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import { stationService } from '../services/station.service'
 import { LibraryList } from '../cmps/LibraryList'
 
-function _LibraryPage({ user }) {
-  console.log('library user likedStations:' , user.likedStations)
-  console.log('library user likedSongs:' , user.likedSongs)
+import { loadStations, getLikedStations } from '../store/actions/station.action'
+
+function _LibraryPage({ user, getLikedStations, loadStations }) {
 
   const [ userStations, setUserStations ] = useState([])
 
@@ -15,10 +15,13 @@ function _LibraryPage({ user }) {
 
   const loadUserStations = async () => {
     try {
-        const userLikedStations = await stationService.getLikedStations(user.likedStations)
-        // console.log('userLikedStations:' , userLikedStations )
-        setUserStations(userLikedStations)
-        // const userCreatedStations = await stationService.getCreatedStations(user._id)
+        // const userLikedStations = await stationService.getLikedStations(user.likedStations)
+        const userLikedStations = await getLikedStations(user.likedStations)
+        const userCreatedStations = await loadStations({userId: user._id})
+        let allStations = [...userLikedStations, ...userCreatedStations]
+        // remove duplicate from allstations
+        allStations = allStations.filter((station,idx,arrStations)=> arrStations.findIndex(subStation=>(subStation._id === station._id))=== idx)
+        setUserStations(allStations)
     } catch (err) {
         console.log(err)
     }
@@ -37,6 +40,8 @@ function mapStateToProps(state) {
   }
 }
 const mapDispatchToProps = {
+  getLikedStations,
+  loadStations
 }
 
 export const LibraryPage = connect(mapStateToProps, mapDispatchToProps )(_LibraryPage)

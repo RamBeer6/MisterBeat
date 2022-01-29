@@ -6,7 +6,7 @@ export function UserPreview({ user, onAddFollow }) {
           <img src={user.imgUrl} />
         </div>
         <h3>{user.userName}</h3>
-        <button onClick={() => onAddFollow(user._id)}>Follow</button>
+        <button onClick={() => onAddFollow(user)}>Follow</button>
       </div>
     </section>
   )

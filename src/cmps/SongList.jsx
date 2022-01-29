@@ -9,6 +9,7 @@ import { likeSongActivity } from "../store/actions/activity.log.action";
 import { SongPreview } from "./SongPreview";
 
 function _SongList({ stationId = "no_id", songs, onRemoveSong, fromLikedSong = false, setPlayerSongs, likeSongActivity }) {
+  
   useEffect(() => {
     socketService.off('songChanged', socketDemo)
     socketService.on('songChanged', socketDemo)
@@ -16,7 +17,7 @@ function _SongList({ stationId = "no_id", songs, onRemoveSong, fromLikedSong = f
   }, []);
 
   const socketDemo = async ({ song, user }) => {
-    console.log('data from socket', song, user);
+    // console.log('data from socket', song, user);
     try {
       await likeSongActivity(song, user)
     } catch (err) {
@@ -25,7 +26,7 @@ function _SongList({ stationId = "no_id", songs, onRemoveSong, fromLikedSong = f
   }
 
   const onSongActivity = (song, user) => {
-    console.log('onSongActivity from');
+    // console.log('onSongActivity from');
     socketService.emit('changeSong', { song, user })
   }
 

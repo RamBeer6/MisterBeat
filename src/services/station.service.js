@@ -159,7 +159,7 @@ export const stationService = {
 }
 
 async function query(filterBy = null) {
-  const query = !filterBy?.txt ? '' : `?userid=${filterBy.txt}`;
+  const query = !filterBy?.userId ? '' : `?userid=${filterBy.userId}`;
   try {
     return await httpService.get(`station${query}`)
     // return await storageService.query(STORAGE_KEY).then((stations) => {

@@ -29,6 +29,8 @@ function _StationHero({ user, station = {}, onSaveStation }) {
     }
   };
   const { stationId } = station;
+  // console.log('station' , station);
+  // console.log('station.likedByUsers.length' , station.likedByUsers.length);
 
   return (
     <section className="station-hero" >
@@ -48,7 +50,7 @@ function _StationHero({ user, station = {}, onSaveStation }) {
             <div className="total-durtion-user">
               <p className="duration__desc">{station?.desc}</p>
               <p className="duration__nums">
-                <span className="user-info">{user.userName}</span> • {station.likedByUser ? station.likedByUser.length : "0"} likes • {" "}
+                <span className="user-info">{station?.createdBy?.userName}</span> • {station.likedByUsers?.length ? station.likedByUsers.length : "0"} likes • {" "}
                 {calcDuration(station)}
               </p>
             </div>

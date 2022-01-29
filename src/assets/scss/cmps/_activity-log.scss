@@ -1,35 +1,35 @@
 .activity-log {
-  width: 100%;
-
-  span {
-    position: relative;
-    overflow: hidden;
-    white-space: nowrap;
-    display: inline-block;
-
-    // -webkit-line-clamp: 1;
-    // -webkit-box-orient: vertical;
-    // display: -webkit-box;
-    // white-space: unset;
-    // word-break: break-all;
-    // text-overflow: ellipsis;
-    
+  .activity-container {
+    counter-reset: index;
+    padding: 0;
+    max-width: 180px;
   }
 
-  span:hover {
-    animation-name: scroll;
-    animation-duration: 10s;
-    // text-overflow: clip;
-    // word-break: normal;
+  .activity-item {
+    margin: 0;
+    letter-spacing: 0;
+    counter-increment: index;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+
+    &:hover {
+      background-color: #282828;
+      border-radius: 4px;
+      box-shadow: 0 0 0 0;
+      color:#7e8075
+    }
   }
 
-  @keyframes scroll {
-    0% {
-      transform: translateX(0);
-    }
+  li + li {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
 
-    100% {
-      transform: translateX(-100%);
-    }
+  .activity-user {
+    color: $clr1;
+  }
+
+  .activity-type {
+    color: #fff
   }
 }

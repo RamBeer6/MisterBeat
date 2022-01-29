@@ -5,7 +5,7 @@ import { SuggestedSongList } from "../cmps/SuggestedSongList";
 import useDebounce from "../cmps/UseDebounce";
 import { LoaderDots } from "../cmps/LoaderDots";
 
-export function SongSearch({ stationId, onAddSong }) {
+export function SongSearch({ stationId, onAddSong, onSetMsg }) {
   const [txt, setTxt] = useState("");
   const [songs, setSongs] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
@@ -33,7 +33,8 @@ export function SongSearch({ stationId, onAddSong }) {
       if (!searchTxt) return;
       return await youtubeService.query(searchTxt);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
+      onSetMsg('error', 'Something went wrong, please try again')
     }
   };
 

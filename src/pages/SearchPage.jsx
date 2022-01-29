@@ -21,7 +21,7 @@ export function SearchPage() {
       loadSongs(debouncedSearchTerm).then(songs => {
         setIsSearching(false)
         setSongs(songs.slice(0, 10))
-        console.log('search page:' , songs.slice(0,10))
+        // console.log('search page:' , songs.slice(0,10))
       })
     } else {
       setSongs([])

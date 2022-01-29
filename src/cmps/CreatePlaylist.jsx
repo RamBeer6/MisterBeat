@@ -1,17 +1,19 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { DragDropContext } from 'react-beautiful-dnd'
 import { socketService } from '../services/socket.service'
 
 import { addSong, loadSongs, removeSong, removeStation, updateSongs, addStation, updateStation } from '../store/actions/station.action'
+import { addPlaylistActivity } from '../store/actions/activity.log.action'
+import { onSetMsg } from '../store/actions/user.action'
 import { StationHero } from '../cmps/StationHero'
 import { StationActions } from '../cmps/StationActions'
 import { SongList } from '../cmps/SongList'
 import { SongSearch } from '../cmps/SongSearch'
 
 
-function _CreatePlaylist({ addSong, user, songs, loadSongs, removeSong, removeStation, updateSongs, addStation, updateStation }) {
+function _CreatePlaylist({ addSong, user, songs, loadSongs, removeSong, removeStation, updateSongs, addStation, updateStation, addPlaylistActivity, onSetMsg }) {
   const [station, setStation] = useState({
     _id: '',
     name: '',
@@ -19,6 +21,12 @@ function _CreatePlaylist({ addSong, user, songs, loadSongs, removeSong, removeSt
     desc: ''
   })
   const navigate = useNavigate()
+
+  useEffect(() => {
+    return() => {
+     loadSongs('') 
+    }
+  },[])
 
   const onSaveStation = async (station) => {
     try {
@@ -30,10 +38,13 @@ function _CreatePlaylist({ addSong, user, songs, loadSongs, removeSong, removeSt
         // newStation = await stationService.addNewStation(station, user)
         newStation = await addStation(station, user)
         socketService.emit('addStation', newStation)
+        addPlaylistActivity(station, user)
+        onSetMsg('success', 'Added new playlist')
       }
       setStation({ ...newStation })
     } catch (err) {
-      console.log(err)
+      // console.log(err)
+      onSetMsg('error', 'Could not create playlist, please try again')
     }
   }
 
@@ -44,8 +55,10 @@ function _CreatePlaylist({ addSong, user, songs, loadSongs, removeSong, removeSt
       const newSongs = station.songs
       setStation({ ...station, songs: newSongs })
       socketService.emit('changeSongs', newSongs)
+      onSetMsg('success', 'Added new song to playlist')
     } catch (err) {
-      console.log(err)
+      // console.log(err)
+      onSetMsg('error', 'Could not add song to playlist, please try again')
     }
   }
 
@@ -55,8 +68,10 @@ function _CreatePlaylist({ addSong, user, songs, loadSongs, removeSong, removeSt
       const newSongs = station.songs.filter(song => song.id !== songId)
       setStation({ ...station, songs: newSongs })
       socketService.emit('changeSongs', newSongs)
+      onSetMsg('success', 'Removed song from playlist')
     } catch (err) {
-      console.log(err);
+      // console.log(err);
+      onSetMsg('error', 'Could not remove song from playlist, please try again')
     }
   }
 
@@ -119,7 +134,9 @@ const mapDispatchToProps = {
   removeStation,
   updateSongs,
   addStation,
-  updateStation
+  updateStation,
+  addPlaylistActivity,
+  onSetMsg
 }
 
 export const CreatePlaylist = connect(

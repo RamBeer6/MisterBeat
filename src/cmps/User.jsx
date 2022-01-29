@@ -11,7 +11,6 @@ function _User({ onLogout, user }) {
 
   const onToggleModal = () => {
     setIsOpen(!isOpen)
-    console.log('is open?' , isOpen);
     // if(!isOpen) onLogout()
   }
 

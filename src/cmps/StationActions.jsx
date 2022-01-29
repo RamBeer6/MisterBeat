@@ -127,13 +127,12 @@ export function StationActions({
         </svg>
       </button> : ''
       }
-      
     </section>
   );
 }
 
-function mapStateToProps(state) {
-  return {
-    isPlaying: state.stationModule.isPlaying,
-  };
-}
+// function mapStateToProps(state) {
+//   return {
+//     isPlaying: state.stationModule.isPlaying,
+//   };
+// }
