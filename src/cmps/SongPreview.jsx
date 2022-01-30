@@ -65,10 +65,10 @@ function _SongPreview(props) {
     try {
       await props.likeSong(song, user);
       props.likeSongActivity(song, user);
-      props.onSetMsg('success', 'Liked song')
+      props.onSetMsg('success', 'Liked song');
     } catch (err) {
       // console.log(err);
-      props.onSetMsg('error', 'Something went wrong, please try again')
+      props.onSetMsg('error', 'Something went wrong, please try again');
     }
   };
 
@@ -77,16 +77,16 @@ function _SongPreview(props) {
     const user = props.user;
     try {
       await props.unlikeSong(song, user);
-      props.onSetMsg('success', 'Unliked song')
+      props.onSetMsg('success', 'Unliked song');
     } catch (err) {
       // console.log(err);
-      props.onSetMsg('error', 'Something went wrong, please try again')
+      props.onSetMsg('error', 'Something went wrong, please try again');
     }
   };
 
   const { song, idx, onRemoveSong, user } = props;
   // const { songs, currSongId, isPlaying } = props;
-  
+
   return (
     <div>
       <Draggable draggableId={song.id} index={idx}>
@@ -196,7 +196,7 @@ const mapDispatchToProps = {
   onTogglePlay,
   songDetails,
   likeSongActivity,
-  onSetMsg
+  onSetMsg,
 };
 
 export const SongPreview = connect(mapStateToProps, mapDispatchToProps)(_SongPreview);
