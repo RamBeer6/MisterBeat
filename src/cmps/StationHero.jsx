@@ -1,5 +1,4 @@
 import { useState } from "react";
-// import { WhatsappShareButton, FacebookShareButton } from "react-share";
 import { connect } from "react-redux";
 import moment from "moment";
 import { EditStationHero } from "../cmps/EditStationHero";
@@ -53,18 +52,6 @@ function _StationHero({ user, station = {}, onSaveStation }) {
           </div>
         </div>
       </div>
-      {/* <WhatsappShareButton
-        url={`/station/${stationId}`}
-        title=""
-      >
-        <div className="whatsapp-btn fab fa-whatsapp"></div>
-      </WhatsappShareButton>
-      <FacebookShareButton
-        url={`/station/${stationId}`}
-        title="I like to share with you this playlist from Marimba!"
-      >
-        <div className="facebook-btn fab fa-facebook"></div>
-      </FacebookShareButton> */}
       {isEdit && (
         <EditStationHero
           station={station}

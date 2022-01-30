@@ -46,7 +46,7 @@ function _SongList({
           <div className='song-list-head'>
             <h3>#</h3>
             <h3>Title</h3>
-            {/* <h3 className='hide-mobile-songlist'>Album</h3> */}
+            <h3 className='hide-mobile-songlist'></h3>
             <h3 style={{ textAlign: 'center' }} className='hide-mobile-songlist'>
               Duration
             </h3>

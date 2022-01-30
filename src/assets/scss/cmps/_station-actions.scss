@@ -1,47 +1,94 @@
 .station-actions {
   display: flex;
+  // flex-direction: column;
+  justify-content: space-between;
+  // grid-template-columns: repeat(5, minmax(70px, 100px));
+  // grid-template-rows: none;
+  // grid-template-areas: "play" "like" "addsong" "delete" "share";
   align-items: center;
   padding: 24px;
 
-  .play-btn {
+  .left-controls {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    border: 0;
-    border-radius: 500px;
-    margin-right: 32px;
-    position: relative;
-    background-color: #1db954;
-    color: #fff;
-    height: 60px;
-    min-width: 60px;
-    padding: 0;
-  }
+    .play-btn {
+      // grid-area: play;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      border-radius: 500px;
+      margin-right: 32px;
+      position: relative;
+      background-color: #1db954;
+      color: #fff;
+      height: 60px;
+      min-width: 60px;
+      padding: 0;
+    }
 
-  .like-btn {
-    display: flex;
-    padding: 0;
-    border: 0;
-    margin-right: 24px;
-    color: rgba(255, 255, 255, 0.7);
-    background: transparent;
+    .like-btn {
+      // grid-area: like;
+      display: flex;
+      padding: 0;
+      border: 0;
+      margin-right: 24px;
+      color: rgba(255, 255, 255, 0.7);
+      background: transparent;
 
-    svg {
-      fill: rgba(255, 255, 255, 0.7);
-      &.liked {
-        fill: #1db954;
+      svg {
+        fill: rgba(255, 255, 255, 0.7);
+        &.liked {
+          fill: #1db954;
+        }
       }
     }
+
+    .open-search {
+      // grid-area: addsong;
+      background: transparent;
+      border: 0;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: rem(30px);
+
+      &:first-child {
+        color: red;
+      }
+    }
+
+    .remove-btn {
+      // grid-area: delete;
+    }
   }
+  .share-container {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .share-btns {
+      // grid-area: share;
+      display: flex;
+      text-align: center;
+      justify-content: space-evenly;
+      width: 80%;
+      // height: 50px;
 
-  .open-search {
-    background: transparent;
-    border: 0;
-    color: rgba(255, 255, 255, 0.6);
-    font-size: rem(30px);
+      @include for-mobile-layout {
+        justify-content: space-between;
+      }
+    }
+    .fab {
+      // margin-left: 10px;
+      // margin-right: 10px;
+      font-size: 25px;
 
-    &::first-child {
-      color: red;
+      @include for-mobile-layout {
+        display: 100%;
+        font-size: 35px;
+        margin-right: 10px;
+      }
     }
   }
 }
