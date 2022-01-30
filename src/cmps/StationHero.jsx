@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
-// import { User } from './User'
-// import { utilService } from "../services/util.service";
 import { EditStationHero } from "../cmps/EditStationHero";
 import defaultImg from "../assets/imgs/default-img.png";
 
@@ -28,12 +26,10 @@ function _StationHero({ user, station = {}, onSaveStation }) {
     }
   };
   const { stationId } = station;
-  // console.log('station' , station);
-  // console.log('station.likedByUsers.length' , station.likedByUsers.length);
 
   return (
     <section className="station-hero" >
-      <div className="linear-hero">
+      <div className="linear-hero" style={{background: `linear-gradient(${station?.bcgColor} 70%, #16351d)`}}>
         <div className="station-hero__info" onClick={() => setIsEdit(!isEdit)}>
           <img
             src={

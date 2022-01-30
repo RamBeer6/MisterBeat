@@ -1,15 +1,15 @@
 // import { useEffect, useState } from 'react'
 import React, { useEffect, useState } from "react";
 // import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
+// import TextField from "@mui/material/TextField";
+// import Dialog from "@mui/material/Dialog";
+// import DialogActions from "@mui/material/DialogActions";
+// import DialogContent from "@mui/material/DialogContent";
 // import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import { ColorPicker } from "material-ui-color";
-// import { ColorInput } from "s@mui/icons-material";
-import { ColorInput } from "./ColorInput";
+// import DialogTitle from "@mui/material/DialogTitle";
+// import { ColorPicker } from "material-ui-color";
+import { ColorPicker } from "../cmps/ColorPicker"
+
 
 import demoImg from '../assets/imgs/default-img.png'
 
@@ -19,6 +19,7 @@ export function EditStationHero({ station, onSaveStation, onCloseEdit }) {
         name: "",
         imgUrl: "",
         desc: "",
+        bcgColor: "#2c2b2bfa"
     });
 
     const [open, setOpen] = useState(true);
@@ -56,7 +57,7 @@ export function EditStationHero({ station, onSaveStation, onCloseEdit }) {
         );
         const file = await res.json();
         return file.url;
-    };
+    }
 
     const handleImage = async (ev) => {
         try {
@@ -66,7 +67,11 @@ export function EditStationHero({ station, onSaveStation, onCloseEdit }) {
             setLoading(false);
             setStationInfo({ ...stationInfo, [field]: value });
         } catch (err) { }
-    };
+    }
+
+    const onChangeBcgColor = (color) => {
+        setStationInfo({ ...stationInfo, bcgColor: color })
+    }
 
     // const onChangeColor = (bgc) => {
     //     this.setState((prevState) => ({
@@ -78,7 +83,7 @@ export function EditStationHero({ station, onSaveStation, onCloseEdit }) {
     return (
         <section open={open} onDoubleClick={handleClose} className="hero-main-container">
             <div className="edit-details-header">Edit details</div>
-            <section className="edit-details">
+            <section className="edit-details" style={{background: stationInfo.bcgColor}}>
                 <label className="edit-img">
                     <img
                         className="hero-upload-img"
@@ -118,6 +123,9 @@ export function EditStationHero({ station, onSaveStation, onCloseEdit }) {
                         autoComplete="off"
                         placeholder="description"
                     />
+                </label>
+                <label className="color-input">
+                    <ColorPicker onChangeBcgColor={onChangeBcgColor} />
                 </label>
                 <section className="save-btn-container">
                     <button
