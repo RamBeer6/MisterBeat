@@ -18,6 +18,7 @@ function _CreatePlaylist({ addSong, user, songs, loadSongs, removeSong, removeSt
     name: '',
     imgUrl: '',
     desc: '',
+    bcgColor: ''
   });
   const navigate = useNavigate();
 
@@ -36,6 +37,7 @@ function _CreatePlaylist({ addSong, user, songs, loadSongs, removeSong, removeSt
   const onSaveStation = async (station) => {
     try {
       let newStation;
+      console.log('onsavestation', station);
       if (station._id) {
         newStation = await updateStation(station, user);
       } else {
@@ -103,7 +105,6 @@ function _CreatePlaylist({ addSong, user, songs, loadSongs, removeSong, removeSt
     const [song] = newSongs.splice(source.index, 1);
     newSongs.splice(destination.index, 0, song);
     await updateSongs(station._id, newSongs);
-    socketService.emit('changeSongs', newSongs);
   };
 
   return (

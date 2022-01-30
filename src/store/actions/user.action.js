@@ -147,8 +147,9 @@ export function onLogout() {
 export function loadUsers() {
   return async (dispatch) => {
     try {
-      // dispatch({ type: 'LOADING_START' })
-      const users = await userService.getUsers()
+      const loggedinUser = await userService.getLoggedinUser()
+      let users = await userService.getUsers()
+      users = users.filter(user => user._id !== loggedinUser._id)
       dispatch({ type: 'SET_USERS', users })
     } catch (err) {
       console.log('UserActions: err in loadUsers', err)
