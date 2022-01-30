@@ -44,7 +44,7 @@ export class HomePage extends React.Component {
         <DefaultStationList stations={stations.slice(12, 21)} title={'Top Mixes'} />
         <DefaultStationList stations={stations.slice(22, 31)} title={'Workout'} />
         <DefaultStationList stations={stations.slice(32, 39)} title={'Disney Hits'} />
-        <DefaultStationList stations={stations?.slice(40, stations.length-1)} title={'My Playlists'} />
+        <DefaultStationList stations={stations?.slice(40, stations.length - 1)} title={'Shared playlists'} />
       </section>
     );
   }

@@ -68,12 +68,17 @@
     width: 202px;
     margin-left: 30px;
     box-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+
+    img {
+      width: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
 
     @include for-mobile-layout {
-      min-width: 100px;
+      // width: 80%;
+      margin-left: 14px;
+      min-width: 190px;
       min-height: 100px;
     }
   }
