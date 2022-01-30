@@ -8,8 +8,14 @@ import { setPlayerSongs } from '../store/actions/music.player.action';
 import { likeSongActivity } from '../store/actions/activity.log.action';
 import { SongPreview } from './SongPreview';
 
-function _SongList({ stationId = "no_id", songs, onRemoveSong, fromLikedSong = false, setPlayerSongs, likeSongActivity }) {
-  
+function _SongList({
+  stationId = 'no_id',
+  songs,
+  onRemoveSong,
+  fromLikedSong = false,
+  setPlayerSongs,
+  likeSongActivity,
+}) {
   useEffect(() => {
     socketService.off('songChanged', socketDemo);
     socketService.on('songChanged', socketDemo);
@@ -27,8 +33,8 @@ function _SongList({ stationId = "no_id", songs, onRemoveSong, fromLikedSong = f
 
   const onSongActivity = (song, user) => {
     // console.log('onSongActivity from');
-    socketService.emit('changeSong', { song, user })
-  }
+    socketService.emit('changeSong', { song, user });
+  };
 
   if (!songs || !songs.length) return <React.Fragment></React.Fragment>;
 
@@ -40,7 +46,7 @@ function _SongList({ stationId = "no_id", songs, onRemoveSong, fromLikedSong = f
           <div className='song-list-head'>
             <h3>#</h3>
             <h3>Title</h3>
-            <h3 className='hide-mobile-songlist'>Album</h3>
+            {/* <h3 className='hide-mobile-songlist'>Album</h3> */}
             <h3 style={{ textAlign: 'center' }} className='hide-mobile-songlist'>
               Duration
             </h3>
