@@ -20,11 +20,15 @@
 
   @include for-mobile-layout {
     background-color: $clr8;
-    bottom: 66px;
+    // bottom: 66px;
+    transform: translateY(calc(-100% - 68px));
+    top: 100%;
     justify-content: unset;
     padding: 0px;
     margin: 0px;
-    width: 100vw;
+    // width: 100vw;
+    height: 80px;
+    padding-right: 10px;
     background: rgb(47, 42, 51);
     background: linear-gradient(
       90deg,
@@ -32,7 +36,7 @@
       rgba(56, 58, 56, 0.9) 70%,
       rgba(79, 80, 79, 0.9) 100%
     );
-    margin: auto;
+    // margin: auto;
     border-radius: 5px;
     border-top: 1px solid rgba(192, 192, 192, 0.699);
     border-bottom: 1px solid rgba(192, 192, 192, 0.699);

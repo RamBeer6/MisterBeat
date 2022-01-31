@@ -5,6 +5,7 @@
   border: 1px solid transparent;
   border-radius: 4px;
   outline: 0;
+  // padding-bottom: 120px;
 
   .song-list-head {
     border-bottom: 1px solid transparent;
@@ -25,6 +26,8 @@
   }
 
   @include for-mobile-layout {
+    margin-bottom: 50px;
+
     .hide-mobile-songlist {
       display: none;
     }

@@ -1,0 +1,9 @@
+.library-page {
+  height: 100vh;
+
+  @include for-mobile-layout {
+    .library-page {
+      margin-bottom: 90px;
+    }
+  }
+}

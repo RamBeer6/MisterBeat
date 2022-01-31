@@ -1,6 +1,19 @@
+.home-page {
+  @include for-wide-layout {
+    margin-bottom: 55px;
+  }
+}
+
 .main {
   background-color: $clr7;
-  
+
+  @include for-mobile-layout {
+    height: 100%;
+    overflow-y: auto;
+    // margin-bottom: 90px;
+    padding-bottom: 100px;
+  }
+
   @include for-wide-layout {
     display: flex;
   }

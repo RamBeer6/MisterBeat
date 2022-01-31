@@ -26,7 +26,7 @@ const _App = ({ updateStationInStore }) => {
   }, []);
 
   return (
-    <section>
+    <section calssName="app">
       {isWelcome ? (
         <WelcomePage setIsWelcome={setIsWelcome} setIsLogin={setIsLogin} />
       ) : isLogin ? (

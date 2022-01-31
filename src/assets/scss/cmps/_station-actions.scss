@@ -86,10 +86,16 @@
 
       &.facebook-btn {
         padding-left: 8px;
+        @include for-mobile-layout {
+          padding-left: 0;
+        }
       }
 
       &.whatsapp-btn {
         padding-left: 109px;
+        @include for-mobile-layout {
+          padding-left: 0;
+        }
       }
 
       @include for-mobile-layout {

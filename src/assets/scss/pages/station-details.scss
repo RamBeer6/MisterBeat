@@ -1,0 +1,5 @@
+.station-details {
+  @include for-mobile-layout {
+    height: 100%;
+  }
+}

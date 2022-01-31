@@ -62,7 +62,7 @@ export function EditStationHero({ station, onSaveStation, onCloseEdit }) {
       setImage(value);
       setLoading(false);
       setStationInfo({ ...stationInfo, [field]: value });
-    } catch (err) {}
+    } catch (err) { }
   };
 
   const onChangeBcgColor = (color) => {
@@ -78,7 +78,7 @@ export function EditStationHero({ station, onSaveStation, onCloseEdit }) {
 
   return (
     <section open={open} onDoubleClick={handleClose} className='hero-main-container'>
-      <div className='edit-details-header'>Edit details</div>
+      <div className='edit-details-header'></div>
       <section className='edit-details' style={{ background: stationInfo.bcgColor }}>
         <label className='edit-img'>
           <img

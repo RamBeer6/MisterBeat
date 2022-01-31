@@ -23,7 +23,7 @@ function _ActivityLog({ getActivities, activities }) {
 
   if (!activities || !activities.length)
     return (
-      <h5 className="lg-menu" style={{ display: 'block', paddingLeft: '10px' }}>
+      <h5 className="lg-menu" style={{ display: 'block' }}>
         No activites
       </h5>
     )
