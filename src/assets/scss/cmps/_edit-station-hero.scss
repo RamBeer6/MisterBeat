@@ -13,9 +13,9 @@
     position: fixed;
     width: fit-content;
     height: fit-content;
-    top: 35%;
+    top: 39%;
     // left: 45%;
-    left: 49%;
+    left: 46.5%;
     transform: scale(3) translate(-50%, -67%);
 
     @include for-mobile-layout {
@@ -69,7 +69,7 @@
       input,
       textarea {
         // display: flex;
-        font-size: 15px;
+        font-size: 22px;
         font-family: gotham, sans-serif;
         color: rgb(255, 255, 255);
         height: 100%;
@@ -78,7 +78,8 @@
         border: none;
         border-radius: 5px;
         resize: none;
-        font-family: monospace;
+        font-family: circular;
+        opacity: 0.6;
         &:focus {
           background-color: rgba(7, 7, 7, 0.514);
         }
@@ -86,6 +87,10 @@
         &::placeholder {
           color: rgb(255, 255, 255);
           // justify-content: end;
+        }
+
+        @include for-mobile-layout {
+          font-size: 17px;
         }
       }
 
@@ -110,9 +115,11 @@
         padding: 0 24px;
         height: 150%;
         border: none;
-        border-radius: 20px;
+        border-radius: 9px;
         background-color: rgb(214, 209, 209);
         color: #181818;
+        font-family: 'circular';
+        font-size: 22px;
       }
     }
   }

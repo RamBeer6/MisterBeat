@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
 export function SearchBar({ onSetFilter }) {
-  const [txt, setTxt] = useState('')
+  const [txt, setTxt] = useState('');
 
   useEffect(() => {
-    onSetFilter(txt)
-  }, [txt])
+    onSetFilter(txt);
+  }, [txt]);
 
   function handleChange(ev) {
-    const { value } = ev.target
-    setTxt(value)
+    const { value } = ev.target;
+    setTxt(value);
   }
 
   // function handleSubmit(ev) {
@@ -18,28 +18,25 @@ export function SearchBar({ onSetFilter }) {
   // }
 
   function cleanForm() {
-    setTxt('')
+    setTxt('');
   }
 
   return (
     // <form onSubmit={handleSubmit}>
-    <section className="search-bar-cmp">
+    <section className='search-bar-cmp'>
       <form>
         <input
-          name="txt"
+          name='txt'
           value={txt}
-          type="text"
-          placeholder="Artists, songs or podcasts"
-          autoComplete="off"
+          type='text'
+          placeholder='Artists, songs or podcasts'
+          autoComplete='off'
           onChange={handleChange}
         />
-        <a
-          className="search-button"
-          onClick={cleanForm}
-        >
-          <div className="icon" />
+        <a className='search-button' onClick={cleanForm}>
+          <div className='icon' />
         </a>
       </form>
     </section>
-  )
+  );
 }

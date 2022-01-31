@@ -11,8 +11,10 @@
     // position: absolute;
     top: 0;
     width: 100%;
+    margin-top: -72px;
 
     @include for-mobile-layout {
+      margin-top: 7px;
       display: flex;
       flex-direction: column;
     }

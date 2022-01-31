@@ -41,14 +41,12 @@ function _StationDetails(props) {
         });
       }
     })();
-    //eslint-disable-next-line
-  }, []);
-
-  useEffect(() => {
     return () => {
       setStation({});
       props.loadSongs('');
+      socketService.off('songsChanged');
     };
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {

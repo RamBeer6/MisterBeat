@@ -84,6 +84,14 @@
       // margin-right: 10px;
       font-size: 25px;
 
+      &.facebook-btn {
+        padding-left: 8px;
+      }
+
+      &.whatsapp-btn {
+        padding-left: 109px;
+      }
+
       @include for-mobile-layout {
         display: 100%;
         font-size: 35px;
