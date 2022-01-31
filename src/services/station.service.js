@@ -13,12 +13,14 @@ const gTags = [
   {
     name: 'Happy',
     imgUrl: 'https://i.scdn.co/image/ab67706f000000023e0130fcd5d106f1402b4707',
-    color: 'F0E50F',
+    // color: 'F0E50F',
+    color: 'FFC864',
   },
   {
     name: 'Made for you',
     imgUrl: 'https://t.scdn.co/images/ea364e99656e46a096ea1df50f581efe',
-    color: '15F0DE',
+    // color: '15F0DE',
+    color: '1E3264'
   },
   {
     name: 'Charts',
@@ -49,7 +51,8 @@ const gTags = [
   {
     name: 'Pop',
     imgUrl: 'https://t.scdn.co/images/0a74d96e091a495bb09c0d83210910c3',
-    color: '87F015',
+    // color: '87F015',
+    color: '477D95',
   },
   {
     name: 'Country',
@@ -64,7 +67,8 @@ const gTags = [
   {
     name: 'Latin',
     imgUrl: 'https://i.scdn.co/image/ab67706f00000002f16913f0326b9d44bf78fc88',
-    color: 'D0E70C',
+    // color: 'D0E70C',
+    color: 'F037A5',
   },
   {
     name: 'Workout',
@@ -99,7 +103,8 @@ const gTags = [
   {
     name: 'Funk',
     imgUrl: 'https://i.scdn.co/image/ab67706f00000002f16913f0326b9d44bf78fc88',
-    color: 'F0E50F',
+    // color: 'F0E50F',
+    color: '8D67AB',
   },
   {
     name: 'Sleep',
@@ -129,7 +134,8 @@ const gTags = [
   {
     name: 'Classics',
     imgUrl: 'https://i.scdn.co/image/ab67706f000000023e0130fcd5d106f1402b4707',
-    color: 'F5733',
+    // color: 'F5733',
+    color: '509BF5',
   },
   {
     name: 'Kpop',

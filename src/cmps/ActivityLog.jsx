@@ -5,13 +5,10 @@ import { socketService } from '../services/socket.service'
 import { getActivities } from '../store/actions/activity.log.action'
 
 function _ActivityLog({ getActivities, activities }) {
-  // const [activities, setActivities] = useState([])
-  // const [isScroll, setIsScroll] = useState(false)
-
   useEffect(() => {
     loadActivityLog()
     socketService.on('activityAdded', (activity) => {
-      console.log('activityAdded' , activity);
+      console.log('activityAdded', activity)
       loadActivityLog()
     })
   }, [])
@@ -25,17 +22,31 @@ function _ActivityLog({ getActivities, activities }) {
   }
 
   if (!activities || !activities.length)
-    return <h5 className="lg-menu" style={{display: 'block', paddingLeft: '10px'}}>No activites</h5>
+    return (
+      <h5 className="lg-menu" style={{ display: 'block', paddingLeft: '10px' }}>
+        No activites
+      </h5>
+    )
 
   return (
     <section className="activity-log lg-menu">
       <ul className="activity-container">
         {activities.map((activity, idx) => (
           <li key={activity._id} className="activity-item">
-            <div>
-                <span className="activity-user">{activity.createdBy.userName} - </span>
-                {activity?.stationInfo && <span><span className="activity-type">{activity.type}:</span> {activity.stationInfo.name}</span>}
-                {activity.songTitle && <span>{activity.songTitle.substring(0, 20)}</span>}
+            <div className="activity-user-img">
+              <img src={activity.createdBy.imgUrl} alt="" />
+            </div>
+            <div className="activity-content">
+              <span className="activity-user">
+                {activity.createdBy.userName} -{' '}
+              </span>
+              {activity?.stationInfo && (
+                <span>
+                  <span className="activity-type">{activity.type}:</span>{' '}
+                  {activity.stationInfo.name}
+                </span>
+              )}
+              {activity.songTitle && <span>{activity.songTitle}</span>}
             </div>
           </li>
         ))}
