@@ -85,7 +85,8 @@ function _LoginSignup({ user, setIsWelcome, setIsLogin, onLogin, onSignup }) {
     // });
     console.log(response);
     const userToLogin = {
-      userName: response.profileObj.name,
+      //userName: response.profileObj.name,
+      userName: `${response.profileObj.givenName} ${response.profileObj.familyName}`,
       password: response.profileObj.googleId,
       imgUrl: response.profileObj.imageUrl,
     }
@@ -120,8 +121,15 @@ function _LoginSignup({ user, setIsWelcome, setIsLogin, onLogin, onSignup }) {
                   "700873867407-i37i35b14k35o5ot4aopvaibpgvn53j5.apps.googleusercontent.com"
                 }
                 buttonText="Log in with Google"
-                onSuccess={responseGoogle}
-                onFailure={responseGoogle}
+                onSuccess={(res) => {
+                  console.log('res from onSuccess', res);
+                  responseGoogle(res)
+                }}
+                onFailure={(res) => {
+                  console.log('res from onFailure', res);
+                  responseGoogle(res)
+                }}
+                // onFailure={responseGoogle}
                 cookiePolicy={"single_host_origin"}
               ></GoogleLogin>
             </div>
