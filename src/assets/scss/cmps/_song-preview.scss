@@ -10,7 +10,7 @@
   box-sizing: content-box;
 
   @include for-mobile-layout {
-    grid-template-columns: 9px 1fr 40px;
+    grid-template-columns: 9px 1fr 30px;
     grid-template-rows: none;
     grid-gap: 20px;
   }
@@ -49,7 +49,12 @@
 
           @include for-mobile-layout {
             margin-left: 30px;
-            font-size: 14px;
+            font-size: 16px;
+            font-family: circular;
+            overflow: hidden;
+            width: 180px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
           }
         }
       }
