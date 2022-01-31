@@ -3,23 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { onLogout } from '../store/actions/user.action';
 
-// import { userImg } from '../assets/imgs/user-img.jpg';
-
 function _User({ onLogout, user }) {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false)
 
   const onToggleModal = () => {
     setIsOpen(!isOpen)
-    // if(!isOpen) onLogout()
   }
-
+  
   return (
     <section className="user-profile" onClick={onToggleModal}>
       <div className='user flex'>
         <div className="img-warpper">
           <img
-            src='https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2018/png/iconmonstr-user-circle-thin.png&r=0&g=0&b=0'
+            src={typeof user.imgUrl === 'object' ? user.imgUrl.avatar : user.imgUrl}
             alt='image'
           />
         </div>

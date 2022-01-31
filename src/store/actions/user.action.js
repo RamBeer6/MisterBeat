@@ -161,7 +161,6 @@ export function addFollow(userId) {
   return async (dispatch) => {
     try {
       const updatedUser = await userService.addFollow(userId)
-      console.log('updatesUser', updatedUser);
       dispatch({
         type: 'SET_USER',
         user: updatedUser,

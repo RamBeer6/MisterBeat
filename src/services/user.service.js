@@ -91,6 +91,8 @@ async function getUsers() {
 async function addFollow(userId) {
   try {
     const loggedinUser = getLoggedinUser()
+    console.log('add follow' , loggedinUser.followUsers , userId);
+    if(loggedinUser.followUsers.some(followUserId => followUserId === userId)) return loggedinUser
     loggedinUser.followUsers.push(userId)
     return updateUser(loggedinUser)
   } catch (err) {

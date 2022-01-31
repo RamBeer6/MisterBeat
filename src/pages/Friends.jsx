@@ -14,7 +14,7 @@ function _Friends({ user, users, loadUsers, addFollow, onSetMsg }) {
     try {
       await addFollow(followUser._id)
       socketService.emit('addFollow', user._id)
-      onSetMsg('success', `Start following after ${followUser.userName}`)
+      onSetMsg('success', `Started following ${followUser.userName}`)
     } catch (err) {
       onSetMsg('error', 'Something went wrong, please try again')
     }
