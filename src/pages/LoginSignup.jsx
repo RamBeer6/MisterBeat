@@ -77,13 +77,20 @@ function _LoginSignup({ user, setIsWelcome, setIsLogin, onLogin, onSignup }) {
 
   const responseGoogle = (response) => {
     // setIsLogin(false);
-    setUserForm({
-      ...userForm,
+    // setUserForm({
+    //   ...userForm,
+    //   userName: response.profileObj.name,
+    //   password: response.profileObj.googleId,
+    //   imgUrl: response.profileObj.imageUrl,
+    // });
+    console.log(response);
+    const userToLogin = {
       userName: response.profileObj.name,
       password: response.profileObj.googleId,
       imgUrl: response.profileObj.imageUrl,
-    });
-    // console.log(response.profileObj.name);
+    }
+    onLoginSingup(isLoginForm, userToLogin)
+
     // console.log(response.profileObj.imageUrl);
     // console.log(response.profileObj.googleId);
   };
