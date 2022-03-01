@@ -3,10 +3,6 @@ import moment from 'moment';
 import { momentDurationFormatSetup } from 'moment-duration-format';
 import { storageService } from './async-storage.service.js';
 
-// const API_KEY = 'AIzaSyDsq0OG9zwORsX9yQajOipvd78Bg5_RP5w'
-const API_KEY = 'AIzaSyA2Ziie7HayO59cxJpRC1glXe3bflF9lMM';
-// const API_KEY = 'AIzaSyBjS7d6SklSXZKiEhCqNsAZlDZ-5mba31I'
-// const API_KEY = 'AIzaSyBVK4cQLZslG8PqYinSqGVLL6wps_MbSdk'
 
 export const youtubeService = {
   query,
