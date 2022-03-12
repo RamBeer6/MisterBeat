@@ -1,6 +1,6 @@
-import { activitylogService } from '../../services/activitylog.service'
-import { userService } from '../../services/user.service'
-import { socketService } from '../../services/socket.service'
+import { activitylogService } from '../../services/activitylog.service';
+import { userService } from '../../services/user.service';
+import { socketService } from '../../services/socket.service';
 
 export function likeSongActivity(song, user) {
   return async (dispatch) => {
@@ -10,16 +10,12 @@ export function likeSongActivity(song, user) {
         user,
         song.title,
         {}
-      )
-      socketService.emit('addActivity', addedActivitylog)
-      // dispatch({
-      //   type: 'ADD_ACTIVITY_LOG',
-      //   activitylog: addedActivitylog,
-      // })
+      );
+      socketService.emit('addActivity', addedActivitylog);
     } catch (err) {
-      throw err
+      throw err;
     }
-  }
+  };
 }
 
 export function addPlaylistActivity(station, user) {
@@ -30,34 +26,30 @@ export function addPlaylistActivity(station, user) {
         user,
         '',
         station
-      )
-      socketService.emit('addActivity', addedActivitylog)
-      // dispatch({
-      //   type: 'ADD_ACTIVITY_LOG',
-      //   activitylog: addedActivitylog,
-      // })
+      );
+      socketService.emit('addActivity', addedActivitylog);
     } catch (err) {
-      throw err
+      throw err;
     }
-  }
+  };
 }
 
 // frontend - action
 export function getActivities() {
   return async (dispatch) => {
     try {
-      const loggedinUser = await userService.getLoggedinUser()
+      const loggedinUser = await userService.getLoggedinUser();
       const activitieslog = await activitylogService.query({
         userId: loggedinUser._id,
         followers: [...loggedinUser.followUsers],
-      })
+      });
       dispatch({
         type: 'SET_ACTIVITY_LOG',
         activitylog: activitieslog,
-      })
-      return activitieslog
+      });
+      return activitieslog;
     } catch (err) {
-      throw err
+      throw err;
     }
-  }
+  };
 }

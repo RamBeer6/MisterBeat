@@ -1,5 +1,4 @@
 const initialState = {
-  // player: null,
   isPlaying: false,
   currSongId: '',
   currSongIdx: 0,
@@ -18,8 +17,6 @@ export function musicPlayerReducer(state = initialState, action) {
       return { ...state, currSongId: action.currSongId };
     case 'SET_PLAYER':
       return { ...state, player: action.player };
-    //   case 'SET_SONG':
-    //     return { ...state, currSongIdx: action.currSongIdx }
     case 'TOGGLE_ISPLAYING':
       return { ...state, isPlaying: action.isPlaying };
     case 'SET_PLAYER_SONGS':
@@ -32,11 +29,6 @@ export function musicPlayerReducer(state = initialState, action) {
       return { ...state, isShuffle: action.isShuffle };
     case 'SET_SONG_OBJECT':
       return { ...state, songDetails: action.songDetails };
-
-    //   case 'SET_STATION_TO_PLAYER':
-    //     return { ...state, currStationId: action.currStationId }
-    //   case 'SET_SONGS_TO_PLAYER':
-    //     return { ...state, currSongs: action.currSongs }
     default:
       return state;
   }

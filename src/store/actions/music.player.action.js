@@ -1,5 +1,4 @@
 export function playSong(songId, songIdx) {
-  // console.log('ACTION songId', songId);
   return (dispatch) => {
     dispatch({
       type: 'SET_SONG',
@@ -9,7 +8,6 @@ export function playSong(songId, songIdx) {
 }
 
 export function songIdx(currSongIdx) {
-  // console.log('songIdx ACTION', currSongIdx);
   return (dispatch) => {
     dispatch({
       type: 'SET_IDX_SONG',
@@ -37,7 +35,6 @@ export function setPlayer(player) {
 }
 
 export function onTogglePlay(isPlaying) {
-  // console.log('ACTION - is PLAYING', isPlaying);
   return async (dispatch) => {
     dispatch({
       type: 'TOGGLE_ISPLAYING',
@@ -47,7 +44,6 @@ export function onTogglePlay(isPlaying) {
 }
 
 export function setPlayerSongs(currSongs, currStationId) {
-  // console.log('ACTION - songsArray', currSongs);
   return async (dispatch) => {
     dispatch({
       type: 'SET_PLAYER_SONGS',
@@ -83,31 +79,3 @@ export function songDetails(songDetails) {
     });
   };
 }
-
-// export function playSong(songIdx) {
-//   console.log('action songIdx:' , songIdx);
-//   return (dispatch) => {
-//     dispatch({
-//       type: 'SET_SONG',
-//       currSongIdx: songIdx
-//     })
-//   }
-// }
-
-// export function setSongIdx(idx) {
-//   return (dispatch) => {
-//     dispatch({
-//       type: 'SET_SONG',
-//       currSongIdx: idx,
-//     })
-//   }
-// }
-
-// export function loadSongsToPlayer(songs) {
-//   return (dispatch) => {
-//     dispatch({
-//       type: 'SET_SONGS_TO_PLAYER',
-//       songs,
-//     })
-//   }
-// }

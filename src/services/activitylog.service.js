@@ -1,10 +1,10 @@
-import { httpService } from './http.service'
-import { userService } from './user.service'
+import { httpService } from './http.service';
+import { userService } from './user.service';
 
 export const activitylogService = {
   addActivitylog,
-  query
-}
+  query,
+};
 
 async function addActivitylog(type, user, songTitle, stationInfo) {
   try {
@@ -18,18 +18,18 @@ async function addActivitylog(type, user, songTitle, stationInfo) {
       stationInfo,
       createdAt: Date.now(),
       songTitle,
-    }
-    return await httpService.post('activitylog', activitylog)
+    };
+    return await httpService.post('activitylog', activitylog);
   } catch (err) {
-    throw err
+    throw err;
   }
 }
 
 async function query(filterBy) {
   try {
-    const activitieslog = await httpService.get('activitylog', filterBy)
-    return activitieslog.slice(activitieslog.lengh - 10, activitieslog.lengh)
+    const activitieslog = await httpService.get('activitylog', filterBy);
+    return activitieslog.slice(activitieslog.length - 10, activitieslog.length);
   } catch (err) {
-    throw err
+    throw err;
   }
 }
