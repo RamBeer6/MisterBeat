@@ -35,16 +35,20 @@ export class HomePage extends React.Component {
 
   render() {
     const { stations, tags } = this.state;
+    console.log('🚀 ~ file: HomePage.jsx ~ line 38 ~ HomePage ~ render ~ stations', stations);
 
     if (!stations.length || !tags.length) return <SvgLoader />;
     return (
       <section className='home-page'>
         {/* <AppHeader /> */}
-        <DefaultStationList stations={stations.slice(0, 11)} title={'Popular releases'} />
-        <DefaultStationList stations={stations.slice(12, 21)} title={'Top Mixes'} />
-        <DefaultStationList stations={stations.slice(22, 31)} title={'Workout'} />
-        <DefaultStationList stations={stations.slice(32, 39)} title={'Disney Hits'} />
-        <DefaultStationList stations={stations?.slice(40, stations.length - 1)} title={'Shared playlists'} />
+        <DefaultStationList stations={stations.slice(0, 10)} title={'Popular releases'} />
+        <DefaultStationList stations={stations.slice(10, 21)} title={'Top Mixes'} />
+        <DefaultStationList stations={stations.slice(21, 31)} title={'Workout'} />
+        <DefaultStationList stations={stations.slice(31, 39)} title={'Disney Hits'} />
+        <DefaultStationList
+          stations={stations?.slice(40, stations.length - 1)}
+          title={'Shared playlists'}
+        />
       </section>
     );
   }
